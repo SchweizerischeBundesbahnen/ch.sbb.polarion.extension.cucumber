@@ -1,0 +1,5044 @@
+[
+  {
+    "line": 2,
+    "elements": [
+      {
+        "line": 4,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 206137000,
+              "status": "passed"
+            },
+            "line": 6,
+            "name": "TAA Operating State Publisher is ready with Advanced topology and not connected",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Advanced",
+                  "offset": 44
+                },
+                {
+                  "val": " and not connected",
+                  "offset": 61
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.taaOperatingStatePublisherIsReady(ch.sbb.tms.iad.taa.operatingstatepublisher.testutils.topology.TestTopology,boolean)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 230000,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "Configuration parameter application.tainterfaceprocessor.heartbeat-timeout-in-ms is set to 2000",
+            "match": {
+              "arguments": [
+                {
+                  "val": "application.tainterfaceprocessor.heartbeat-timeout-in-ms",
+                  "offset": 24
+                },
+                {
+                  "val": "2000",
+                  "offset": 91
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.configurationParameterIsSetTo(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 1905000,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "a PssGatewayHeartbeat message with the following attributes is received periodically in every 2000 ms",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 2
+                },
+                {
+                  "val": "2000",
+                  "offset": 94
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.messageReceivedPeriodically(java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "gatewayInstanceId",
+                  "00000000-0000-0000-0000-000000000005"
+                ]
+              },
+              {
+                "cells": [
+                  "time",
+                  "DATE_TIME_NOW"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 106839000,
+              "status": "passed"
+            },
+            "line": 13,
+            "name": "a SubscribeToTa has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SubscribeToTa",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 2245000,
+              "status": "passed"
+            },
+            "line": 15,
+            "name": "a TaConnectionUp message with the following attributes is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "TaConnectionUp",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdateSimulationSteps.simulateMessage(java.lang.String,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "rctProtocolVersion",
+                  "V200"
+                ]
+              },
+              {
+                "cells": [
+                  "systemProtocolVersion",
+                  "V200"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 1175000,
+              "status": "passed"
+            },
+            "line": 19,
+            "name": "a RestrictionDataUpdate message with the following attributes in GeneralTransmission",
+            "match": {
+              "arguments": [
+                {
+                  "val": " in GeneralTransmission",
+                  "offset": 61
+                },
+                {
+                  "val": "",
+                  "offset": 84
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.RestrictionUpdateSimulationSteps.createPayloadWithAttributesAndSend(boolean,boolean,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "restrictionId",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              },
+              {
+                "cells": [
+                  "activationState",
+                  "ACTIVE"
+                ]
+              }
+            ],
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 5021000,
+              "status": "passed"
+            },
+            "line": 22,
+            "name": "a CapacityConflictUpdate message with the following attributes in GeneralTransmission is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "CapacityConflictUpdate",
+                  "offset": 2
+                },
+                {
+                  "val": " in GeneralTransmission",
+                  "offset": 62
+                },
+                {
+                  "val": " is received",
+                  "offset": 85
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericTaOperatingStateUpdateSimulationSteps.simulateMessage(java.lang.String,boolean,boolean,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "restrictionId",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              }
+            ],
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 208280000,
+              "status": "passed"
+            },
+            "line": 24,
+            "name": "a SectionEntryPrevention has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SectionEntryPrevention",
+                  "offset": 2
+                },
+                {
+                  "val": "",
+                  "offset": 43
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "uraId",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              },
+              {
+                "cells": [
+                  "resolved",
+                  "false"
+                ]
+              }
+            ],
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 208387000,
+              "status": "passed"
+            },
+            "line": 27,
+            "name": "a ExecutionUsageRestrictionArea has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "ExecutionUsageRestrictionArea",
+                  "offset": 2
+                },
+                {
+                  "val": "",
+                  "offset": 50
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "id",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              }
+            ],
+            "keyword": "And "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2023-03-08T13:04:22.077Z",
+        "line": 31,
+        "name": "Connection to a new PSS Gateway which has become active",
+        "description": "",
+        "id": "connection---subscription-to-a-new-pss-gateway;connection-to-a-new-pss-gateway-which-has-become-active",
+        "after": [
+          {
+            "result": {
+              "duration": 50000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.stopSendingOfPeriodicMessages()"
+            }
+          },
+          {
+            "result": {
+              "duration": 703000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.resetApplicationAfterEachTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 428000,
+              "status": "passed"
+            },
+            "line": 33,
+            "name": "no PssGatewayHeartbeat message is received periodically",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 3
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.noMessageReceivedPeriodically(java.lang.String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 154000,
+              "status": "passed"
+            },
+            "line": 34,
+            "name": "a PssGatewayHeartbeat message with the following attributes is received periodically in every 2000 ms",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 2
+                },
+                {
+                  "val": "2000",
+                  "offset": 94
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.messageReceivedPeriodically(java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "gatewayInstanceId",
+                  "00000000-2222-0000-0000-000000000005"
+                ]
+              },
+              {
+                "cells": [
+                  "time",
+                  "DATE_TIME_NOW"
+                ]
+              }
+            ],
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 106430000,
+              "status": "passed"
+            },
+            "line": 38,
+            "name": "a SubscribeToTa has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SubscribeToTa",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 970000,
+              "status": "passed"
+            },
+            "line": 40,
+            "name": "a TaConnectionUp message with the following attributes is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "TaConnectionUp",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdateSimulationSteps.simulateMessage(java.lang.String,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "rctProtocolVersion",
+                  "V200"
+                ]
+              },
+              {
+                "cells": [
+                  "systemProtocolVersion",
+                  "V200"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 2440000,
+              "status": "passed"
+            },
+            "line": 44,
+            "name": "an empty GeneralTransmission is received",
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GeneralTransmissionSimulationSteps.receiveEmptyTaGeneralTransmission()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 203364000,
+              "status": "passed"
+            },
+            "line": 45,
+            "name": "a SectionEntryPrevention has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SectionEntryPrevention",
+                  "offset": 2
+                },
+                {
+                  "val": "",
+                  "offset": 43
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "uraId",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              },
+              {
+                "cells": [
+                  "resolved",
+                  "true"
+                ]
+              }
+            ],
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 206989000,
+              "status": "passed"
+            },
+            "line": 48,
+            "name": "a ExecutionUsageRestrictionArea has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "ExecutionUsageRestrictionArea",
+                  "offset": 2
+                },
+                {
+                  "val": "",
+                  "offset": 50
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "id",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              },
+              {
+                "cells": [
+                  "activationState",
+                  "INACTIVE"
+                ]
+              }
+            ],
+            "keyword": "And "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@TIADREQ-529"
+          }
+        ]
+      }
+    ],
+    "name": "Connection - subscription to a new PSS Gateway",
+    "description": "",
+    "id": "connection---subscription-to-a-new-pss-gateway",
+    "keyword": "Feature",
+    "uri": "file:src/test/cucumber/connectionfailure/Connection/Conection-subscription-to-new-pss-gateway.feature",
+    "tags": []
+  },
+  {
+    "line": 3,
+    "elements": [
+      {
+        "line": 5,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 407400000,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "TAA Operating State Publisher is ready with Advanced topology and not connected",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Advanced",
+                  "offset": 44
+                },
+                {
+                  "val": " and not connected",
+                  "offset": 61
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.taaOperatingStatePublisherIsReady(ch.sbb.tms.iad.taa.operatingstatepublisher.testutils.topology.TestTopology,boolean)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 421000,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "Configuration parameter application.tainterfaceprocessor.heartbeat-timeout-in-ms is set to 2000",
+            "match": {
+              "arguments": [
+                {
+                  "val": "application.tainterfaceprocessor.heartbeat-timeout-in-ms",
+                  "offset": 24
+                },
+                {
+                  "val": "2000",
+                  "offset": 91
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.configurationParameterIsSetTo(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 856000,
+              "status": "passed"
+            },
+            "line": 10,
+            "name": "a PssGatewayHeartbeat message with the following attributes is received periodically in every 2000 ms",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 2
+                },
+                {
+                  "val": "2000",
+                  "offset": 94
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.messageReceivedPeriodically(java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "gatewayInstanceId",
+                  "00000000-0000-0000-0000-000000000005"
+                ]
+              },
+              {
+                "cells": [
+                  "time",
+                  "DATE_TIME_NOW"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 105554000,
+              "status": "passed"
+            },
+            "line": 14,
+            "name": "a SubscribeToTa has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SubscribeToTa",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 697000,
+              "status": "passed"
+            },
+            "line": 16,
+            "name": "a TaConnectionUp message with the following attributes is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "TaConnectionUp",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdateSimulationSteps.simulateMessage(java.lang.String,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "rctProtocolVersion",
+                  "V200"
+                ]
+              },
+              {
+                "cells": [
+                  "systemProtocolVersion",
+                  "V200"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 222000,
+              "status": "passed"
+            },
+            "line": 20,
+            "name": "a RestrictionDataUpdate message with the following attributes in GeneralTransmission",
+            "match": {
+              "arguments": [
+                {
+                  "val": " in GeneralTransmission",
+                  "offset": 61
+                },
+                {
+                  "val": "",
+                  "offset": 84
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.RestrictionUpdateSimulationSteps.createPayloadWithAttributesAndSend(boolean,boolean,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "restrictionId",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              },
+              {
+                "cells": [
+                  "activationState",
+                  "ACTIVE"
+                ]
+              }
+            ],
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 1571000,
+              "status": "passed"
+            },
+            "line": 23,
+            "name": "a CapacityConflictUpdate message with the following attributes in GeneralTransmission is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "CapacityConflictUpdate",
+                  "offset": 2
+                },
+                {
+                  "val": " in GeneralTransmission",
+                  "offset": 62
+                },
+                {
+                  "val": " is received",
+                  "offset": 85
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericTaOperatingStateUpdateSimulationSteps.simulateMessage(java.lang.String,boolean,boolean,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "restrictionId",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              }
+            ],
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 203759000,
+              "status": "passed"
+            },
+            "line": 25,
+            "name": "a SectionEntryPrevention has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SectionEntryPrevention",
+                  "offset": 2
+                },
+                {
+                  "val": "",
+                  "offset": 43
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "uraId",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              },
+              {
+                "cells": [
+                  "resolved",
+                  "false"
+                ]
+              }
+            ],
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 206345000,
+              "status": "passed"
+            },
+            "line": 28,
+            "name": "a ExecutionUsageRestrictionArea has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "ExecutionUsageRestrictionArea",
+                  "offset": 2
+                },
+                {
+                  "val": "",
+                  "offset": 50
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "id",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              }
+            ],
+            "keyword": "And "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2023-03-08T13:04:23.353Z",
+        "line": 32,
+        "name": "Publication disabled, if heartbeat timeout detected",
+        "description": "",
+        "id": "connection---heartbeat-timeout;publication-disabled--if-heartbeat-timeout-detected",
+        "after": [
+          {
+            "result": {
+              "duration": 37000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.stopSendingOfPeriodicMessages()"
+            }
+          },
+          {
+            "result": {
+              "duration": 264000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.resetApplicationAfterEachTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 81000,
+              "status": "passed"
+            },
+            "line": 34,
+            "name": "no PssGatewayHeartbeat message is received periodically",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 3
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.noMessageReceivedPeriodically(java.lang.String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 3005127000,
+              "status": "passed"
+            },
+            "line": 35,
+            "name": "the timeout of 3000 ms has elapsed",
+            "match": {
+              "arguments": [
+                {
+                  "val": "3000",
+                  "offset": 15
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.setTimeout(int)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 1408000,
+              "status": "passed"
+            },
+            "line": 36,
+            "name": "a RestrictionDataUpdate message with the following attributes in GeneralTransmission is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": " in GeneralTransmission",
+                  "offset": 61
+                },
+                {
+                  "val": " is received",
+                  "offset": 84
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.RestrictionUpdateSimulationSteps.createPayloadWithAttributesAndSend(boolean,boolean,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "restrictionId",
+                  "10210000-0000-0000-0000-000000000021"
+                ]
+              },
+              {
+                "cells": [
+                  "activationState",
+                  "ACTIVE"
+                ]
+              }
+            ],
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 205151000,
+              "status": "passed"
+            },
+            "line": 39,
+            "name": "no ExecutionUsageRestrictionArea has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "no ",
+                  "offset": 0
+                },
+                {
+                  "val": "ExecutionUsageRestrictionArea",
+                  "offset": 3
+                },
+                {
+                  "val": "",
+                  "offset": 51
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String,int)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 236000,
+              "status": "passed"
+            },
+            "line": 41,
+            "name": "a PssGatewayHeartbeat message with the following attributes is received periodically in every 2000 ms",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 2
+                },
+                {
+                  "val": "2000",
+                  "offset": 94
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.messageReceivedPeriodically(java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "gatewayInstanceId",
+                  "00000000-0000-0000-0000-000000000005"
+                ]
+              },
+              {
+                "cells": [
+                  "time",
+                  "DATE_TIME_NOW"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 107771000,
+              "status": "passed"
+            },
+            "line": 45,
+            "name": "a SubscribeToTa has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SubscribeToTa",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 1804000,
+              "status": "passed"
+            },
+            "line": 47,
+            "name": "a TaConnectionUp message with the following attributes is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "TaConnectionUp",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdateSimulationSteps.simulateMessage(java.lang.String,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "rctProtocolVersion",
+                  "V200"
+                ]
+              },
+              {
+                "cells": [
+                  "systemProtocolVersion",
+                  "V200"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 203783000,
+              "status": "passed"
+            },
+            "line": 52,
+            "name": "no ExecutionUsageRestrictionArea has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "no ",
+                  "offset": 0
+                },
+                {
+                  "val": "ExecutionUsageRestrictionArea",
+                  "offset": 3
+                },
+                {
+                  "val": "",
+                  "offset": 51
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "id",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              }
+            ],
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 1572000,
+              "status": "passed"
+            },
+            "line": 55,
+            "name": "a RestrictionDataUpdate message with the following attributes is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "",
+                  "offset": 61
+                },
+                {
+                  "val": " is received",
+                  "offset": 61
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.RestrictionUpdateSimulationSteps.createPayloadWithAttributesAndSend(boolean,boolean,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "restrictionId",
+                  "10210000-0000-0000-0000-000000000021"
+                ]
+              },
+              {
+                "cells": [
+                  "activationState",
+                  "INACTIVE"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 205489000,
+              "status": "passed"
+            },
+            "line": 58,
+            "name": "a ExecutionUsageRestrictionArea has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "ExecutionUsageRestrictionArea",
+                  "offset": 2
+                },
+                {
+                  "val": "",
+                  "offset": 50
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "id",
+                  "10210000-0000-0000-0000-000000000021"
+                ]
+              },
+              {
+                "cells": [
+                  "activationState",
+                  "INACTIVE"
+                ]
+              }
+            ],
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@TIADREQ-516"
+          }
+        ]
+      }
+    ],
+    "name": "Connection - heartbeat timeout",
+    "description": "",
+    "id": "connection---heartbeat-timeout",
+    "keyword": "Feature",
+    "uri": "file:src/test/cucumber/connectionfailure/Connection/Connection-heartbeat-timeout.feature",
+    "tags": []
+  },
+  {
+    "line": 5,
+    "elements": [
+      {
+        "line": 7,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 409066000,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "TAA Operating State Publisher is ready with Advanced topology and not connected",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Advanced",
+                  "offset": 44
+                },
+                {
+                  "val": " and not connected",
+                  "offset": 61
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.taaOperatingStatePublisherIsReady(ch.sbb.tms.iad.taa.operatingstatepublisher.testutils.topology.TestTopology,boolean)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 639000,
+              "status": "passed"
+            },
+            "line": 10,
+            "name": "Configuration parameter application.tainterfaceprocessor.heartbeat-timeout-in-ms is set to 2000",
+            "match": {
+              "arguments": [
+                {
+                  "val": "application.tainterfaceprocessor.heartbeat-timeout-in-ms",
+                  "offset": 24
+                },
+                {
+                  "val": "2000",
+                  "offset": 91
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.configurationParameterIsSetTo(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 681000,
+              "status": "passed"
+            },
+            "line": 12,
+            "name": "a PssGatewayHeartbeat message with the following attributes is received periodically in every 2000 ms",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 2
+                },
+                {
+                  "val": "2000",
+                  "offset": 94
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.messageReceivedPeriodically(java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "gatewayInstanceId",
+                  "00000000-0000-0000-0000-000000000005"
+                ]
+              },
+              {
+                "cells": [
+                  "time",
+                  "DATE_TIME_NOW"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 103254000,
+              "status": "passed"
+            },
+            "line": 16,
+            "name": "a SubscribeToTa has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SubscribeToTa",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 1411000,
+              "status": "passed"
+            },
+            "line": 18,
+            "name": "a TaConnectionUp message with the following attributes is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "TaConnectionUp",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdateSimulationSteps.simulateMessage(java.lang.String,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "rctProtocolVersion",
+                  "V200"
+                ]
+              },
+              {
+                "cells": [
+                  "systemProtocolVersion",
+                  "V200"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 461000,
+              "status": "passed"
+            },
+            "line": 22,
+            "name": "a RestrictionDataUpdate message with the following attributes in GeneralTransmission",
+            "match": {
+              "arguments": [
+                {
+                  "val": " in GeneralTransmission",
+                  "offset": 61
+                },
+                {
+                  "val": "",
+                  "offset": 84
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.RestrictionUpdateSimulationSteps.createPayloadWithAttributesAndSend(boolean,boolean,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "restrictionId",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              },
+              {
+                "cells": [
+                  "activationState",
+                  "ACTIVE"
+                ]
+              }
+            ],
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 2439000,
+              "status": "passed"
+            },
+            "line": 25,
+            "name": "a CapacityConflictUpdate message with the following attributes in GeneralTransmission is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "CapacityConflictUpdate",
+                  "offset": 2
+                },
+                {
+                  "val": " in GeneralTransmission",
+                  "offset": 62
+                },
+                {
+                  "val": " is received",
+                  "offset": 85
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericTaOperatingStateUpdateSimulationSteps.simulateMessage(java.lang.String,boolean,boolean,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "restrictionId",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              }
+            ],
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 205767000,
+              "status": "passed"
+            },
+            "line": 27,
+            "name": "a SectionEntryPrevention has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SectionEntryPrevention",
+                  "offset": 2
+                },
+                {
+                  "val": "",
+                  "offset": 43
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "uraId",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              },
+              {
+                "cells": [
+                  "resolved",
+                  "false"
+                ]
+              }
+            ],
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 200926000,
+              "status": "passed"
+            },
+            "line": 30,
+            "name": "a ExecutionUsageRestrictionArea has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "ExecutionUsageRestrictionArea",
+                  "offset": 2
+                },
+                {
+                  "val": "",
+                  "offset": 50
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "id",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              }
+            ],
+            "keyword": "And "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2023-03-08T13:04:28.024Z",
+        "line": 35,
+        "name": "Publication of operation mode disabled, if the TA connection is not established due a",
+        "description": "            pss-gateway heartbeats timeout.",
+        "id": "connection---no-publication-operation-mode-heartbeat-timeout;publication-of-operation-mode-disabled--if-the-ta-connection-is-not-established-due-a",
+        "after": [
+          {
+            "result": {
+              "duration": 37000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.stopSendingOfPeriodicMessages()"
+            }
+          },
+          {
+            "result": {
+              "duration": 199000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.resetApplicationAfterEachTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 60000,
+              "status": "passed"
+            },
+            "line": 38,
+            "name": "no PssGatewayHeartbeat message is received periodically",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 3
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.noMessageReceivedPeriodically(java.lang.String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 3006509000,
+              "status": "passed"
+            },
+            "line": 39,
+            "name": "the timeout of 3000 ms has elapsed",
+            "match": {
+              "arguments": [
+                {
+                  "val": "3000",
+                  "offset": 15
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.setTimeout(int)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 2460000,
+              "status": "passed"
+            },
+            "line": 40,
+            "name": "TaOperationMode INCIDENT is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "INCIDENT",
+                  "offset": 16
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.OperationModeSimulationSteps.taOperationModeReceived(ch.sbb.tms.iad.taa.operatingstatepublisher.common.model.TaOperationMode)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 202507000,
+              "status": "passed"
+            },
+            "line": 41,
+            "name": "no OperationMode has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "no ",
+                  "offset": 0
+                },
+                {
+                  "val": "OperationMode",
+                  "offset": 3
+                },
+                {
+                  "val": "",
+                  "offset": 35
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String,int)"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@ConnectionFailure"
+          },
+          {
+            "name": "@TIADREQ-514"
+          }
+        ]
+      },
+      {
+        "line": 7,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 409226000,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "TAA Operating State Publisher is ready with Advanced topology and not connected",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Advanced",
+                  "offset": 44
+                },
+                {
+                  "val": " and not connected",
+                  "offset": 61
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.taaOperatingStatePublisherIsReady(ch.sbb.tms.iad.taa.operatingstatepublisher.testutils.topology.TestTopology,boolean)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 258000,
+              "status": "passed"
+            },
+            "line": 10,
+            "name": "Configuration parameter application.tainterfaceprocessor.heartbeat-timeout-in-ms is set to 2000",
+            "match": {
+              "arguments": [
+                {
+                  "val": "application.tainterfaceprocessor.heartbeat-timeout-in-ms",
+                  "offset": 24
+                },
+                {
+                  "val": "2000",
+                  "offset": 91
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.configurationParameterIsSetTo(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 717000,
+              "status": "passed"
+            },
+            "line": 12,
+            "name": "a PssGatewayHeartbeat message with the following attributes is received periodically in every 2000 ms",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 2
+                },
+                {
+                  "val": "2000",
+                  "offset": 94
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.messageReceivedPeriodically(java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "gatewayInstanceId",
+                  "00000000-0000-0000-0000-000000000005"
+                ]
+              },
+              {
+                "cells": [
+                  "time",
+                  "DATE_TIME_NOW"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 104834000,
+              "status": "passed"
+            },
+            "line": 16,
+            "name": "a SubscribeToTa has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SubscribeToTa",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 887000,
+              "status": "passed"
+            },
+            "line": 18,
+            "name": "a TaConnectionUp message with the following attributes is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "TaConnectionUp",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdateSimulationSteps.simulateMessage(java.lang.String,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "rctProtocolVersion",
+                  "V200"
+                ]
+              },
+              {
+                "cells": [
+                  "systemProtocolVersion",
+                  "V200"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 291000,
+              "status": "passed"
+            },
+            "line": 22,
+            "name": "a RestrictionDataUpdate message with the following attributes in GeneralTransmission",
+            "match": {
+              "arguments": [
+                {
+                  "val": " in GeneralTransmission",
+                  "offset": 61
+                },
+                {
+                  "val": "",
+                  "offset": 84
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.RestrictionUpdateSimulationSteps.createPayloadWithAttributesAndSend(boolean,boolean,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "restrictionId",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              },
+              {
+                "cells": [
+                  "activationState",
+                  "ACTIVE"
+                ]
+              }
+            ],
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 1639000,
+              "status": "passed"
+            },
+            "line": 25,
+            "name": "a CapacityConflictUpdate message with the following attributes in GeneralTransmission is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "CapacityConflictUpdate",
+                  "offset": 2
+                },
+                {
+                  "val": " in GeneralTransmission",
+                  "offset": 62
+                },
+                {
+                  "val": " is received",
+                  "offset": 85
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericTaOperatingStateUpdateSimulationSteps.simulateMessage(java.lang.String,boolean,boolean,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "restrictionId",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              }
+            ],
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 202746000,
+              "status": "passed"
+            },
+            "line": 27,
+            "name": "a SectionEntryPrevention has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SectionEntryPrevention",
+                  "offset": 2
+                },
+                {
+                  "val": "",
+                  "offset": 43
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "uraId",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              },
+              {
+                "cells": [
+                  "resolved",
+                  "false"
+                ]
+              }
+            ],
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 201147000,
+              "status": "passed"
+            },
+            "line": 30,
+            "name": "a ExecutionUsageRestrictionArea has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "ExecutionUsageRestrictionArea",
+                  "offset": 2
+                },
+                {
+                  "val": "",
+                  "offset": 50
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "id",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              }
+            ],
+            "keyword": "And "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2023-03-08T13:04:32.171Z",
+        "line": 45,
+        "name": "Publication of operation mode disabled, if the TA connect. is re-established after",
+        "description": "            a pss-gw heartbeats timeout and a new TaOperationMode was received\n            while SubscribeToTa was published",
+        "id": "connection---no-publication-operation-mode-heartbeat-timeout;publication-of-operation-mode-disabled--if-the-ta-connect.-is-re-established-after",
+        "after": [
+          {
+            "result": {
+              "duration": 39000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.stopSendingOfPeriodicMessages()"
+            }
+          },
+          {
+            "result": {
+              "duration": 171000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.resetApplicationAfterEachTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 81000,
+              "status": "passed"
+            },
+            "line": 49,
+            "name": "no PssGatewayHeartbeat message is received periodically",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 3
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.noMessageReceivedPeriodically(java.lang.String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 3003770000,
+              "status": "passed"
+            },
+            "line": 50,
+            "name": "the timeout of 3000 ms has elapsed",
+            "match": {
+              "arguments": [
+                {
+                  "val": "3000",
+                  "offset": 15
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.setTimeout(int)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 205099000,
+              "status": "passed"
+            },
+            "line": 51,
+            "name": "no OperationMode has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "no ",
+                  "offset": 0
+                },
+                {
+                  "val": "OperationMode",
+                  "offset": 3
+                },
+                {
+                  "val": "",
+                  "offset": 35
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String,int)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 243000,
+              "status": "passed"
+            },
+            "line": 53,
+            "name": "a PssGatewayHeartbeat message with the following attributes is received periodically in every 2000 ms",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 2
+                },
+                {
+                  "val": "2000",
+                  "offset": 94
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.messageReceivedPeriodically(java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "gatewayInstanceId",
+                  "00000000-0000-0000-0000-000000000005"
+                ]
+              },
+              {
+                "cells": [
+                  "time",
+                  "DATE_TIME_NOW"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 106017000,
+              "status": "passed"
+            },
+            "line": 57,
+            "name": "a SubscribeToTa has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SubscribeToTa",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 738000,
+              "status": "passed"
+            },
+            "line": 58,
+            "name": "TaOperationMode MAINTENANCE is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "MAINTENANCE",
+                  "offset": 16
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.OperationModeSimulationSteps.taOperationModeReceived(ch.sbb.tms.iad.taa.operatingstatepublisher.common.model.TaOperationMode)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 201390000,
+              "status": "passed"
+            },
+            "line": 59,
+            "name": "no OperationMode has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "no ",
+                  "offset": 0
+                },
+                {
+                  "val": "OperationMode",
+                  "offset": 3
+                },
+                {
+                  "val": "",
+                  "offset": 35
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String,int)"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@ConnectionFailure"
+          },
+          {
+            "name": "@TIADREQ-512"
+          }
+        ]
+      },
+      {
+        "line": 7,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 406837000,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "TAA Operating State Publisher is ready with Advanced topology and not connected",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Advanced",
+                  "offset": 44
+                },
+                {
+                  "val": " and not connected",
+                  "offset": 61
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.taaOperatingStatePublisherIsReady(ch.sbb.tms.iad.taa.operatingstatepublisher.testutils.topology.TestTopology,boolean)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 178000,
+              "status": "passed"
+            },
+            "line": 10,
+            "name": "Configuration parameter application.tainterfaceprocessor.heartbeat-timeout-in-ms is set to 2000",
+            "match": {
+              "arguments": [
+                {
+                  "val": "application.tainterfaceprocessor.heartbeat-timeout-in-ms",
+                  "offset": 24
+                },
+                {
+                  "val": "2000",
+                  "offset": 91
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.configurationParameterIsSetTo(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 313000,
+              "status": "passed"
+            },
+            "line": 12,
+            "name": "a PssGatewayHeartbeat message with the following attributes is received periodically in every 2000 ms",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 2
+                },
+                {
+                  "val": "2000",
+                  "offset": 94
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.messageReceivedPeriodically(java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "gatewayInstanceId",
+                  "00000000-0000-0000-0000-000000000005"
+                ]
+              },
+              {
+                "cells": [
+                  "time",
+                  "DATE_TIME_NOW"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 102057000,
+              "status": "passed"
+            },
+            "line": 16,
+            "name": "a SubscribeToTa has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SubscribeToTa",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 1230000,
+              "status": "passed"
+            },
+            "line": 18,
+            "name": "a TaConnectionUp message with the following attributes is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "TaConnectionUp",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdateSimulationSteps.simulateMessage(java.lang.String,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "rctProtocolVersion",
+                  "V200"
+                ]
+              },
+              {
+                "cells": [
+                  "systemProtocolVersion",
+                  "V200"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 223000,
+              "status": "passed"
+            },
+            "line": 22,
+            "name": "a RestrictionDataUpdate message with the following attributes in GeneralTransmission",
+            "match": {
+              "arguments": [
+                {
+                  "val": " in GeneralTransmission",
+                  "offset": 61
+                },
+                {
+                  "val": "",
+                  "offset": 84
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.RestrictionUpdateSimulationSteps.createPayloadWithAttributesAndSend(boolean,boolean,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "restrictionId",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              },
+              {
+                "cells": [
+                  "activationState",
+                  "ACTIVE"
+                ]
+              }
+            ],
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 1179000,
+              "status": "passed"
+            },
+            "line": 25,
+            "name": "a CapacityConflictUpdate message with the following attributes in GeneralTransmission is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "CapacityConflictUpdate",
+                  "offset": 2
+                },
+                {
+                  "val": " in GeneralTransmission",
+                  "offset": 62
+                },
+                {
+                  "val": " is received",
+                  "offset": 85
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericTaOperatingStateUpdateSimulationSteps.simulateMessage(java.lang.String,boolean,boolean,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "restrictionId",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              }
+            ],
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 206468000,
+              "status": "passed"
+            },
+            "line": 27,
+            "name": "a SectionEntryPrevention has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SectionEntryPrevention",
+                  "offset": 2
+                },
+                {
+                  "val": "",
+                  "offset": 43
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "uraId",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              },
+              {
+                "cells": [
+                  "resolved",
+                  "false"
+                ]
+              }
+            ],
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 205952000,
+              "status": "passed"
+            },
+            "line": 30,
+            "name": "a ExecutionUsageRestrictionArea has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "ExecutionUsageRestrictionArea",
+                  "offset": 2
+                },
+                {
+                  "val": "",
+                  "offset": 50
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "id",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              }
+            ],
+            "keyword": "And "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2023-03-08T13:04:36.619Z",
+        "line": 63,
+        "name": "Publication of operation mode disabled, if TA connect. is re-established after",
+        "description": "            a pss-gw heartbeats timeout and no new TaOperationMode was received.",
+        "id": "connection---no-publication-operation-mode-heartbeat-timeout;publication-of-operation-mode-disabled--if-ta-connect.-is-re-established-after",
+        "after": [
+          {
+            "result": {
+              "duration": 45000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.stopSendingOfPeriodicMessages()"
+            }
+          },
+          {
+            "result": {
+              "duration": 213000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.resetApplicationAfterEachTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 106000,
+              "status": "passed"
+            },
+            "line": 66,
+            "name": "no PssGatewayHeartbeat message is received periodically",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 3
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.noMessageReceivedPeriodically(java.lang.String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 3005778000,
+              "status": "passed"
+            },
+            "line": 67,
+            "name": "the timeout of 3000 ms has elapsed",
+            "match": {
+              "arguments": [
+                {
+                  "val": "3000",
+                  "offset": 15
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.setTimeout(int)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 202399000,
+              "status": "passed"
+            },
+            "line": 68,
+            "name": "no OperationMode has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "no ",
+                  "offset": 0
+                },
+                {
+                  "val": "OperationMode",
+                  "offset": 3
+                },
+                {
+                  "val": "",
+                  "offset": 35
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String,int)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 646000,
+              "status": "passed"
+            },
+            "line": 70,
+            "name": "a PssGatewayHeartbeat message with the following attributes is received periodically in every 2000 ms",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 2
+                },
+                {
+                  "val": "2000",
+                  "offset": 94
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.messageReceivedPeriodically(java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "gatewayInstanceId",
+                  "00000000-0000-0000-0000-000000000005"
+                ]
+              },
+              {
+                "cells": [
+                  "time",
+                  "DATE_TIME_NOW"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 106237000,
+              "status": "passed"
+            },
+            "line": 74,
+            "name": "a SubscribeToTa has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SubscribeToTa",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 205194000,
+              "status": "passed"
+            },
+            "line": 75,
+            "name": "no OperationMode has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "no ",
+                  "offset": 0
+                },
+                {
+                  "val": "OperationMode",
+                  "offset": 3
+                },
+                {
+                  "val": "",
+                  "offset": 35
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String,int)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 1140000,
+              "status": "passed"
+            },
+            "line": 77,
+            "name": "a TaConnectionUp message with the following attributes is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "TaConnectionUp",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdateSimulationSteps.simulateMessage(java.lang.String,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "rctProtocolVersion",
+                  "V200"
+                ]
+              },
+              {
+                "cells": [
+                  "systemProtocolVersion",
+                  "V200"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 200241000,
+              "status": "passed"
+            },
+            "line": 81,
+            "name": "no OperationMode has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "no ",
+                  "offset": 0
+                },
+                {
+                  "val": "OperationMode",
+                  "offset": 3
+                },
+                {
+                  "val": "",
+                  "offset": 35
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String,int)"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@ConnectionFailure"
+          },
+          {
+            "name": "@TIADREQ-511"
+          }
+        ]
+      },
+      {
+        "line": 7,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 413355000,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "TAA Operating State Publisher is ready with Advanced topology and not connected",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Advanced",
+                  "offset": 44
+                },
+                {
+                  "val": " and not connected",
+                  "offset": 61
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.taaOperatingStatePublisherIsReady(ch.sbb.tms.iad.taa.operatingstatepublisher.testutils.topology.TestTopology,boolean)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 276000,
+              "status": "passed"
+            },
+            "line": 10,
+            "name": "Configuration parameter application.tainterfaceprocessor.heartbeat-timeout-in-ms is set to 2000",
+            "match": {
+              "arguments": [
+                {
+                  "val": "application.tainterfaceprocessor.heartbeat-timeout-in-ms",
+                  "offset": 24
+                },
+                {
+                  "val": "2000",
+                  "offset": 91
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.configurationParameterIsSetTo(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 544000,
+              "status": "passed"
+            },
+            "line": 12,
+            "name": "a PssGatewayHeartbeat message with the following attributes is received periodically in every 2000 ms",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 2
+                },
+                {
+                  "val": "2000",
+                  "offset": 94
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.messageReceivedPeriodically(java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "gatewayInstanceId",
+                  "00000000-0000-0000-0000-000000000005"
+                ]
+              },
+              {
+                "cells": [
+                  "time",
+                  "DATE_TIME_NOW"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 105997000,
+              "status": "passed"
+            },
+            "line": 16,
+            "name": "a SubscribeToTa has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SubscribeToTa",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 1672000,
+              "status": "passed"
+            },
+            "line": 18,
+            "name": "a TaConnectionUp message with the following attributes is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "TaConnectionUp",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdateSimulationSteps.simulateMessage(java.lang.String,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "rctProtocolVersion",
+                  "V200"
+                ]
+              },
+              {
+                "cells": [
+                  "systemProtocolVersion",
+                  "V200"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 435000,
+              "status": "passed"
+            },
+            "line": 22,
+            "name": "a RestrictionDataUpdate message with the following attributes in GeneralTransmission",
+            "match": {
+              "arguments": [
+                {
+                  "val": " in GeneralTransmission",
+                  "offset": 61
+                },
+                {
+                  "val": "",
+                  "offset": 84
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.RestrictionUpdateSimulationSteps.createPayloadWithAttributesAndSend(boolean,boolean,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "restrictionId",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              },
+              {
+                "cells": [
+                  "activationState",
+                  "ACTIVE"
+                ]
+              }
+            ],
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 2686000,
+              "status": "passed"
+            },
+            "line": 25,
+            "name": "a CapacityConflictUpdate message with the following attributes in GeneralTransmission is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "CapacityConflictUpdate",
+                  "offset": 2
+                },
+                {
+                  "val": " in GeneralTransmission",
+                  "offset": 62
+                },
+                {
+                  "val": " is received",
+                  "offset": 85
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericTaOperatingStateUpdateSimulationSteps.simulateMessage(java.lang.String,boolean,boolean,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "restrictionId",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              }
+            ],
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 202248000,
+              "status": "passed"
+            },
+            "line": 27,
+            "name": "a SectionEntryPrevention has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SectionEntryPrevention",
+                  "offset": 2
+                },
+                {
+                  "val": "",
+                  "offset": 43
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "uraId",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              },
+              {
+                "cells": [
+                  "resolved",
+                  "false"
+                ]
+              }
+            ],
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 204687000,
+              "status": "passed"
+            },
+            "line": 30,
+            "name": "a ExecutionUsageRestrictionArea has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "ExecutionUsageRestrictionArea",
+                  "offset": 2
+                },
+                {
+                  "val": "",
+                  "offset": 50
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "id",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              }
+            ],
+            "keyword": "And "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2023-03-08T13:04:41.278Z",
+        "line": 85,
+        "name": "Publication of operation mode enabled, if the TA connect. is re-established after",
+        "description": "            a pss-gw heartbeats timeout and a new TaOperationMode was received\n            while TAConnectionUp was published",
+        "id": "connection---no-publication-operation-mode-heartbeat-timeout;publication-of-operation-mode-enabled--if-the-ta-connect.-is-re-established-after",
+        "after": [
+          {
+            "result": {
+              "duration": 32000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.stopSendingOfPeriodicMessages()"
+            }
+          },
+          {
+            "result": {
+              "duration": 176000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.resetApplicationAfterEachTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 105000,
+              "status": "passed"
+            },
+            "line": 89,
+            "name": "no PssGatewayHeartbeat message is received periodically",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 3
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.noMessageReceivedPeriodically(java.lang.String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 3003182000,
+              "status": "passed"
+            },
+            "line": 90,
+            "name": "the timeout of 3000 ms has elapsed",
+            "match": {
+              "arguments": [
+                {
+                  "val": "3000",
+                  "offset": 15
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.setTimeout(int)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 1058000,
+              "status": "passed"
+            },
+            "line": 91,
+            "name": "TaOperationMode INCIDENT is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "INCIDENT",
+                  "offset": 16
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.OperationModeSimulationSteps.taOperationModeReceived(ch.sbb.tms.iad.taa.operatingstatepublisher.common.model.TaOperationMode)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 203964000,
+              "status": "passed"
+            },
+            "line": 92,
+            "name": "no OperationMode has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "no ",
+                  "offset": 0
+                },
+                {
+                  "val": "OperationMode",
+                  "offset": 3
+                },
+                {
+                  "val": "",
+                  "offset": 35
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String,int)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 198000,
+              "status": "passed"
+            },
+            "line": 94,
+            "name": "a PssGatewayHeartbeat message with the following attributes is received periodically in every 2000 ms",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 2
+                },
+                {
+                  "val": "2000",
+                  "offset": 94
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.messageReceivedPeriodically(java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "gatewayInstanceId",
+                  "00000000-0000-0000-0000-000000000005"
+                ]
+              },
+              {
+                "cells": [
+                  "time",
+                  "DATE_TIME_NOW"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 106035000,
+              "status": "passed"
+            },
+            "line": 98,
+            "name": "a SubscribeToTa has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SubscribeToTa",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 947000,
+              "status": "passed"
+            },
+            "line": 99,
+            "name": "TaOperationMode MAINTENANCE is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "MAINTENANCE",
+                  "offset": 16
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.OperationModeSimulationSteps.taOperationModeReceived(ch.sbb.tms.iad.taa.operatingstatepublisher.common.model.TaOperationMode)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 201014000,
+              "status": "passed"
+            },
+            "line": 100,
+            "name": "no OperationMode has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "no ",
+                  "offset": 0
+                },
+                {
+                  "val": "OperationMode",
+                  "offset": 3
+                },
+                {
+                  "val": "",
+                  "offset": 35
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String,int)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 2199000,
+              "status": "passed"
+            },
+            "line": 102,
+            "name": "a TaConnectionUp message with the following attributes is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "TaConnectionUp",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdateSimulationSteps.simulateMessage(java.lang.String,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "rctProtocolVersion",
+                  "V200"
+                ]
+              },
+              {
+                "cells": [
+                  "systemProtocolVersion",
+                  "V200"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 325000,
+              "status": "passed"
+            },
+            "line": 106,
+            "name": "TaOperationMode NORMAL is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "NORMAL",
+                  "offset": 16
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.OperationModeSimulationSteps.taOperationModeReceived(ch.sbb.tms.iad.taa.operatingstatepublisher.common.model.TaOperationMode)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 205115000,
+              "status": "passed"
+            },
+            "line": 107,
+            "name": "a OperationMode has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "OperationMode",
+                  "offset": 2
+                },
+                {
+                  "val": "",
+                  "offset": 34
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "operationMode",
+                  "NORMAL"
+                ]
+              }
+            ],
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@ConnectionFailure"
+          },
+          {
+            "name": "@TIADREQ-510"
+          }
+        ]
+      },
+      {
+        "line": 7,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 410831000,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "TAA Operating State Publisher is ready with Advanced topology and not connected",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Advanced",
+                  "offset": 44
+                },
+                {
+                  "val": " and not connected",
+                  "offset": 61
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.taaOperatingStatePublisherIsReady(ch.sbb.tms.iad.taa.operatingstatepublisher.testutils.topology.TestTopology,boolean)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 409000,
+              "status": "passed"
+            },
+            "line": 10,
+            "name": "Configuration parameter application.tainterfaceprocessor.heartbeat-timeout-in-ms is set to 2000",
+            "match": {
+              "arguments": [
+                {
+                  "val": "application.tainterfaceprocessor.heartbeat-timeout-in-ms",
+                  "offset": 24
+                },
+                {
+                  "val": "2000",
+                  "offset": 91
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.configurationParameterIsSetTo(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 716000,
+              "status": "passed"
+            },
+            "line": 12,
+            "name": "a PssGatewayHeartbeat message with the following attributes is received periodically in every 2000 ms",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 2
+                },
+                {
+                  "val": "2000",
+                  "offset": 94
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.messageReceivedPeriodically(java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "gatewayInstanceId",
+                  "00000000-0000-0000-0000-000000000005"
+                ]
+              },
+              {
+                "cells": [
+                  "time",
+                  "DATE_TIME_NOW"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 106219000,
+              "status": "passed"
+            },
+            "line": 16,
+            "name": "a SubscribeToTa has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SubscribeToTa",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 1655000,
+              "status": "passed"
+            },
+            "line": 18,
+            "name": "a TaConnectionUp message with the following attributes is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "TaConnectionUp",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdateSimulationSteps.simulateMessage(java.lang.String,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "rctProtocolVersion",
+                  "V200"
+                ]
+              },
+              {
+                "cells": [
+                  "systemProtocolVersion",
+                  "V200"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 1165000,
+              "status": "passed"
+            },
+            "line": 22,
+            "name": "a RestrictionDataUpdate message with the following attributes in GeneralTransmission",
+            "match": {
+              "arguments": [
+                {
+                  "val": " in GeneralTransmission",
+                  "offset": 61
+                },
+                {
+                  "val": "",
+                  "offset": 84
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.RestrictionUpdateSimulationSteps.createPayloadWithAttributesAndSend(boolean,boolean,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "restrictionId",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              },
+              {
+                "cells": [
+                  "activationState",
+                  "ACTIVE"
+                ]
+              }
+            ],
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 2160000,
+              "status": "passed"
+            },
+            "line": 25,
+            "name": "a CapacityConflictUpdate message with the following attributes in GeneralTransmission is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "CapacityConflictUpdate",
+                  "offset": 2
+                },
+                {
+                  "val": " in GeneralTransmission",
+                  "offset": 62
+                },
+                {
+                  "val": " is received",
+                  "offset": 85
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericTaOperatingStateUpdateSimulationSteps.simulateMessage(java.lang.String,boolean,boolean,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "restrictionId",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              }
+            ],
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 205640000,
+              "status": "passed"
+            },
+            "line": 27,
+            "name": "a SectionEntryPrevention has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SectionEntryPrevention",
+                  "offset": 2
+                },
+                {
+                  "val": "",
+                  "offset": 43
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "uraId",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              },
+              {
+                "cells": [
+                  "resolved",
+                  "false"
+                ]
+              }
+            ],
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 205327000,
+              "status": "passed"
+            },
+            "line": 30,
+            "name": "a ExecutionUsageRestrictionArea has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "ExecutionUsageRestrictionArea",
+                  "offset": 2
+                },
+                {
+                  "val": "",
+                  "offset": 50
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "id",
+                  "10210000-0000-0000-0000-000000000001"
+                ]
+              }
+            ],
+            "keyword": "And "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2023-03-08T13:04:45.943Z",
+        "line": 112,
+        "name": "Publication of operation mode enabled, if the TA connect. is re-established after",
+        "description": "            a pss-gw heartbeats timeout and a new TaOperationMode was received\n            while SubscribeToTa was published",
+        "id": "connection---no-publication-operation-mode-heartbeat-timeout;publication-of-operation-mode-enabled--if-the-ta-connect.-is-re-established-after",
+        "after": [
+          {
+            "result": {
+              "duration": 35000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.stopSendingOfPeriodicMessages()"
+            }
+          },
+          {
+            "result": {
+              "duration": 162000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.resetApplicationAfterEachTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 65000,
+              "status": "passed"
+            },
+            "line": 116,
+            "name": "no PssGatewayHeartbeat message is received periodically",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 3
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.noMessageReceivedPeriodically(java.lang.String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 3000908000,
+              "status": "passed"
+            },
+            "line": 117,
+            "name": "the timeout of 3000 ms has elapsed",
+            "match": {
+              "arguments": [
+                {
+                  "val": "3000",
+                  "offset": 15
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.setTimeout(int)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 1289000,
+              "status": "passed"
+            },
+            "line": 118,
+            "name": "TaOperationMode INCIDENT is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "INCIDENT",
+                  "offset": 16
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.OperationModeSimulationSteps.taOperationModeReceived(ch.sbb.tms.iad.taa.operatingstatepublisher.common.model.TaOperationMode)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 205127000,
+              "status": "passed"
+            },
+            "line": 119,
+            "name": "no OperationMode has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "no ",
+                  "offset": 0
+                },
+                {
+                  "val": "OperationMode",
+                  "offset": 3
+                },
+                {
+                  "val": "",
+                  "offset": 35
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String,int)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 301000,
+              "status": "passed"
+            },
+            "line": 121,
+            "name": "a PssGatewayHeartbeat message with the following attributes is received periodically in every 2000 ms",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 2
+                },
+                {
+                  "val": "2000",
+                  "offset": 94
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.messageReceivedPeriodically(java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "gatewayInstanceId",
+                  "00000000-0000-0000-0000-000000000005"
+                ]
+              },
+              {
+                "cells": [
+                  "time",
+                  "DATE_TIME_NOW"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 105884000,
+              "status": "passed"
+            },
+            "line": 125,
+            "name": "a SubscribeToTa has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SubscribeToTa",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 469000,
+              "status": "passed"
+            },
+            "line": 126,
+            "name": "TaOperationMode MAINTENANCE is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "MAINTENANCE",
+                  "offset": 16
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.OperationModeSimulationSteps.taOperationModeReceived(ch.sbb.tms.iad.taa.operatingstatepublisher.common.model.TaOperationMode)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 204970000,
+              "status": "passed"
+            },
+            "line": 127,
+            "name": "no OperationMode has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "no ",
+                  "offset": 0
+                },
+                {
+                  "val": "OperationMode",
+                  "offset": 3
+                },
+                {
+                  "val": "",
+                  "offset": 35
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String,int)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 1997000,
+              "status": "passed"
+            },
+            "line": 129,
+            "name": "a TaConnectionUp message with the following attributes is received",
+            "match": {
+              "arguments": [
+                {
+                  "val": "TaConnectionUp",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdateSimulationSteps.simulateMessage(java.lang.String,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "rctProtocolVersion",
+                  "V200"
+                ]
+              },
+              {
+                "cells": [
+                  "systemProtocolVersion",
+                  "V200"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 201705000,
+              "status": "passed"
+            },
+            "line": 133,
+            "name": "a OperationMode has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "OperationMode",
+                  "offset": 2
+                },
+                {
+                  "val": "",
+                  "offset": 34
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericOperatingStateAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "operationMode",
+                  "MAINTENANCE"
+                ]
+              }
+            ],
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@ConnectionFailure"
+          },
+          {
+            "name": "@TIADREQ-509"
+          }
+        ]
+      }
+    ],
+    "name": "Connection - no publication operation mode heartbeat timeout",
+    "description": "",
+    "id": "connection---no-publication-operation-mode-heartbeat-timeout",
+    "keyword": "Feature",
+    "uri": "file:src/test/cucumber/connectionfailure/Connection/Connection-no-publication-operating-mode-heartbeat-timeout.feature",
+    "tags": [
+      {
+        "name": "@ConnectionFailure",
+        "type": "Tag",
+        "location": {
+          "line": 4,
+          "column": 1
+        }
+      }
+    ]
+  },
+  {
+    "line": 3,
+    "elements": [
+      {
+        "line": 5,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 411233000,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "TAA Operating State Publisher is ready with Advanced topology and not connected",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Advanced",
+                  "offset": 44
+                },
+                {
+                  "val": " and not connected",
+                  "offset": 61
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.taaOperatingStatePublisherIsReady(ch.sbb.tms.iad.taa.operatingstatepublisher.testutils.topology.TestTopology,boolean)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 224000,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "Configuration parameter application.tainterfaceprocessor.heartbeat-timeout-in-ms is set to 2000",
+            "match": {
+              "arguments": [
+                {
+                  "val": "application.tainterfaceprocessor.heartbeat-timeout-in-ms",
+                  "offset": 24
+                },
+                {
+                  "val": "2000",
+                  "offset": 91
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.configurationParameterIsSetTo(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 44000,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "Configuration parameter application.tainterfaceprocessor.tasubscription.heartbeat-interval-in-ms is set to 2000",
+            "match": {
+              "arguments": [
+                {
+                  "val": "application.tainterfaceprocessor.tasubscription.heartbeat-interval-in-ms",
+                  "offset": 24
+                },
+                {
+                  "val": "2000",
+                  "offset": 107
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.configurationParameterIsSetTo(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2023-03-08T13:04:50.609Z",
+        "line": 12,
+        "name": "Re-subscription after the PSS Gateway was down",
+        "description": "",
+        "id": "connection---re-subscription-to-pss-gateway;re-subscription-after-the-pss-gateway-was-down",
+        "after": [
+          {
+            "result": {
+              "duration": 173000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.stopSendingOfPeriodicMessages()"
+            }
+          },
+          {
+            "result": {
+              "duration": 726000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.resetApplicationAfterEachTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 1050000,
+              "status": "passed"
+            },
+            "line": 14,
+            "name": "a PssGatewayHeartbeat message with the following attributes is received periodically in every 1000 ms",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 2
+                },
+                {
+                  "val": "1000",
+                  "offset": 94
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.messageReceivedPeriodically(java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "gatewayInstanceId",
+                  "00000000-0000-0000-0000-000000000005"
+                ]
+              },
+              {
+                "cells": [
+                  "time",
+                  "DATE_TIME_NOW"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 111019000,
+              "status": "passed"
+            },
+            "line": 19,
+            "name": "a SubscribeToTa has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SubscribeToTa",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "subscriptionType",
+                  "CONSUMER"
+                ]
+              }
+            ],
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 106531000,
+              "status": "passed"
+            },
+            "line": 21,
+            "name": "a TaSubscriptionHeartbeat has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "TaSubscriptionHeartbeat",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 1795153000,
+              "status": "passed"
+            },
+            "line": 22,
+            "name": "a TaSubscriptionHeartbeat has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "TaSubscriptionHeartbeat",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 3008615000,
+              "status": "passed"
+            },
+            "line": 23,
+            "name": "no SubscribeToTa has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "no ",
+                  "offset": 0
+                },
+                {
+                  "val": "SubscribeToTa",
+                  "offset": 3
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 107000,
+              "status": "passed"
+            },
+            "line": 25,
+            "name": "no PssGatewayHeartbeat message is received periodically",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 3
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.noMessageReceivedPeriodically(java.lang.String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 3004458000,
+              "status": "passed"
+            },
+            "line": 26,
+            "name": "the timeout of 3000 ms has elapsed",
+            "match": {
+              "arguments": [
+                {
+                  "val": "3000",
+                  "offset": 15
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.setTimeout(int)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 461000,
+              "status": "passed"
+            },
+            "line": 27,
+            "name": "a PssGatewayHeartbeat message with the following attributes is received periodically in every 1000 ms",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 2
+                },
+                {
+                  "val": "1000",
+                  "offset": 94
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.messageReceivedPeriodically(java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "gatewayInstanceId",
+                  "00000000-0000-0000-0000-000000000005"
+                ]
+              },
+              {
+                "cells": [
+                  "time",
+                  "DATE_TIME_NOW"
+                ]
+              }
+            ],
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 106209000,
+              "status": "passed"
+            },
+            "line": 32,
+            "name": "a SubscribeToTa has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SubscribeToTa",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "subscriptionType",
+                  "CONSUMER"
+                ]
+              }
+            ],
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 105625000,
+              "status": "passed"
+            },
+            "line": 34,
+            "name": "a TaSubscriptionHeartbeat has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "TaSubscriptionHeartbeat",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 1798012000,
+              "status": "passed"
+            },
+            "line": 35,
+            "name": "a TaSubscriptionHeartbeat has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "TaSubscriptionHeartbeat",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 3005683000,
+              "status": "passed"
+            },
+            "line": 36,
+            "name": "no SubscribeToTa has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "no ",
+                  "offset": 0
+                },
+                {
+                  "val": "SubscribeToTa",
+                  "offset": 3
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "And "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@ConnectionFailure"
+          },
+          {
+            "name": "@TIADREQ-606"
+          }
+        ]
+      }
+    ],
+    "name": "Connection - re-subscription to PSS Gateway",
+    "description": "",
+    "id": "connection---re-subscription-to-pss-gateway",
+    "keyword": "Feature",
+    "uri": "file:src/test/cucumber/connectionfailure/Connection/Connection-re-subscription-to-pss-gateway.feature",
+    "tags": [
+      {
+        "name": "@ConnectionFailure",
+        "type": "Tag",
+        "location": {
+          "line": 2,
+          "column": 1
+        }
+      }
+    ]
+  },
+  {
+    "line": 3,
+    "elements": [
+      {
+        "line": 5,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 410193000,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "TAA Operating State Publisher is ready with Advanced topology and not connected",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Advanced",
+                  "offset": 44
+                },
+                {
+                  "val": " and not connected",
+                  "offset": 61
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.taaOperatingStatePublisherIsReady(ch.sbb.tms.iad.taa.operatingstatepublisher.testutils.topology.TestTopology,boolean)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 1203000,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "Configuration parameter application.tainterfaceprocessor.heartbeat-timeout-in-ms is set to 2000",
+            "match": {
+              "arguments": [
+                {
+                  "val": "application.tainterfaceprocessor.heartbeat-timeout-in-ms",
+                  "offset": 24
+                },
+                {
+                  "val": "2000",
+                  "offset": 91
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.configurationParameterIsSetTo(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 152000,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "Configuration parameter application.tainterfaceprocessor.tasubscription.heartbeat-interval-in-ms is set to 2000",
+            "match": {
+              "arguments": [
+                {
+                  "val": "application.tainterfaceprocessor.tasubscription.heartbeat-interval-in-ms",
+                  "offset": 24
+                },
+                {
+                  "val": "2000",
+                  "offset": 107
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.configurationParameterIsSetTo(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2023-03-08T13:05:04.093Z",
+        "line": 12,
+        "name": "No subscription, if no heartbeat has been received",
+        "description": "",
+        "id": "connection---subscription-to-pss-gateway;no-subscription--if-no-heartbeat-has-been-received",
+        "after": [
+          {
+            "result": {
+              "duration": 41000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.stopSendingOfPeriodicMessages()"
+            }
+          },
+          {
+            "result": {
+              "duration": 227000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.resetApplicationAfterEachTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 880000,
+              "status": "passed"
+            },
+            "line": 14,
+            "name": "no PssGatewayHeartbeat message is received periodically",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 3
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.noMessageReceivedPeriodically(java.lang.String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 3006475000,
+              "status": "passed"
+            },
+            "line": 15,
+            "name": "no SubscribeToTa has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "no ",
+                  "offset": 0
+                },
+                {
+                  "val": "SubscribeToTa",
+                  "offset": 3
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 3004397000,
+              "status": "passed"
+            },
+            "line": 16,
+            "name": "no TaSubscriptionHeartbeat has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "no ",
+                  "offset": 0
+                },
+                {
+                  "val": "TaSubscriptionHeartbeat",
+                  "offset": 3
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "And "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@ConnectionFailure"
+          },
+          {
+            "name": "@TIADREQ-608"
+          }
+        ]
+      },
+      {
+        "line": 5,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 403577000,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "TAA Operating State Publisher is ready with Advanced topology and not connected",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Advanced",
+                  "offset": 44
+                },
+                {
+                  "val": " and not connected",
+                  "offset": 61
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.taaOperatingStatePublisherIsReady(ch.sbb.tms.iad.taa.operatingstatepublisher.testutils.topology.TestTopology,boolean)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 162000,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "Configuration parameter application.tainterfaceprocessor.heartbeat-timeout-in-ms is set to 2000",
+            "match": {
+              "arguments": [
+                {
+                  "val": "application.tainterfaceprocessor.heartbeat-timeout-in-ms",
+                  "offset": 24
+                },
+                {
+                  "val": "2000",
+                  "offset": 91
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.configurationParameterIsSetTo(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 28000,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "Configuration parameter application.tainterfaceprocessor.tasubscription.heartbeat-interval-in-ms is set to 2000",
+            "match": {
+              "arguments": [
+                {
+                  "val": "application.tainterfaceprocessor.tasubscription.heartbeat-interval-in-ms",
+                  "offset": 24
+                },
+                {
+                  "val": "2000",
+                  "offset": 107
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.configurationParameterIsSetTo(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2023-03-08T13:05:10.528Z",
+        "line": 19,
+        "name": "Subscription, when first heartbeat is received",
+        "description": "",
+        "id": "connection---subscription-to-pss-gateway;subscription--when-first-heartbeat-is-received",
+        "after": [
+          {
+            "result": {
+              "duration": 102000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.stopSendingOfPeriodicMessages()"
+            }
+          },
+          {
+            "result": {
+              "duration": 313000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.resetApplicationAfterEachTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 492000,
+              "status": "passed"
+            },
+            "line": 21,
+            "name": "a PssGatewayHeartbeat message with the following attributes is received periodically in every 1000 ms",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 2
+                },
+                {
+                  "val": "1000",
+                  "offset": 94
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.messageReceivedPeriodically(java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "gatewayInstanceId",
+                  "00000000-0000-0000-0000-000000000005"
+                ]
+              },
+              {
+                "cells": [
+                  "time",
+                  "DATE_TIME_NOW"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 109217000,
+              "status": "passed"
+            },
+            "line": 26,
+            "name": "a SubscribeToTa has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SubscribeToTa",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "subscriptionType",
+                  "CONSUMER"
+                ]
+              }
+            ],
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 105484000,
+              "status": "passed"
+            },
+            "line": 28,
+            "name": "a TaSubscriptionHeartbeat has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "TaSubscriptionHeartbeat",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 1788328000,
+              "status": "passed"
+            },
+            "line": 29,
+            "name": "a TaSubscriptionHeartbeat has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "TaSubscriptionHeartbeat",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 3006061000,
+              "status": "passed"
+            },
+            "line": 30,
+            "name": "no SubscribeToTa has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "no ",
+                  "offset": 0
+                },
+                {
+                  "val": "SubscribeToTa",
+                  "offset": 3
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "And "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@ConnectionFailure"
+          },
+          {
+            "name": "@TIADREQ-607"
+          }
+        ]
+      },
+      {
+        "line": 5,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 410710000,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "TAA Operating State Publisher is ready with Advanced topology and not connected",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Advanced",
+                  "offset": 44
+                },
+                {
+                  "val": " and not connected",
+                  "offset": 61
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.taaOperatingStatePublisherIsReady(ch.sbb.tms.iad.taa.operatingstatepublisher.testutils.topology.TestTopology,boolean)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 179000,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "Configuration parameter application.tainterfaceprocessor.heartbeat-timeout-in-ms is set to 2000",
+            "match": {
+              "arguments": [
+                {
+                  "val": "application.tainterfaceprocessor.heartbeat-timeout-in-ms",
+                  "offset": 24
+                },
+                {
+                  "val": "2000",
+                  "offset": 91
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.configurationParameterIsSetTo(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 41000,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "Configuration parameter application.tainterfaceprocessor.tasubscription.heartbeat-interval-in-ms is set to 2000",
+            "match": {
+              "arguments": [
+                {
+                  "val": "application.tainterfaceprocessor.tasubscription.heartbeat-interval-in-ms",
+                  "offset": 24
+                },
+                {
+                  "val": "2000",
+                  "offset": 107
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.configurationParameterIsSetTo(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2023-03-08T13:05:15.954Z",
+        "line": 33,
+        "name": "Subscription, when first heartbeat is received, even if it is passive",
+        "description": "",
+        "id": "connection---subscription-to-pss-gateway;subscription--when-first-heartbeat-is-received--even-if-it-is-passive",
+        "after": [
+          {
+            "result": {
+              "duration": 35000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.stopSendingOfPeriodicMessages()"
+            }
+          },
+          {
+            "result": {
+              "duration": 198000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.resetApplicationAfterEachTest()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 5609000,
+              "status": "passed"
+            },
+            "line": 35,
+            "name": "leadership is lost",
+            "match": {
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.LeadershipSimulationSteps.leadershipIsLost()"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 295000,
+              "status": "passed"
+            },
+            "line": 37,
+            "name": "a PssGatewayHeartbeat message with the following attributes is received periodically in every 1000 ms",
+            "match": {
+              "arguments": [
+                {
+                  "val": "PssGatewayHeartbeat",
+                  "offset": 2
+                },
+                {
+                  "val": "1000",
+                  "offset": 94
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.simulationsteps.GenericUpdatePeriodicallySimulationSteps.messageReceivedPeriodically(java.lang.String,int,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "taInstance",
+                  "GBT"
+                ]
+              },
+              {
+                "cells": [
+                  "gatewayInstanceId",
+                  "00000000-0000-0000-0000-000000000005"
+                ]
+              },
+              {
+                "cells": [
+                  "time",
+                  "DATE_TIME_NOW"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 105622000,
+              "status": "passed"
+            },
+            "line": 42,
+            "name": "a SubscribeToTa has been published with",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "SubscribeToTa",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatAMessageHasBeenPublishedWith(boolean,java.lang.String,ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.common.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "subscriptionType",
+                  "CONSUMER"
+                ]
+              }
+            ],
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 105855000,
+              "status": "passed"
+            },
+            "line": 44,
+            "name": "a TaSubscriptionHeartbeat has been published",
+            "match": {
+              "arguments": [
+                {
+                  "val": "a ",
+                  "offset": 0
+                },
+                {
+                  "val": "TaSubscriptionHeartbeat",
+                  "offset": 2
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.assertionsteps.GenericMessageAssertionSteps.assertThatNoMessageHasBeenPublished(boolean,java.lang.String)"
+            },
+            "keyword": "And "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@ConnectionFailure"
+          },
+          {
+            "name": "@TIADREQ-534"
+          }
+        ]
+      }
+    ],
+    "name": "Connection - Subscription to PSS Gateway",
+    "description": "",
+    "id": "connection---subscription-to-pss-gateway",
+    "keyword": "Feature",
+    "uri": "file:src/test/cucumber/connectionfailure/Connection/Connection-subscription-to-pss-gateway.feature",
+    "tags": [
+      {
+        "name": "@ConnectionFailure",
+        "type": "Tag",
+        "location": {
+          "line": 2,
+          "column": 1
+        }
+      }
+    ]
+  }
+]

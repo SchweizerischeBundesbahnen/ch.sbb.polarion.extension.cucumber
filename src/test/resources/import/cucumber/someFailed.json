@@ -1,0 +1,682 @@
+[
+  {
+    "keyword": "Feature",
+    "name": "Arithmetic Operations",
+    "line": 3,
+    "description": "",
+    "tags": [
+      {
+        "name": "@DEMO-48",
+        "line": 1
+      },
+      {
+        "name": "@REQ_DEMO-45",
+        "line": 2
+      }
+    ],
+    "id": "arithmetic-operations",
+    "uri": "features/1_DEMO-45.feature",
+    "elements": [
+      {
+        "comments": [
+          {
+            "value": "#In order to avoid silly mistakes",
+            "line": 4
+          },
+          {
+            "value": "#As a math idiot ",
+            "line": 5
+          },
+          {
+            "value": "#I want to be told the result of basic arithmetic operations between two numbers",
+            "line": 6
+          }
+        ],
+        "keyword": "Scenario Outline",
+        "name": "Empty tag scenario",
+        "line": 18,
+        "description": "",
+        "tags": [
+        ],
+        "id": "arithmetic-operations;add-two-numbers;;2",
+        "type": "scenario",
+        "steps": [
+          {
+            "embeddings": [
+              {
+                "mime_type": "text/plain",
+                "data": "{data base64}"
+              },
+              {
+                "mime_type": "text/plain",
+                "data": "{data base64}"
+              }
+            ],
+            "keyword": "Given ",
+            "name": "I have entered 20 into the calculator",
+            "line": 11,
+            "match": {
+              "arguments": [
+                {
+                  "offset": 15,
+                  "val": "20"
+                }
+              ],
+              "location": "features/step_definitions/calculator_steps.rb:14"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 487000
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "I have entered 30 into the calculator",
+            "line": 12,
+            "match": {
+              "arguments": [
+                {
+                  "offset": 15,
+                  "val": "30"
+                }
+              ],
+              "location": "features/step_definitions/calculator_steps.rb:14"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 340000
+            }
+          },
+          {
+            "keyword": "When ",
+            "name": "I press add",
+            "line": 13,
+            "match": {
+              "arguments": [
+                {
+                  "offset": 8,
+                  "val": "add"
+                }
+              ],
+              "location": "features/step_definitions/calculator_steps.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 327000
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "the result should be 50 on the screen",
+            "line": 14,
+            "match": {
+              "arguments": [
+                {
+                  "offset": 21,
+                  "val": "50"
+                }
+              ],
+              "location": "features/step_definitions/calculator_steps.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 11723000
+            }
+          }
+        ]
+      },
+      {
+        "comments": [
+          {
+            "value": "#In order to avoid silly mistakes",
+            "line": 4
+          },
+          {
+            "value": "#As a math idiot ",
+            "line": 5
+          },
+          {
+            "value": "#I want to be told the result of basic arithmetic operations between two numbers",
+            "line": 6
+          }
+        ],
+        "keyword": "Scenario Outline",
+        "name": "Two tags scenario",
+        "line": 19,
+        "description": "",
+        "tags": [
+          {
+            "name": "EL-222",
+            "line": 9
+          },
+          {
+            "name": "EL-333",
+            "line": 9
+          }
+        ],
+        "id": "arithmetic-operations;add-two-numbers;;3",
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "I have entered 2 into the calculator",
+            "line": 11,
+            "match": {
+              "arguments": [
+                {
+                  "offset": 15,
+                  "val": "2"
+                }
+              ],
+              "location": "features/step_definitions/calculator_steps.rb:14"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 992000
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "I have entered 5 into the calculator",
+            "line": 12,
+            "match": {
+              "arguments": [
+                {
+                  "offset": 15,
+                  "val": "5"
+                }
+              ],
+              "location": "features/step_definitions/calculator_steps.rb:14"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 775000
+            }
+          },
+          {
+            "keyword": "When ",
+            "name": "I press add",
+            "line": 13,
+            "match": {
+              "arguments": [
+                {
+                  "offset": 8,
+                  "val": "add"
+                }
+              ],
+              "location": "features/step_definitions/calculator_steps.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 322000
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "the result should be 7 on the screen",
+            "line": 14,
+            "match": {
+              "arguments": [
+                {
+                  "offset": 21,
+                  "val": "7"
+                }
+              ],
+              "location": "features/step_definitions/calculator_steps.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 423000
+            }
+          }
+        ]
+      },
+      {
+        "line": 4,
+        "name": "Failed background",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 1022587000,
+              "status": "failed",
+              "error_message": "single failed message"
+            },
+            "line": 6,
+            "name": "TAA Operating State Publisher is ready with Advanced topology",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Advanced",
+                  "offset": 44
+                },
+                {
+                  "val": "",
+                  "offset": 61
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.taaOperatingStatePublisherIsReady(ch.sbb.tms.iad.taa.operatingstatepublisher.testutils.topology.TestTopology,boolean)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 838000,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "Configuration parameter application.topology.update-time-cron-expression is set to \"0 30 0 * * *\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "application.topology.update-time-cron-expression",
+                  "offset": 24
+                },
+                {
+                  "val": "\"0 30 0 * * *\"",
+                  "offset": 83
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.configurationParameterIsSetTo(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 386000,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "Configuration parameter application.topology.retry.delay-in-ms is set to 1000",
+            "match": {
+              "arguments": [
+                {
+                  "val": "application.topology.retry.delay-in-ms",
+                  "offset": 24
+                },
+                {
+                  "val": "1000",
+                  "offset": 73
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.configurationParameterIsSetTo(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 85000,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "Configuration parameter application.topology.timeout-in-ms is set to 2000",
+            "match": {
+              "arguments": [
+                {
+                  "val": "application.topology.timeout-in-ms",
+                  "offset": 24
+                },
+                {
+                  "val": "2000",
+                  "offset": 69
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.configurationParameterIsSetTo(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 85000,
+              "status": "passed"
+            },
+            "line": 10,
+            "name": "Configuration parameter application.topology.retry.max-retries is set to 3",
+            "match": {
+              "arguments": [
+                {
+                  "val": "application.topology.retry.max-retries",
+                  "offset": 24
+                },
+                {
+                  "val": "3",
+                  "offset": 73
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.configurationParameterIsSetTo(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          }
+        ]
+      },
+      {
+        "comments": [
+          {
+            "value": "#In order to avoid silly mistakes",
+            "line": 4
+          },
+          {
+            "value": "#As a math idiot ",
+            "line": 5
+          },
+          {
+            "value": "#I want to be told the result of basic arithmetic operations between two numbers",
+            "line": 6
+          }
+        ],
+        "keyword": "Scenario Outline",
+        "name": "Scenario empty steps",
+        "line": 20,
+        "description": "",
+        "tags": [
+          {
+            "name": "@EL-3",
+            "line": 9
+          }
+        ],
+        "id": "arithmetic-operations;add-two-numbers;;4",
+        "type": "scenario",
+        "steps": []
+      },
+      {
+        "line": 4,
+        "name": "On more Failed background",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 1022587000,
+              "status": "failed",
+              "error_message": "failed message"
+            },
+            "line": 6,
+            "name": "TAA Operating State Publisher is ready with Advanced topology",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Advanced",
+                  "offset": 44
+                },
+                {
+                  "val": "",
+                  "offset": 61
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.taaOperatingStatePublisherIsReady(ch.sbb.tms.iad.taa.operatingstatepublisher.testutils.topology.TestTopology,boolean)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 838000,
+              "status": "passed",
+              "error_message": "passed message"
+            },
+            "line": 7,
+            "name": "Configuration parameter application.topology.update-time-cron-expression is set to \"0 30 0 * * *\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "application.topology.update-time-cron-expression",
+                  "offset": 24
+                },
+                {
+                  "val": "\"0 30 0 * * *\"",
+                  "offset": 83
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.configurationParameterIsSetTo(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 386000,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "Configuration parameter application.topology.retry.delay-in-ms is set to 1000",
+            "match": {
+              "arguments": [
+                {
+                  "val": "application.topology.retry.delay-in-ms",
+                  "offset": 24
+                },
+                {
+                  "val": "1000",
+                  "offset": 73
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.configurationParameterIsSetTo(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 85000,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "Configuration parameter application.topology.timeout-in-ms is set to 2000",
+            "match": {
+              "arguments": [
+                {
+                  "val": "application.topology.timeout-in-ms",
+                  "offset": 24
+                },
+                {
+                  "val": "2000",
+                  "offset": 69
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.configurationParameterIsSetTo(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 85000,
+              "status": "passed"
+            },
+            "line": 10,
+            "name": "Configuration parameter application.topology.retry.max-retries is set to 3",
+            "match": {
+              "arguments": [
+                {
+                  "val": "application.topology.retry.max-retries",
+                  "offset": 24
+                },
+                {
+                  "val": "3",
+                  "offset": 73
+                }
+              ],
+              "location": "ch.sbb.tms.iad.taa.operatingstatepublisher.cucumber.gluecode.SetupSteps.configurationParameterIsSetTo(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          }
+        ]
+      },
+      {
+        "keyword": "Scenario Outline",
+        "name": "But passed scenario",
+        "line": 32,
+        "description": "",
+        "tags": [
+          {
+            "name": "@EL-4",
+            "line": 23
+          }
+        ],
+        "id": "arithmetic-operations;divide-two-numbers;;2",
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "I have entered 8 into the calculator",
+            "line": 25,
+            "match": {
+              "arguments": [
+                {
+                  "offset": 15,
+                  "val": "8"
+                }
+              ],
+              "location": "features/step_definitions/calculator_steps.rb:14"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 344000
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "I have entered 4 into the calculator",
+            "line": 26,
+            "match": {
+              "arguments": [
+                {
+                  "offset": 15,
+                  "val": "4"
+                }
+              ],
+              "location": "features/step_definitions/calculator_steps.rb:14"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 292000
+            }
+          },
+          {
+            "keyword": "When ",
+            "name": "I press divide",
+            "line": 27,
+            "match": {
+              "arguments": [
+                {
+                  "offset": 8,
+                  "val": "divide"
+                }
+              ],
+              "location": "features/step_definitions/calculator_steps.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 291000
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "the result should be 2 on the screen",
+            "line": 28,
+            "match": {
+              "arguments": [
+                {
+                  "offset": 21,
+                  "val": "2"
+                }
+              ],
+              "location": "features/step_definitions/calculator_steps.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 320000
+            }
+          }
+        ]
+      },
+      {
+        "keyword": "Scenario Outline",
+        "name": "Divide Two Numbers",
+        "line": 33,
+        "description": "",
+        "tags": [
+          {
+            "name": "@EL-21",
+            "line": 23
+          }
+        ],
+        "id": "arithmetic-operations;divide-two-numbers;;3",
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "I have entered 12 into the calculator",
+            "line": 25,
+            "match": {
+              "arguments": [
+                {
+                  "offset": 15,
+                  "val": "12"
+                }
+              ],
+              "location": "features/step_definitions/calculator_steps.rb:14"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1102000
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "I have entered 3 into the calculator",
+            "line": 26,
+            "match": {
+              "arguments": [
+                {
+                  "offset": 15,
+                  "val": "3"
+                }
+              ],
+              "location": "features/step_definitions/calculator_steps.rb:14"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 891000
+            }
+          },
+          {
+            "keyword": "When ",
+            "name": "I press divide",
+            "line": 27,
+            "match": {
+              "arguments": [
+                {
+                  "offset": 8,
+                  "val": "divide"
+                }
+              ],
+              "location": "features/step_definitions/calculator_steps.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 291000
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "the result should be 4 on the screen",
+            "line": 28,
+            "match": {
+              "arguments": [
+                {
+                  "offset": 21,
+                  "val": "4"
+                }
+              ],
+              "location": "features/step_definitions/calculator_steps.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 339000
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

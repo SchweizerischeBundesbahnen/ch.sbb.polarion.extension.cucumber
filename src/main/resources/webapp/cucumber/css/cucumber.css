@@ -1,0 +1,51 @@
+.editor-buttons {
+    margin-bottom: 10px;
+}
+
+.editor-buttons button {
+    background-color: transparent;
+    border: 1px solid #DEDEDE;
+    color: #555;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.editor-buttons button:not(:first-child) {
+    margin-left: 5px;
+}
+
+.editor-buttons button:disabled {
+    text-shadow: white 1px 1px 0.01em;
+    color: #C9D1D7;
+    cursor: default;
+}
+
+.editor-buttons .divider {
+    padding: 4px 0;
+    width: 1px;
+    border-right-color: #fff;
+    border-left-color: #ccc;
+}
+
+.editor-buttons button img {
+    margin-right: 6px;
+    vertical-align: bottom;
+}
+
+.editor-buttons button:disabled img {
+    opacity: 0.3;
+}
+
+#cucumberFeatureCodeEditor {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.validation-pass {
+    color: green;
+}
+
+.validation-fail, .line-with-error {
+    color: red;
+}
