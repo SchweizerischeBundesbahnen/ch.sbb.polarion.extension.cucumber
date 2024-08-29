@@ -48,7 +48,7 @@
 
         <web.app.name>${maven-jar-plugin.Extension-Context}</web.app.name>
 
-        <cucumber-gherkin.version>28.0.0</cucumber-gherkin.version>
+        <cucumber-gherkin.version>29.0.0</cucumber-gherkin.version>
 
         <!--suppress UnresolvedMavenProperty -->
         <markdown2html-maven-plugin.failOnError>${env.MARKDOWN2HTML_MAVEN_PLUGIN_FAIL_ON_ERROR}</markdown2html-maven-plugin.failOnError>
