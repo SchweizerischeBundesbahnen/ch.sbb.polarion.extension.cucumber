@@ -3,6 +3,7 @@ package ch.sbb.polarion.extension.cucumber.rest.model.execution;
 import ch.sbb.polarion.extension.cucumber.rest.model.execution.cucumber.Project;
 import ch.sbb.polarion.extension.cucumber.rest.model.fields.FieldDefinition;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,11 +13,15 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Schema(description = "Contains execution information including project details and additional fields")
 public class ExecutionInfo {
 
     public static final String PROJECT_KEY = "project";
 
+    @Schema(description = "A map containing additional fields related to execution")
     private final Map<String, Object> fields = new HashMap<>();
+
+    @Schema(description = "The project associated with this execution")
     private Project project;
 
     @SuppressWarnings("unused")

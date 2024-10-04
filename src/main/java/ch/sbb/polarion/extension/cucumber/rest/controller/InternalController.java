@@ -11,6 +11,10 @@ import io.cucumber.messages.types.Envelope;
 import io.cucumber.messages.types.Source;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import javax.ws.rs.Consumes;
@@ -31,21 +35,29 @@ public class InternalController {
 
     protected final PolarionService polarionService = new PolarionService();
 
-    @Operation(summary = "Get feature")
     @GET
     @Path("/feature/{projectId}/{workItemId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Feature getFeature(@PathParam("projectId") String projectId, @PathParam("workItemId") String workItemId) {
+    @Operation(summary = "Get feature",
+            description = "Retrieve a feature by projectId and workItemId",
+            responses = @ApiResponse(
+                    responseCode = "200",
+                    description = "Successfully retrieved the feature",
+                    content = @Content(schema = @Schema(implementation = Feature.class))
+            )
+    )
+    public Feature getFeature(@Parameter(description = "ID of the project", required = true) @PathParam("projectId") String projectId,
+                              @Parameter(description = "ID of the work item", required = true) @PathParam("workItemId") String workItemId) {
 
         return TransactionalExecutor.executeSafelyInReadOnlyTransaction(
                 transaction -> PolarionWorkItem.getFeature(polarionService.getTrackerService(), projectId, workItemId));
     }
 
-    @Operation(summary = "Create/update feature")
     @POST
     @Path("/feature")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void createOrUpdateFeature(Feature feature) {
+    @Operation(summary = "Create/update feature")
+    public void createOrUpdateFeature(@Parameter(description = "The feature object to be created or updated", required = true) Feature feature) {
         TransactionalExecutor.executeInWriteTransaction(
                 transaction -> PolarionWorkItem.createOrUpdateFeature(polarionService.getTrackerService(), feature));
     }
@@ -56,6 +68,14 @@ public class InternalController {
     @Path("/cucumber/validate")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Validate Cucumber feature",
+            description = "Validate the syntax of a Cucumber feature file",
+            responses = @ApiResponse(
+                    responseCode = "200",
+                    description = "Cucumber feature validated successfully",
+                    content = @Content(schema = @Schema(implementation = ValidationResult.class))
+            )
+    )
     public ValidationResult validateCucumber(String cucumberFeature) {
         GherkinParser parser = GherkinParser.builder().build();
         final Envelope envelope = Envelope.of(new Source("some.feature", cucumberFeature, TEXT_X_CUCUMBER_GHERKIN_PLAIN));

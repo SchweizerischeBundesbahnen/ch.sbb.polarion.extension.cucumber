@@ -10,6 +10,7 @@ import com.polarion.core.util.logging.Logger;
 import com.polarion.platform.persistence.model.IPObjectList;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -52,10 +53,13 @@ public class XrayExportCucumberTestsController {
         this.polarionService = polarionService;
     }
 
-    @Operation(summary = "Get features list")
     @GET
     @Path("/test")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    @Operation(summary = "Get features list", responses = @ApiResponse(
+            responseCode = "200",
+            description = "Successfully retrieved the list of features"
+    ))
     public Response exportTest(
             @Parameter(description = "String which contain list of work items information (e.g. 'elibrary/EL-103;drivepilot/DP-47')") @QueryParam("keys") String keys,
             @Parameter(description = "Query which will be passed to the trackerService#queryWorkItems method") @QueryParam("filter") String query,

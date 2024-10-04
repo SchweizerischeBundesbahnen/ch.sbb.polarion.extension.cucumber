@@ -17,6 +17,9 @@ import com.polarion.core.util.StringUtils;
 import com.polarion.core.util.logging.Logger;
 import com.polarion.platform.guice.internal.GuicePlatform;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataParam;
@@ -62,11 +65,20 @@ public class XrayImportExecutionResultsController {
         GuicePlatform.getGlobalInjector().injectMembers(this);
     }
 
-    @Operation(summary = "Import cucumber test result (multipart)")
     @POST
     @Path("/cucumber/multipart")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Import cucumber test result (multipart)",
+            responses = @ApiResponse(
+                    responseCode = "200",
+                    description = "Cucumber test result successfully imported",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON,
+                            schema = @Schema(implementation = ImportExecutionResponse.class)
+                    )
+            )
+    )
     public ImportExecutionResponse importExecutionCucumberMultipart(
             @FormDataParam("info") FormDataBodyPart info,
             @FormDataParam("result") FormDataBodyPart result) {
@@ -90,11 +102,18 @@ public class XrayImportExecutionResultsController {
         return createImportExecutionResponse(testRuns);
     }
 
-    @Operation(summary = "Import JUnit test result")
     @POST
     @Path("/junit")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Import JUnit test result", responses = @ApiResponse(
+            responseCode = "200",
+            description = "JUnit test result successfully imported",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON,
+                    schema = @Schema(implementation = ImportExecutionResponse.class)
+            )
+    ))
     public ImportExecutionResponse importExecutionJunit(
             @QueryParam("projectKey") String projectKey,
             @QueryParam("testExecKey") String testExecKey,
@@ -130,7 +149,14 @@ public class XrayImportExecutionResultsController {
         return createImportExecutionResponse(testRuns);
     }
 
-    @Operation(summary = "Import JUnit test result (multipart)")
+    @Operation(summary = "Import JUnit test result (multipart)", responses = @ApiResponse(
+            responseCode = "200",
+            description = "JUnit test result successfully imported",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON,
+                    schema = @Schema(implementation = ImportExecutionResponse.class)
+            )
+    ))
     @POST
     @Path("/junit/multipart")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
