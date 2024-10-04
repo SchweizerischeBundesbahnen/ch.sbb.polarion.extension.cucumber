@@ -10,6 +10,11 @@ import com.polarion.alm.shared.api.transaction.TransactionalExecutor;
 import com.polarion.alm.tracker.model.ITestRun;
 import com.polarion.platform.guice.internal.GuicePlatform;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import javax.ws.rs.BadRequestException;
@@ -42,11 +47,17 @@ public class JiraRestApiController {
         GuicePlatform.getGlobalInjector().injectMembers(this);
     }
 
-    @Operation(summary = "Get declared fields list for project")
     @GET
     @Path("/field")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<FieldDefinition> field(@HeaderParam(value = PROJECT_ID_HEADER) String projectId) {
+    @Operation(summary = "Get declared fields list for project",
+            responses = @ApiResponse(
+                    responseCode = "200",
+                    description = "Successfully retrieved the list of declared fields",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = FieldDefinition.class)))
+            )
+    )
+    public List<FieldDefinition> field(@Parameter(description = "ID of the project", required = true) @HeaderParam(value = PROJECT_ID_HEADER) String projectId) {
         if (projectId == null || projectId.isBlank()) {
             throw new BadRequestException(String.format("No proper %s header found!", PROJECT_ID_HEADER));
         }

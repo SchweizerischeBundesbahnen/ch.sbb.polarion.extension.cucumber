@@ -1,0 +1,1045 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Cucumber REST API",
+    "version" : "v1"
+  },
+  "paths" : {
+    "/api/2/field" : {
+      "get" : {
+        "operationId" : "field",
+        "parameters" : [ {
+          "description" : "ID of the project",
+          "in" : "header",
+          "name" : "projectId",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/FieldDefinition"
+                  }
+                }
+              }
+            },
+            "description" : "Successfully retrieved the list of declared fields"
+          }
+        },
+        "summary" : "Get declared fields list for project",
+        "tags" : [ "Fields" ]
+      }
+    },
+    "/api/context" : {
+      "get" : {
+        "operationId" : "getContext",
+        "responses" : {
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Context"
+                }
+              }
+            },
+            "description" : "Context information"
+          }
+        },
+        "summary" : "Returns basic context information of Polarion's extension",
+        "tags" : [ "Extension Information" ]
+      }
+    },
+    "/api/feature" : {
+      "post" : {
+        "operationId" : "createOrUpdateFeature",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Feature"
+              }
+            }
+          },
+          "description" : "The feature object to be created or updated",
+          "required" : true
+        },
+        "responses" : {
+          "default" : {
+            "content" : {
+              "*/*" : { }
+            },
+            "description" : "default response"
+          }
+        },
+        "summary" : "Create/update feature",
+        "tags" : [ "Features" ]
+      }
+    },
+    "/api/feature/{projectId}/{workItemId}" : {
+      "get" : {
+        "description" : "Retrieve a feature by projectId and workItemId",
+        "operationId" : "getFeature",
+        "parameters" : [ {
+          "description" : "ID of the project",
+          "in" : "path",
+          "name" : "projectId",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "description" : "ID of the work item",
+          "in" : "path",
+          "name" : "workItemId",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Feature"
+                }
+              }
+            },
+            "description" : "Successfully retrieved the feature"
+          }
+        },
+        "summary" : "Get feature",
+        "tags" : [ "Features" ]
+      }
+    },
+    "/api/settings" : {
+      "get" : {
+        "operationId" : "readFeaturesList_1",
+        "responses" : {
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "List of supported features"
+          }
+        },
+        "summary" : "Returns the complete list of all supported features",
+        "tags" : [ "Settings" ]
+      }
+    },
+    "/api/settings/{feature}/default-content" : {
+      "get" : {
+        "operationId" : "getDefaultValues_1",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "feature",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SettingsModel"
+                }
+              }
+            },
+            "description" : "Default values"
+          }
+        },
+        "summary" : "Returns default values of specified setting",
+        "tags" : [ "Settings" ]
+      }
+    },
+    "/api/settings/{feature}/names" : {
+      "get" : {
+        "operationId" : "readSettingNames_1",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "feature",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SettingName"
+                }
+              }
+            },
+            "description" : "List of setting names"
+          }
+        },
+        "summary" : "Returns names of specified setting",
+        "tags" : [ "Settings" ]
+      }
+    },
+    "/api/settings/{feature}/names/{name}" : {
+      "delete" : {
+        "operationId" : "deleteSetting_1",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "feature",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "name",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Setting deleted successfully"
+          }
+        },
+        "summary" : "Deletes specified setting by id",
+        "tags" : [ "Settings" ]
+      },
+      "post" : {
+        "operationId" : "renameSetting_1",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "feature",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "name",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "204" : {
+            "description" : "Setting name updated successfully"
+          }
+        },
+        "summary" : "Updates name of specified named setting",
+        "tags" : [ "Settings" ]
+      }
+    },
+    "/api/settings/{feature}/names/{name}/content" : {
+      "get" : {
+        "operationId" : "readSetting_1",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "feature",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "name",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "revision",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SettingsModel"
+                }
+              }
+            },
+            "description" : "Setting content"
+          }
+        },
+        "summary" : "Returns values (content) of specified setting by its id and revision",
+        "tags" : [ "Settings" ]
+      },
+      "put" : {
+        "operationId" : "saveSetting_1",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "feature",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "name",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "204" : {
+            "description" : "Setting created/updated successfully"
+          }
+        },
+        "summary" : "Creates or updates named setting. Creation scenario will use default setting value if no body specified in the request.",
+        "tags" : [ "Settings" ]
+      }
+    },
+    "/api/settings/{feature}/names/{name}/revisions" : {
+      "get" : {
+        "operationId" : "readRevisionsList_1",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "feature",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "name",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Revision"
+                }
+              }
+            },
+            "description" : "List of revisions"
+          }
+        },
+        "summary" : "Returns revisions history of specified setting with specified id",
+        "tags" : [ "Settings" ]
+      }
+    },
+    "/api/version" : {
+      "get" : {
+        "operationId" : "getVersion",
+        "responses" : {
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Version"
+                }
+              }
+            },
+            "description" : "Version information"
+          }
+        },
+        "summary" : "Returns version of Polarion's extension",
+        "tags" : [ "Extension Information" ]
+      }
+    },
+    "/raven/1.0/export/test" : {
+      "get" : {
+        "operationId" : "exportTest",
+        "parameters" : [ {
+          "description" : "String which contain list of work items information (e.g. 'elibrary/EL-103;drivepilot/DP-47')",
+          "in" : "query",
+          "name" : "keys",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "description" : "Query which will be passed to the trackerService#queryWorkItems method",
+          "in" : "query",
+          "name" : "filter",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "description" : "True - the response will contain zip-archive with all workitems found, false - only first workitem with no archiving",
+          "in" : "query",
+          "name" : "fz",
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved the list of features"
+          }
+        },
+        "summary" : "Get features list",
+        "tags" : [ "Export" ]
+      }
+    },
+    "/raven/1.0/import/execution/cucumber/multipart" : {
+      "post" : {
+        "operationId" : "importExecutionCucumberMultipart",
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "info" : {
+                    "$ref" : "#/components/schemas/FormDataBodyPart"
+                  },
+                  "result" : {
+                    "$ref" : "#/components/schemas/FormDataBodyPart"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ImportExecutionResponse"
+                }
+              }
+            },
+            "description" : "Cucumber test result successfully imported"
+          }
+        },
+        "summary" : "Import cucumber test result (multipart)",
+        "tags" : [ "Import" ]
+      }
+    },
+    "/raven/1.0/import/execution/junit" : {
+      "post" : {
+        "operationId" : "importExecutionJunit",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "projectKey",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "testExecKey",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "testPlanKey",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "testEnvironments",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "revision",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "fixVersion",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "$ref" : "#/components/schemas/FormDataBodyPart"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ImportExecutionResponse"
+                }
+              }
+            },
+            "description" : "JUnit test result successfully imported"
+          }
+        },
+        "summary" : "Import JUnit test result",
+        "tags" : [ "Import" ]
+      }
+    },
+    "/raven/1.0/import/execution/junit/multipart" : {
+      "post" : {
+        "operationId" : "importExecutionJunitMultipart",
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "$ref" : "#/components/schemas/FormDataBodyPart"
+                  },
+                  "info" : {
+                    "$ref" : "#/components/schemas/FormDataBodyPart"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ImportExecutionResponse"
+                }
+              }
+            },
+            "description" : "JUnit test result successfully imported"
+          }
+        },
+        "summary" : "Import JUnit test result (multipart)",
+        "tags" : [ "Import" ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "BodyPart" : {
+        "type" : "object",
+        "properties" : {
+          "contentDisposition" : {
+            "$ref" : "#/components/schemas/ContentDisposition"
+          },
+          "entity" : {
+            "type" : "object"
+          },
+          "headers" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          },
+          "mediaType" : {
+            "type" : "object",
+            "properties" : {
+              "parameters" : {
+                "type" : "object",
+                "additionalProperties" : {
+                  "type" : "string"
+                }
+              },
+              "subtype" : {
+                "type" : "string"
+              },
+              "type" : {
+                "type" : "string"
+              },
+              "wildcardSubtype" : {
+                "type" : "boolean"
+              },
+              "wildcardType" : {
+                "type" : "boolean"
+              }
+            }
+          },
+          "messageBodyWorkers" : {
+            "$ref" : "#/components/schemas/MessageBodyWorkers"
+          },
+          "parameterizedHeaders" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/ParameterizedHeader"
+              }
+            }
+          },
+          "parent" : {
+            "$ref" : "#/components/schemas/MultiPart"
+          },
+          "providers" : {
+            "type" : "object"
+          }
+        }
+      },
+      "ContentDisposition" : {
+        "type" : "object",
+        "properties" : {
+          "creationDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "fileName" : {
+            "type" : "string"
+          },
+          "modificationDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "parameters" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "readDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "size" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "type" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Context" : {
+        "type" : "object",
+        "description" : "Represents the context for building URLs related to Polarion services",
+        "properties" : {
+          "baseUrl" : {
+            "type" : "string",
+            "description" : "Returns the base URL constructed with the extension context",
+            "example" : "/polarion/pdf-exporter"
+          },
+          "extensionContext" : {
+            "type" : "string",
+            "description" : "The extension context used as a base for URL construction",
+            "example" : "pdf-exporter"
+          },
+          "restUrl" : {
+            "type" : "string",
+            "description" : "Returns the REST API URL constructed with the extension context",
+            "example" : "/polarion/pdf-exporter/rest"
+          },
+          "swaggerUiUrl" : {
+            "type" : "string",
+            "description" : "Returns the Swagger UI URL for the REST API"
+          }
+        }
+      },
+      "Feature" : {
+        "type" : "object",
+        "description" : "Represents a feature, including project and work item details, as well as feature content",
+        "properties" : {
+          "content" : {
+            "type" : "string",
+            "description" : "The content of the feature"
+          },
+          "filename" : {
+            "type" : "string",
+            "description" : "The name of the file containing the feature"
+          },
+          "projectId" : {
+            "type" : "string",
+            "description" : "The ID of the project associated with the feature"
+          },
+          "title" : {
+            "type" : "string",
+            "description" : "The title of the feature"
+          },
+          "workItemId" : {
+            "type" : "string",
+            "description" : "The ID of the work item linked to the feature"
+          }
+        }
+      },
+      "FieldDefinition" : {
+        "type" : "object",
+        "properties" : {
+          "clauseNames" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "custom" : {
+            "type" : "boolean"
+          },
+          "id" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "schema" : {
+            "$ref" : "#/components/schemas/Schema"
+          }
+        }
+      },
+      "FormDataBodyPart" : {
+        "type" : "object",
+        "properties" : {
+          "contentDisposition" : {
+            "$ref" : "#/components/schemas/ContentDisposition"
+          },
+          "entity" : {
+            "type" : "object"
+          },
+          "formDataContentDisposition" : {
+            "$ref" : "#/components/schemas/FormDataContentDisposition"
+          },
+          "headers" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          },
+          "mediaType" : {
+            "type" : "object",
+            "properties" : {
+              "parameters" : {
+                "type" : "object",
+                "additionalProperties" : {
+                  "type" : "string"
+                }
+              },
+              "subtype" : {
+                "type" : "string"
+              },
+              "type" : {
+                "type" : "string"
+              },
+              "wildcardSubtype" : {
+                "type" : "boolean"
+              },
+              "wildcardType" : {
+                "type" : "boolean"
+              }
+            }
+          },
+          "messageBodyWorkers" : {
+            "$ref" : "#/components/schemas/MessageBodyWorkers"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "parameterizedHeaders" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/ParameterizedHeader"
+              }
+            }
+          },
+          "parent" : {
+            "$ref" : "#/components/schemas/MultiPart"
+          },
+          "providers" : {
+            "type" : "object"
+          },
+          "simple" : {
+            "type" : "boolean"
+          },
+          "value" : {
+            "type" : "string"
+          }
+        }
+      },
+      "FormDataContentDisposition" : {
+        "type" : "object",
+        "properties" : {
+          "creationDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "fileName" : {
+            "type" : "string"
+          },
+          "modificationDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "parameters" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "readDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "size" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "type" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ImportExecutionResponse" : {
+        "type" : "object",
+        "description" : "Represents the response after importing a test execution, containing the test execution issue details",
+        "properties" : {
+          "testExecIssue" : {
+            "$ref" : "#/components/schemas/TestExecIssue"
+          }
+        }
+      },
+      "MessageBodyWorkers" : {
+        "type" : "object"
+      },
+      "MultiPart" : {
+        "type" : "object",
+        "properties" : {
+          "bodyParts" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/BodyPart"
+            }
+          },
+          "contentDisposition" : {
+            "$ref" : "#/components/schemas/ContentDisposition"
+          },
+          "entity" : {
+            "type" : "object"
+          },
+          "headers" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          },
+          "mediaType" : {
+            "type" : "object",
+            "properties" : {
+              "parameters" : {
+                "type" : "object",
+                "additionalProperties" : {
+                  "type" : "string"
+                }
+              },
+              "subtype" : {
+                "type" : "string"
+              },
+              "type" : {
+                "type" : "string"
+              },
+              "wildcardSubtype" : {
+                "type" : "boolean"
+              },
+              "wildcardType" : {
+                "type" : "boolean"
+              }
+            }
+          },
+          "messageBodyWorkers" : {
+            "$ref" : "#/components/schemas/MessageBodyWorkers"
+          },
+          "parameterizedHeaders" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/ParameterizedHeader"
+              }
+            }
+          },
+          "parent" : {
+            "$ref" : "#/components/schemas/MultiPart"
+          },
+          "providers" : {
+            "type" : "object"
+          }
+        }
+      },
+      "ParameterizedHeader" : {
+        "type" : "object",
+        "properties" : {
+          "parameters" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "value" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Revision" : {
+        "type" : "object",
+        "description" : "Revision details",
+        "properties" : {
+          "author" : {
+            "type" : "string",
+            "description" : "The author of the revision"
+          },
+          "baseline" : {
+            "type" : "string",
+            "description" : "The baseline of the revision"
+          },
+          "date" : {
+            "type" : "string",
+            "description" : "The date of the revision"
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "The description of the revision"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "The name of the revision"
+          }
+        }
+      },
+      "Schema" : {
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          }
+        }
+      },
+      "SettingName" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "description" : "The name of the setting"
+          },
+          "scope" : {
+            "type" : "string",
+            "description" : "The scope of the setting"
+          }
+        }
+      },
+      "SettingsModel" : {
+        "type" : "object",
+        "description" : "Settings model",
+        "properties" : {
+          "bundleTimestamp" : {
+            "type" : "string",
+            "description" : "The bundle timestamp of the setting"
+          }
+        }
+      },
+      "TestExecIssue" : {
+        "type" : "object",
+        "description" : "Represents a test execution issue",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "The unique identifier of the test execution issue"
+          },
+          "key" : {
+            "type" : "string",
+            "description" : "The key of the test execution issue"
+          },
+          "self" : {
+            "type" : "string",
+            "description" : "The self URL of the test execution issue"
+          }
+        }
+      },
+      "Version" : {
+        "type" : "object",
+        "description" : "Details about the software version",
+        "properties" : {
+          "automaticModuleName" : {
+            "type" : "string",
+            "description" : "The automatic module name"
+          },
+          "bundleBuildTimestamp" : {
+            "type" : "string",
+            "description" : "The build timestamp of the bundle"
+          },
+          "bundleName" : {
+            "type" : "string",
+            "description" : "The name of the bundle"
+          },
+          "bundleVendor" : {
+            "type" : "string",
+            "description" : "The vendor of the bundle"
+          },
+          "bundleVersion" : {
+            "type" : "string",
+            "description" : "The version of the bundle"
+          },
+          "projectURL" : {
+            "type" : "string",
+            "description" : "The project URL"
+          },
+          "supportEmail" : {
+            "type" : "string",
+            "description" : "Support email for the bundle"
+          }
+        }
+      }
+    }
+  }
+}
