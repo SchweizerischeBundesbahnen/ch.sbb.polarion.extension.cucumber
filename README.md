@@ -173,3 +173,6 @@ By default, Test Run's UI doesn't display its description (as a custom field). T
       ```
     - click 'Save'
     - Now 'Team-SBB' field would appear on detail page if the field was sent by maven-plugin
+
+## REST API
+This extension provides REST API. OpenAPI Specification can be obtained [here](docs/openapi.json).

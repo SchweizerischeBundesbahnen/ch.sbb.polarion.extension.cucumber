@@ -12,6 +12,15 @@
                   projectGroupScope="false"
                   repositoryScope="true"/>
 
+        <extender id="user-guide"
+                  name="User Guide"
+                  parentNodeId="cucumber"
+                  iconUrl="/polarion/cucumber-admin/ui/images/menu/16x16/user_guide.svg"
+                  pageUrl="/polarion/cucumber-admin/pages/user-guide.jsp?scope=$scope$"
+                  projectScope="true"
+                  projectGroupScope="false"
+                  repositoryScope="true"/>
+
         <extender id="rest-api"
                   name="REST API"
                   parentNodeId="cucumber"
