@@ -22,7 +22,7 @@ The extension allows teams to:
 
 ## How to use
 
-After installing and configuring the extension, it becomes possible to manage Cucumber (Gherkin) test cases in Polarion.
+After the extension has been installed and configured, Cucumber (Gherkin) test cases can be managed within Polarion.
 
 ### Create tests
 
@@ -31,7 +31,7 @@ There is a dedicated editor for creating and editing Cucumber (Gherkin) test cas
 ![Component UI](docs/user_guide/img/component_ui.png)
 
 This editor allows creation, editing, and validation of test case formats.
-It also provides a primitive syntax highlighting and auto-completion for Gherkin keywords.
+It also provides a basic syntax highlighting and auto-completion for Gherkin keywords.
 
 ![Scenario Example](docs/user_guide/img/scenario_example.png)
 
