@@ -48,7 +48,7 @@
 
         <web.app.name>${maven-jar-plugin.Extension-Context}</web.app.name>
 
-        <cucumber-gherkin.version>32.1.0</cucumber-gherkin.version>
+        <cucumber-gherkin.version>32.1.1</cucumber-gherkin.version>
 
         <markdown2html-maven-plugin.version>1.6.0</markdown2html-maven-plugin.version>
         <!--suppress UnresolvedMavenProperty -->
