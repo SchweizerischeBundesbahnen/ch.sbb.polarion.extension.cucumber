@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static ch.sbb.polarion.extension.cucumber.helper.PolarionTestRun.FAILED_STATUS;
-import static ch.sbb.polarion.extension.cucumber.helper.PolarionTestRun.PASSED_STATUS;
+import static ch.sbb.polarion.extension.cucumber.helper.PolarionTestRunStatus.FAILED;
+import static ch.sbb.polarion.extension.cucumber.helper.PolarionTestRunStatus.PASSED;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,15 +29,15 @@ class ExecutionRecordTest {
         Assertions.assertThat(goodRecords).hasSize(3);
         assertThat(goodRecords.get(2).getDuration()).isEqualTo(3.333f);
         assertThat(goodRecords.stream().map(ExecutionRecord::getStatus))
-                .containsOnly(PASSED_STATUS);
+                .containsOnly(PASSED.getId());
         assertThat(goodRecords.stream().map(ExecutionRecord::getTestCaseTitle))
                 .containsExactly("testCase1", "testCase2", "testCase3");
 
         List<ExecutionRecord> someFailedRecords = ExecutionRecord.fromJUnitReport(loadJunitSuite("someFailed.xml"));
         assertThat(someFailedRecords.stream()
                 .map(ExecutionRecord::getStatus)
-                .collect(Collectors.toList()))
-                .isEqualTo(List.of(PASSED_STATUS, FAILED_STATUS, FAILED_STATUS, FAILED_STATUS));
+                .toList())
+                .isEqualTo(List.of(PASSED.getId(), FAILED.getId(), FAILED.getId(), FAILED.getId()));
     }
 
     @Test
@@ -46,7 +46,7 @@ class ExecutionRecordTest {
         Assertions.assertThat(goodRecords).hasSize(6);
         assertThat(goodRecords.get(0).getDuration()).isEqualTo(0.012877f);
         assertThat(goodRecords.stream().map(ExecutionRecord::getStatus))
-                .containsOnly(PASSED_STATUS);
+                .containsOnly(PASSED.getId());
         assertThat(goodRecords.stream().flatMap(r -> r.getTestCaseIds().stream()))
                 .containsExactly("EL-1", "EL-2", "EL-3", "EL-4", "EL-21", "EL-22");
 
@@ -57,10 +57,10 @@ class ExecutionRecordTest {
                 .containsExactly("EL-222", "EL-333");
         assertThat(Stream.of(someFailedRecords.get(0), someFailedRecords.get(1))
                 .map(ExecutionRecord::getStatus))
-                .containsOnly(PASSED_STATUS);
+                .containsOnly(PASSED.getId());
         assertThat(Stream.of(someFailedRecords.get(2), someFailedRecords.get(3))
                 .map(ExecutionRecord::getStatus))
-                .containsOnly(FAILED_STATUS);
+                .containsOnly(FAILED.getId());
         assertThat(Stream.of(someFailedRecords.get(2), someFailedRecords.get(3))
                 .map(ExecutionRecord::getComment))
                 .containsOnly(Text.plain("single failed message"), Text.plain("failed message" + System.lineSeparator() + "passed message"));

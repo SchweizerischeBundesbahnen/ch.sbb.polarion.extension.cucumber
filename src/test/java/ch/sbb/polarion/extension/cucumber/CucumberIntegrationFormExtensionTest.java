@@ -63,7 +63,7 @@ class CucumberIntegrationFormExtensionTest {
 
         var attachment = mock(IAttachmentBase.class);
         when(attachment.getFileName()).thenReturn("id.feature");
-        when(attachment.getDataStream()).thenAnswer((arg) -> new ByteArrayInputStream("test".getBytes()));
+        when(attachment.getDataStream()).thenAnswer(arg -> new ByteArrayInputStream("test".getBytes()));
 
         var attachment2 = mock(ICategory.class);
 

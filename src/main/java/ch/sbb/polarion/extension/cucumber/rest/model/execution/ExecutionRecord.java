@@ -1,6 +1,5 @@
 package ch.sbb.polarion.extension.cucumber.rest.model.execution;
 
-import ch.sbb.polarion.extension.cucumber.helper.PolarionTestRun;
 import ch.sbb.polarion.extension.cucumber.rest.model.execution.cucumber.CucumberExecutionResult;
 import ch.sbb.polarion.extension.cucumber.rest.model.execution.cucumber.Element;
 import ch.sbb.polarion.extension.cucumber.rest.model.execution.cucumber.Tag;
@@ -19,6 +18,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static ch.sbb.polarion.extension.cucumber.helper.PolarionTestRunStatus.FAILED;
+import static ch.sbb.polarion.extension.cucumber.helper.PolarionTestRunStatus.PASSED;
 
 @Getter
 public class ExecutionRecord {
@@ -137,14 +139,14 @@ public class ExecutionRecord {
 
     @NotNull
     private static String getCombinedStatus(String backgroundStatus, String scenarioStatus) {
-        return PolarionTestRun.PASSED_STATUS.equals(backgroundStatus) && PolarionTestRun.PASSED_STATUS.equals(scenarioStatus) ? PolarionTestRun.PASSED_STATUS : PolarionTestRun.FAILED_STATUS;
+        return PASSED.getId().equals(backgroundStatus) && PASSED.getId().equals(scenarioStatus) ? PASSED.getId() : FAILED.getId();
     }
 
     @NotNull
     private static String getStatus(@NotNull Element backgroundElement) {
         return backgroundElement.getSteps().stream()
                 .map(step -> step.getResult().getStatus())
-                .reduce(PolarionTestRun.PASSED_STATUS, (a, b) -> a.equals(PolarionTestRun.PASSED_STATUS) && b.equals(PolarionTestRun.PASSED_STATUS) ? PolarionTestRun.PASSED_STATUS : PolarionTestRun.FAILED_STATUS);
+                .reduce(PASSED.getId(), (a, b) -> a.equals(PASSED.getId()) && b.equals(PASSED.getId()) ? PASSED.getId() : FAILED.getId());
     }
 
     private static @Nullable Text getTestRecordComment(@Nullable Element backgroundElement, @NotNull Element scenarioElement) {

@@ -29,13 +29,12 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import static ch.sbb.polarion.extension.cucumber.helper.PolarionTestRunStatus.FAILED;
+import static ch.sbb.polarion.extension.cucumber.helper.PolarionTestRunStatus.PASSED;
+
 @UtilityClass
 public class PolarionTestRun {
 
-    public static final String PASSED_STATUS = "passed";
-    public static final int PASSED_STATUS_NUMBER = 3;
-    public static final String FAILED_STATUS = "failed";
-    public static final int FAILED_STATUS_NUMBER = 2;
     public static final String TYPE_REQUIRES_SIGNATURE = "requiresSignatureForTestCaseExecution";
     private static final String TIMESTAMP_PATTERN = "yyyyMMdd-HHmmssSSS";
 
@@ -144,11 +143,11 @@ public class PolarionTestRun {
         if (!testRun.getAllRecords().isEmpty()) {
             String status = testRun.getAllRecords().stream()
                     .map(testRecord -> testRecord.getResult().getId())
-                    .reduce(PASSED_STATUS, (a, b) -> a.equals(PASSED_STATUS) && b.equals(PASSED_STATUS) ? PASSED_STATUS : FAILED_STATUS);
-            if (status.equals(PASSED_STATUS)) {
-                return new StatusOpt(new EnumOption("testing/testrun-status", PASSED_STATUS, "Passed", PASSED_STATUS_NUMBER, false));
+                    .reduce(PASSED.getId(), (a, b) -> a.equals(PASSED.getId()) && b.equals(PASSED.getId()) ? PASSED.getId() : FAILED.getId());
+            if (status.equals(PASSED.getId())) {
+                return new StatusOpt(new EnumOption("testing/testrun-status", PASSED.getId(), "Passed", PASSED.getNumber(), false));
             } else {
-                return new StatusOpt(new EnumOption("testing/testrun-status", FAILED_STATUS, "Failed", FAILED_STATUS_NUMBER, false));
+                return new StatusOpt(new EnumOption("testing/testrun-status", FAILED.getId(), "Failed", FAILED.getNumber(), false));
             }
         }
         return null;

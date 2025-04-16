@@ -89,7 +89,7 @@ class PolarionTestRunTest {
     private PolarionService polarionService;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         polarionService = mock(PolarionService.class);
         lenient().when(polarionService.getTrackerService()).thenReturn(trackerService);
     }
@@ -121,7 +121,6 @@ class PolarionTestRunTest {
     void shouldGetTestRunUsingDifferentMethods() {
         // Arrange
         prepareMockedData(TEST_TEMPLATE, true);
-        //lenient().when(trackerService.findWorkItem(anyString(), anyString())).thenReturn(null);
         when(trackerService.queryWorkItems(anyString(), anyString())).thenReturn(new PObjectList(mock(IDataService.class), List.of()));
         List<ExecutionRecord> executionResults = buildJUnitResults();
         List<ITestRun> testRuns = PolarionTestRun.createTestRuns(polarionService, testManagementService, prepareCucumberExecutionInfo(), executionResults);

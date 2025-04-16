@@ -101,13 +101,13 @@ class PolarionWorkItemTest {
 
     @Test
     void createOrUpdateFeatureWihUnresolvableWorkItem() {
-        Feature created = new Feature(testProjectId, testWi, title, filename, fileContent);
+        Feature createdFeature = new Feature(testProjectId, testWi, title, filename, fileContent);
 
         when(trackerService.findWorkItem(testProjectId, testWi)).thenReturn(workItem);
         when(workItem.isUnresolvable()).thenReturn(true);
 
         assertThatThrownBy(() ->
-                PolarionWorkItem.createOrUpdateFeature(trackerService, created))
+                PolarionWorkItem.createOrUpdateFeature(trackerService, createdFeature))
                 .isInstanceOf(NotFoundException.class)
                 .hasMessageContaining(String.format("WorkItem '%s/%s' not found!", testProjectId, testWi));
     }
