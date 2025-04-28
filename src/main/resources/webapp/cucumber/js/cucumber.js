@@ -1,14 +1,28 @@
-function handleSaveFeature(projectId, workItemId, filename, validate) {
-    if (validate === "false") {
-        saveCucumberFeature(projectId, workItemId, filename);
+import ExtensionContext from "/polarion/pdf-exporter/ui/generic/js/modules/ExtensionContext.js";
+import CodeEditor from './petrel/CodeEditor.js'
+import GherkinAutoComplete from './petrel/GherkinAutoComplete.js'
+
+import hljs from './highlight/core.min.js'
+import gherkin from './highlight/gherkin.js'
+
+const ctx = new ExtensionContext({
+    extension: 'cucumber',
+    rootComponentSelector: '#cucumber-edit-panel',
+});
+
+hljs.registerLanguage('gherkin', gherkin);
+
+function handleSaveFeature() {
+    if (this.dataset.validate === "false") {
+        saveCucumberFeature(this.dataset.projectId, this.dataset.workItemId, this.dataset.filename);
     } else {
-        validateFeature().then(() => saveCucumberFeature(projectId, workItemId, filename));
+        validateFeature().then(() => saveCucumberFeature(this.dataset.projectId, this.dataset.workItemId, this.dataset.filename));
     }
 }
 
 function saveCucumberFeature(projectId, workItemId, filename) {
-    document.getElementById("cancel-edit-feature-button").disabled = 'true';
-    document.getElementById("save-feature-button").disabled = 'true';
+    ctx.getElementById("cancel-edit-feature-button").disabled = 'true';
+    ctx.getElementById("save-feature-button").disabled = 'true';
     globalThis.cucumberFeatureCodeEditor.readonly = true;
 
     var xhr = new XMLHttpRequest();
@@ -28,18 +42,6 @@ function saveCucumberFeature(projectId, workItemId, filename) {
     ));
 }
 
-const handleEditFeature = () => {
-    document.getElementById("edit-feature-button").disabled = true;
-    document.getElementById("cancel-edit-feature-button").disabled = false;
-    document.getElementById("save-feature-button").disabled = false;
-    document.getElementById("validate-feature-button").disabled = false;
-    globalThis.cucumberFeatureCodeEditor.readonly = false;
-}
-
-const handleValidateFeature = () => {
-    return validateFeature();
-}
-
 const validateFeature = () => {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
@@ -47,7 +49,7 @@ const validateFeature = () => {
         xhr.setRequestHeader('Content-Type', 'text/plain');
         xhr.onload = () => {
             let result = false;
-            const validationResultSpan = document.getElementById("feature-validation-result");
+            const validationResultSpan = ctx.getElementById("feature-validation-result");
             globalThis.cucumberFeatureCodeEditor.setLinesWithError([]);
             if (xhr.status === 200) {
                 const response = JSON.parse(xhr.responseText);
@@ -89,19 +91,25 @@ const validateFeature = () => {
     });
 }
 
-const handleCancelEditFeature = () => {
-    if (confirm("Are you sure you want to cancel editing and revert changes?")) {
-        document.getElementById("cancel-edit-feature-button").disabled = true;
-        document.getElementById("save-feature-button").disabled = true;
-        document.getElementById("edit-feature-button").disabled = false;
-        document.getElementById("validate-feature-button").disabled = true;
-        document.getElementById("feature-validation-result").style.display = "none";
-        globalThis.cucumberFeatureCodeEditor.readonly = true;
-        globalThis.cucumberFeatureCodeEditor.setValue(document.getElementById('cucumberFeatureCodeEditorOriginalContent').innerText);
-    }
+function initEditor() {
+    const content = ctx.getElementById('cucumberFeatureCodeEditorOriginalContent').innerText;
+
+    const element = ctx.getElementById('cucumberFeatureCodeEditor');
+    const codeEditor = new CodeEditor(element, {
+        readonly: true,
+        tabSize: 4
+    });
+
+    codeEditor.setHighlighter(code => hljs.highlight(code, {language: 'gherkin', ignoreIllegals: true}).value);
+    codeEditor.setAutoCompleteHandler(new GherkinAutoComplete());
+    codeEditor.setValue(content);
+    codeEditor.create();
+
+    // make it global
+    globalThis.cucumberFeatureCodeEditor = codeEditor;
 }
 
-(function () {
+function updateImages() {
     const imagesToUpdate = document.getElementsByClassName("append-build-number");
     if (imagesToUpdate && imagesToUpdate.length > 0) {
         const imagesWithBuildNumber = document.getElementsByClassName("polarion-ToolbarButton-Icon");
@@ -119,4 +127,32 @@ const handleCancelEditFeature = () => {
             }
         }
     }
-})();
+}
+
+export function initPanel() {
+    initEditor();
+    updateImages();
+
+    ctx.onClick(
+        'edit-feature-button', () => {
+            ctx.getElementById("edit-feature-button").disabled = true;
+            ctx.getElementById("cancel-edit-feature-button").disabled = false;
+            ctx.getElementById("save-feature-button").disabled = false;
+            ctx.getElementById("validate-feature-button").disabled = false;
+            globalThis.cucumberFeatureCodeEditor.readonly = false;
+        },
+        'validate-feature-button', () => validateFeature(),
+        'cancel-edit-feature-button', () => {
+            if (confirm("Are you sure you want to cancel editing and revert changes?")) {
+                ctx.getElementById("cancel-edit-feature-button").disabled = true;
+                ctx.getElementById("save-feature-button").disabled = true;
+                ctx.getElementById("edit-feature-button").disabled = false;
+                ctx.getElementById("validate-feature-button").disabled = true;
+                ctx.getElementById("feature-validation-result").style.display = "none";
+                globalThis.cucumberFeatureCodeEditor.readonly = true;
+                globalThis.cucumberFeatureCodeEditor.setValue(document.getElementById('cucumberFeatureCodeEditorOriginalContent').innerText);
+            }
+        },
+        'save-feature-button', handleSaveFeature
+    );
+}

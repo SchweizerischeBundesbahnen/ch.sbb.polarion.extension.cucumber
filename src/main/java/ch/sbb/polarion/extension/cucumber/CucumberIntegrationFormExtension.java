@@ -1,17 +1,27 @@
 package ch.sbb.polarion.extension.cucumber;
 
 import ch.sbb.polarion.extension.generic.util.ExtensionInfo;
+import com.polarion.alm.portal.web.shared.layouts.sections.ExtensionSection;
+import com.polarion.alm.portal.web.shared.layouts.sections.SourceLayout;
+import com.polarion.alm.portal.web.shared.layouts.sections.VerticalSection;
+import com.polarion.alm.server.ServerUiContext;
 import com.polarion.alm.shared.api.SharedContext;
+import com.polarion.alm.shared.api.model.document.Document;
 import com.polarion.alm.shared.api.transaction.TransactionalExecutor;
 import com.polarion.alm.shared.api.utils.html.HtmlFragmentBuilder;
 import com.polarion.alm.shared.api.utils.links.HtmlLinkFactory;
 import com.polarion.alm.tracker.model.IAttachmentBase;
 import com.polarion.alm.tracker.model.IWorkItem;
+import com.polarion.alm.tracker.web.internal.server.LayoutDataHandler;
+import com.polarion.alm.tracker.web.internal.server.PDIConfigResolver;
 import com.polarion.alm.ui.server.forms.extensions.IFormExtension;
 import com.polarion.alm.ui.server.forms.extensions.IFormExtensionContext;
+import com.polarion.alm.ui.server.forms.extensions.impl.FormExtensionContextImpl;
 import com.polarion.core.util.logging.Logger;
 import com.polarion.platform.persistence.model.IPObject;
 import com.polarion.platform.persistence.model.IPObjectList;
+import lombok.SneakyThrows;
+import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.web.util.HtmlUtils;
@@ -20,7 +30,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @SuppressWarnings({"java:S1192", "unchecked"})
 public class CucumberIntegrationFormExtension implements IFormExtension {
@@ -50,7 +59,7 @@ public class CucumberIntegrationFormExtension implements IFormExtension {
     public String render(@NotNull IFormExtensionContext context) {
         boolean validateOnSave = Boolean.parseBoolean(context.attributes().getOrDefault("validateOnSave", "false"));
         return TransactionalExecutor.executeSafelyInReadOnlyTransaction(
-                transaction -> renderIntegrationTest(transaction.context(), context.object().getOldApi(), validateOnSave));
+                transaction -> renderIntegrationTest(context, transaction.context(), context.object().getOldApi(), validateOnSave));
     }
 
     @Override
@@ -65,12 +74,19 @@ public class CucumberIntegrationFormExtension implements IFormExtension {
         return "Cucumber Test";
     }
 
-    public String renderIntegrationTest(@NotNull SharedContext context, @NotNull IPObject object, boolean validateOnSave) {
+    public String renderIntegrationTest(@NotNull IFormExtensionContext formContext, @NotNull SharedContext context, @NotNull IPObject object, boolean validateOnSave) {
         HtmlFragmentBuilder builder = context.createHtmlFragmentBuilderFor().gwt();
 
         try {
             if (object instanceof IWorkItem workItem) {
                 if (object.isPersisted()) {
+
+                    // Extension may be rendered in the document's sidebar.
+                    // In this case we must check explicitly whether the extension was configured for a currently chosen workitem.
+                    if (shouldNotBeShown(formContext, context, workItem)) {
+                        return IOUtils.resourceToString("layout/not-configured.html", StandardCharsets.UTF_8, getClass().getClassLoader());
+                    }
+
                     IPObjectList<IPObject> attachments = workItem.getAttachments();
 
                     String content = getContent(workItem, attachments);
@@ -95,48 +111,28 @@ public class CucumberIntegrationFormExtension implements IFormExtension {
                 .src(HtmlLinkFactory.fromEncodedRelativeUrl(url));
     }
 
-    private void addCss(HtmlFragmentBuilder builder) {
-        builder.html("<link rel='stylesheet' href='/polarion/cucumber/ui/css/petrel.css?bundle=" + bundleTimestamp + "'>");
-        builder.html("<link rel='stylesheet' href='/polarion/cucumber/ui/css/highlightjs.css?bundle=" + bundleTimestamp + "'>");
-        builder.html("<link rel='stylesheet' href='/polarion/cucumber/ui/css/cucumber.css?bundle=" + bundleTimestamp + "'>");
-    }
-
+    @SneakyThrows
     private void displayContentInEditor(@NotNull HtmlFragmentBuilder builder, @NotNull IWorkItem workItem,
                                         @NotNull String content, boolean validateOnSave) {
-        addCss(builder);
-
-        String filename = workItem.getId() + ".feature";
-
-        builder.html(""
-                + "<div class='editor-buttons'>"
-                + "  <button type='button' id='edit-feature-button' onclick='handleEditFeature()'>"
-                + "    <img class='append-build-number' src='/polarion/ria/images/actions/edit.gif'></img>Edit"
-                + "  </button>"
-                + "  <button type='button' class='divider'>&nbsp;</button>"
-                + "  <button type='button' id='validate-feature-button' disabled onclick='handleValidateFeature()'>"
-                + "    <img class='append-build-number' src='/polarion/icons/default/enums/req_status_reviewed.gif'></img>Validate"
-                + "  </button>"
-                + "  <button type='button' id='save-feature-button' disabled margin-left:5px;' onclick=\"handleSaveFeature('"
-                + workItem.getProjectId() + "', '" + workItem.getId() + "', '" + filename + "', '" + validateOnSave + "')\">"
-                + "    <img class='append-build-number'src='/polarion/ria/images/actions/save.gif'></img>Save"
-                + "  </button>"
-                + "  <button type='button' id='cancel-edit-feature-button' disabled onclick='handleCancelEditFeature()'>"
-                + "    <img class='append-build-number' src='/polarion/ria/images/actions/cancel.gif'></img>Cancel"
-                + "  </button>"
-                + "</div>"
-                + "<div style='margin-bottom: .5em;'>"
-                + "  <span id='feature-validation-result'></span>"
-                + "</div>"
+        String formContent = IOUtils.resourceToString("layout/form.html", StandardCharsets.UTF_8, getClass().getClassLoader());
+        builder.html(formContent
+                .replace("{BUNDLE}", bundleTimestamp)
+                .replace("{PROJECT_ID}", workItem.getProjectId())
+                .replace("{WORK_ITEM_ID}", workItem.getId())
+                .replace("{FILENAME}", workItem.getId() + ".feature")
+                .replace("{VALIDATE}", String.valueOf(validateOnSave))
+                .replace("{CONTENT}", HtmlUtils.htmlEscape(content))
         );
+    }
 
-        builder.html(""
-                + "<div class='editor-wrapper'>"
-                + "  <div id='cucumberFeatureCodeEditor'></div>"
-                + "</div>"
-                + "<div id='cucumberFeatureCodeEditorOriginalContent' style='display: none;'>" + HtmlUtils.htmlEscape(content) + "</div>"
-                + "");
-
-        addSource(builder, "module", "/polarion/cucumber/ui/js/gherkin-editor.js?bundle=" + UUID.randomUUID());
-        addSource(builder, "text/javascript", "/polarion/cucumber/ui/js/cucumber.js?bundle=" + bundleTimestamp);
+    private boolean shouldNotBeShown(@NotNull IFormExtensionContext context, @NotNull SharedContext sharedContext, IWorkItem workItem) {
+        if (context instanceof FormExtensionContextImpl formExtensionContext && formExtensionContext.contextObject instanceof Document && sharedContext instanceof ServerUiContext serverUiContext) {
+            SourceLayout layout = (SourceLayout) PDIConfigResolver.resolveComplexConfig(
+                    serverUiContext.currentUiRole(), workItem.getType(), workItem.getContextId(), "form-layout.xml", new LayoutDataHandler());
+            if (layout.getRootSection() instanceof VerticalSection verticalSection) {
+                return verticalSection.getRows().stream().noneMatch(s -> s instanceof ExtensionSection es && es.getExtenstionId().equals(ID));
+            }
+        }
+        return false;
     }
 }

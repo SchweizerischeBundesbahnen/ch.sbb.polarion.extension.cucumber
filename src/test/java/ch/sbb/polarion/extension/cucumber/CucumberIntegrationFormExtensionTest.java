@@ -7,6 +7,7 @@ import com.polarion.alm.shared.api.utils.html.HtmlFragmentBuilder;
 import com.polarion.alm.tracker.model.IAttachmentBase;
 import com.polarion.alm.tracker.model.ICategory;
 import com.polarion.alm.tracker.model.IWorkItem;
+import com.polarion.alm.ui.server.forms.extensions.IFormExtensionContext;
 import com.polarion.platform.persistence.model.IPObject;
 import com.polarion.platform.persistence.spi.PObjectList;
 import org.junit.jupiter.api.Test;
@@ -20,8 +21,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Stream;
 
 import static com.polarion.platform.persistence.model.IPObjectList.EMPTY_POBJECTLIST;
@@ -37,6 +38,8 @@ class CucumberIntegrationFormExtensionTest {
     @Mock
     private IWorkItem iWorkItem;
 
+    @Mock
+    private IFormExtensionContext formContext;
     @Mock
     private SharedContext context;
     @Mock
@@ -76,10 +79,10 @@ class CucumberIntegrationFormExtensionTest {
         when(attachment4.getDataStream()).thenReturn(new ByteArrayInputStream("test4".getBytes()));
 
         return Stream.of(
-                Arguments.of(object, new PObjectList(null, Arrays.asList(attachment)), "test"),
-                Arguments.of(object, new PObjectList(null, Arrays.asList(attachment, attachment2)), "test"),
-                Arguments.of(object, new PObjectList(null, Arrays.asList(attachment, attachment2, attachment3)), "test"),
-                Arguments.of(object, new PObjectList(null, Arrays.asList(attachment, attachment4)), "test4")
+                Arguments.of(object, new PObjectList(null, List.of(attachment)), "test"),
+                Arguments.of(object, new PObjectList(null, List.of(attachment, attachment2)), "test"),
+                Arguments.of(object, new PObjectList(null, List.of(attachment, attachment2, attachment3)), "test"),
+                Arguments.of(object, new PObjectList(null, List.of(attachment, attachment4)), "test4")
         );
     }
 
@@ -100,7 +103,7 @@ class CucumberIntegrationFormExtensionTest {
     @ParameterizedTest
     @MethodSource("testValuesForRenderIntegrationTestIsPersistedIssue")
     void renderIntegrationTestIsPersistedIssue(Boolean isPersisted, IPObject object) {
-        when(extension.renderIntegrationTest(context, object, true)).thenCallRealMethod();
+        when(extension.renderIntegrationTest(formContext, context, object, true)).thenCallRealMethod();
 
         when(context.createHtmlFragmentBuilderFor()).thenReturn(builder);
         when(builder.gwt()).thenReturn(htmlFragmentBuilder);
@@ -111,7 +114,7 @@ class CucumberIntegrationFormExtensionTest {
 
         when(object.isPersisted()).thenReturn(isPersisted);
 
-        assertThat(extension.renderIntegrationTest(context, object, true)).isEqualTo(builderText);
+        assertThat(extension.renderIntegrationTest(formContext, context, object, true)).isEqualTo(builderText);
 
         verify(extension, times(0)).addSource(eq(htmlFragmentBuilder), eq("text/javascript"), anyString());
         verify(htmlFragmentBuilder, times(0)).html(anyString());
@@ -122,7 +125,7 @@ class CucumberIntegrationFormExtensionTest {
     void renderIntegrationTestWithProjectAsWorkItem() throws IOException {
         var object = mock(IWorkItem.class);
 
-        when(extension.renderIntegrationTest(context, object, true)).thenCallRealMethod();
+        when(extension.renderIntegrationTest(formContext, context, object, true)).thenCallRealMethod();
 
         when(extension.getContent(object, EMPTY_POBJECTLIST)).thenCallRealMethod();
 
@@ -135,7 +138,7 @@ class CucumberIntegrationFormExtensionTest {
         when(object.isPersisted()).thenReturn(true);
         when(object.getAttachments()).thenReturn(EMPTY_POBJECTLIST);
 
-        assertThat(extension.renderIntegrationTest(context, object, true)).isEqualTo(builderText);
+        assertThat(extension.renderIntegrationTest(formContext, context, object, true)).isEqualTo(builderText);
 
         verify(extension, times(1)).addSource(eq(htmlFragmentBuilder), eq("text/javascript"), anyString());
         verify(extension, times(1)).addSource(eq(htmlFragmentBuilder), eq("module"), anyString());
