@@ -10,6 +10,7 @@ import com.polarion.alm.tracker.model.IWorkItem;
 import com.polarion.alm.ui.server.forms.extensions.IFormExtensionContext;
 import com.polarion.platform.persistence.model.IPObject;
 import com.polarion.platform.persistence.spi.PObjectList;
+import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,6 +18,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Answers;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.ByteArrayInputStream;
@@ -116,7 +118,6 @@ class CucumberIntegrationFormExtensionTest {
 
         assertThat(extension.renderIntegrationTest(formContext, context, object, true)).isEqualTo(builderText);
 
-        verify(extension, times(0)).addSource(eq(htmlFragmentBuilder), eq("text/javascript"), anyString());
         verify(htmlFragmentBuilder, times(0)).html(anyString());
         verify(htmlFragmentBuilder, times(1)).finished();
     }
@@ -135,14 +136,18 @@ class CucumberIntegrationFormExtensionTest {
         String builderText = "text";
         when(htmlFragmentBuilder.toString()).thenReturn(builderText);
 
+        when(object.getId()).thenReturn("WI-1");
+        when(object.getProjectId()).thenReturn("TestProjectId");
         when(object.isPersisted()).thenReturn(true);
         when(object.getAttachments()).thenReturn(EMPTY_POBJECTLIST);
 
-        assertThat(extension.renderIntegrationTest(formContext, context, object, true)).isEqualTo(builderText);
+        try (MockedStatic<IOUtils> utils = mockStatic(IOUtils.class)) {
+            utils.when(() -> IOUtils.resourceToString(eq("layout/form.html"), any(), any()))
+                    .thenReturn("{BUNDLE},{PROJECT_ID},{WORK_ITEM_ID},{FILENAME},{VALIDATE},{CONTENT}");
+            assertThat(extension.renderIntegrationTest(formContext, context, object, true)).isEqualTo(builderText);
+        }
 
-        verify(extension, times(1)).addSource(eq(htmlFragmentBuilder), eq("text/javascript"), anyString());
-        verify(extension, times(1)).addSource(eq(htmlFragmentBuilder), eq("module"), anyString());
-        verify(htmlFragmentBuilder, times(5)).html(anyString());
+        verify(htmlFragmentBuilder, times(1)).html(",TestProjectId,WI-1,WI-1.feature,true,");
         verify(htmlFragmentBuilder, times(1)).finished();
     }
 

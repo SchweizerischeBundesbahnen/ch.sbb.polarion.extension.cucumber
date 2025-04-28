@@ -9,7 +9,6 @@ import com.polarion.alm.shared.api.SharedContext;
 import com.polarion.alm.shared.api.model.document.Document;
 import com.polarion.alm.shared.api.transaction.TransactionalExecutor;
 import com.polarion.alm.shared.api.utils.html.HtmlFragmentBuilder;
-import com.polarion.alm.shared.api.utils.links.HtmlLinkFactory;
 import com.polarion.alm.tracker.model.IAttachmentBase;
 import com.polarion.alm.tracker.model.IWorkItem;
 import com.polarion.alm.tracker.web.internal.server.LayoutDataHandler;
@@ -17,10 +16,10 @@ import com.polarion.alm.tracker.web.internal.server.PDIConfigResolver;
 import com.polarion.alm.ui.server.forms.extensions.IFormExtension;
 import com.polarion.alm.ui.server.forms.extensions.IFormExtensionContext;
 import com.polarion.alm.ui.server.forms.extensions.impl.FormExtensionContextImpl;
+import com.polarion.core.util.StringUtils;
 import com.polarion.core.util.logging.Logger;
 import com.polarion.platform.persistence.model.IPObject;
 import com.polarion.platform.persistence.model.IPObjectList;
-import lombok.SneakyThrows;
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -90,8 +89,15 @@ public class CucumberIntegrationFormExtension implements IFormExtension {
                     IPObjectList<IPObject> attachments = workItem.getAttachments();
 
                     String content = getContent(workItem, attachments);
-
-                    displayContentInEditor(builder, workItem, content, validateOnSave);
+                    String formContent = IOUtils.resourceToString("layout/form.html", StandardCharsets.UTF_8, getClass().getClassLoader());
+                    builder.html(formContent
+                            .replace("{BUNDLE}", StringUtils.getEmptyIfNull(bundleTimestamp))
+                            .replace("{PROJECT_ID}", workItem.getProjectId())
+                            .replace("{WORK_ITEM_ID}", workItem.getId())
+                            .replace("{FILENAME}", workItem.getId() + ".feature")
+                            .replace("{VALIDATE}", String.valueOf(validateOnSave))
+                            .replace("{CONTENT}", HtmlUtils.htmlEscape(content))
+                    );
                 } else {
                     builder.tag().div().append().text("Cucumber editor will be available after Work Item created.");
                 }
@@ -104,25 +110,6 @@ public class CucumberIntegrationFormExtension implements IFormExtension {
 
         builder.finished();
         return builder.toString();
-    }
-
-    public void addSource(HtmlFragmentBuilder builder, String type, String url) {
-        builder.tag().script().attributes().type(type)
-                .src(HtmlLinkFactory.fromEncodedRelativeUrl(url));
-    }
-
-    @SneakyThrows
-    private void displayContentInEditor(@NotNull HtmlFragmentBuilder builder, @NotNull IWorkItem workItem,
-                                        @NotNull String content, boolean validateOnSave) {
-        String formContent = IOUtils.resourceToString("layout/form.html", StandardCharsets.UTF_8, getClass().getClassLoader());
-        builder.html(formContent
-                .replace("{BUNDLE}", bundleTimestamp)
-                .replace("{PROJECT_ID}", workItem.getProjectId())
-                .replace("{WORK_ITEM_ID}", workItem.getId())
-                .replace("{FILENAME}", workItem.getId() + ".feature")
-                .replace("{VALIDATE}", String.valueOf(validateOnSave))
-                .replace("{CONTENT}", HtmlUtils.htmlEscape(content))
-        );
     }
 
     private boolean shouldNotBeShown(@NotNull IFormExtensionContext context, @NotNull SharedContext sharedContext, IWorkItem workItem) {
