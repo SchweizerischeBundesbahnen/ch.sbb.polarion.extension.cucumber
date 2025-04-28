@@ -113,7 +113,7 @@ class CucumberIntegrationFormExtensionTest {
     }
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         transactionalExecutor = mockStatic(TransactionalExecutor.class);
         transactionalExecutor.when(() -> TransactionalExecutor.executeSafelyInReadOnlyTransaction(any())).thenAnswer(invocation -> {
             RunnableInReadOnlyTransaction runnable = invocation.getArgument(0);
