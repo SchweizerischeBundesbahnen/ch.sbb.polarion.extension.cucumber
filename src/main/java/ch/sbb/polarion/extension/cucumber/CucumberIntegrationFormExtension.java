@@ -1,31 +1,49 @@
 package ch.sbb.polarion.extension.cucumber;
 
 import ch.sbb.polarion.extension.generic.util.ExtensionInfo;
+import com.polarion.alm.portal.web.shared.layouts.sections.ExtensionSection;
+import com.polarion.alm.portal.web.shared.layouts.sections.SourceLayout;
+import com.polarion.alm.portal.web.shared.layouts.sections.VerticalSection;
+import com.polarion.alm.server.ServerUiContext;
 import com.polarion.alm.shared.api.SharedContext;
+import com.polarion.alm.shared.api.model.document.Document;
 import com.polarion.alm.shared.api.transaction.TransactionalExecutor;
-import com.polarion.alm.shared.api.utils.html.HtmlFragmentBuilder;
-import com.polarion.alm.shared.api.utils.links.HtmlLinkFactory;
 import com.polarion.alm.tracker.model.IAttachmentBase;
 import com.polarion.alm.tracker.model.IWorkItem;
+import com.polarion.alm.tracker.web.internal.server.LayoutDataHandler;
+import com.polarion.alm.tracker.web.internal.server.PDIConfigResolver;
 import com.polarion.alm.ui.server.forms.extensions.IFormExtension;
 import com.polarion.alm.ui.server.forms.extensions.IFormExtensionContext;
+import com.polarion.alm.ui.server.forms.extensions.impl.FormExtensionContextImpl;
+import com.polarion.core.util.StringUtils;
 import com.polarion.core.util.logging.Logger;
 import com.polarion.platform.persistence.model.IPObject;
 import com.polarion.platform.persistence.model.IPObjectList;
+import lombok.SneakyThrows;
+import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.VisibleForTesting;
 import org.springframework.web.util.HtmlUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @SuppressWarnings({"java:S1192", "unchecked"})
 public class CucumberIntegrationFormExtension implements IFormExtension {
 
     public static final String ID = "cucumber";
+
+    private static final String REPLACE_PARAM_MESSAGE = "{MESSAGE}";
+    private static final String REPLACE_PARAM_BUNDLE = "{BUNDLE}";
+    private static final String REPLACE_PARAM_PROJECT_ID = "{PROJECT_ID}";
+    private static final String REPLACE_PARAM_WORK_ITEM_ID = "{WORK_ITEM_ID}";
+    private static final String REPLACE_PARAM_FILENAME = "{FILENAME}";
+    private static final String REPLACE_PARAM_VALIDATE = "{VALIDATE}";
+    private static final String REPLACE_PARAM_CONTENT = "{CONTENT}";
+
     private static final Logger logger = Logger.getLogger(CucumberIntegrationFormExtension.class);
     private final String bundleTimestamp = ExtensionInfo.getInstance().getVersion().getBundleBuildTimestampDigitsOnly();
 
@@ -50,7 +68,7 @@ public class CucumberIntegrationFormExtension implements IFormExtension {
     public String render(@NotNull IFormExtensionContext context) {
         boolean validateOnSave = Boolean.parseBoolean(context.attributes().getOrDefault("validateOnSave", "false"));
         return TransactionalExecutor.executeSafelyInReadOnlyTransaction(
-                transaction -> renderIntegrationTest(transaction.context(), context.object().getOldApi(), validateOnSave));
+                transaction -> renderIntegrationTest(context, transaction.context(), context.object().getOldApi(), validateOnSave));
     }
 
     @Override
@@ -65,78 +83,55 @@ public class CucumberIntegrationFormExtension implements IFormExtension {
         return "Cucumber Test";
     }
 
-    public String renderIntegrationTest(@NotNull SharedContext context, @NotNull IPObject object, boolean validateOnSave) {
-        HtmlFragmentBuilder builder = context.createHtmlFragmentBuilderFor().gwt();
-
+    public String renderIntegrationTest(@NotNull IFormExtensionContext formContext, @NotNull SharedContext context, @NotNull IPObject object, boolean validateOnSave) {
         try {
             if (object instanceof IWorkItem workItem) {
                 if (object.isPersisted()) {
-                    IPObjectList<IPObject> attachments = workItem.getAttachments();
 
-                    String content = getContent(workItem, attachments);
+                    // Extension may be rendered in the document's sidebar.
+                    // In this case we must check explicitly whether the extension was configured for a currently chosen workitem.
+                    if (shouldNotBeShown(formContext, context, workItem)) {
+                        return loadLayout("info.html", Map.of(REPLACE_PARAM_MESSAGE, "Extension isn't configured for the current work item type."));
+                    }
 
-                    displayContentInEditor(builder, workItem, content, validateOnSave);
+                    String content = getContent(workItem, workItem.getAttachments());
+                    return loadLayout("form.html", Map.of(
+                            REPLACE_PARAM_BUNDLE, StringUtils.getEmptyIfNull(bundleTimestamp),
+                            REPLACE_PARAM_PROJECT_ID, workItem.getProjectId(),
+                            REPLACE_PARAM_WORK_ITEM_ID, workItem.getId(),
+                            REPLACE_PARAM_FILENAME, workItem.getId() + ".feature",
+                            REPLACE_PARAM_VALIDATE, String.valueOf(validateOnSave),
+                            REPLACE_PARAM_CONTENT, HtmlUtils.htmlEscape(content)
+                    ));
                 } else {
-                    builder.tag().div().append().text("Cucumber editor will be available after Work Item created.");
+                    return loadLayout("info.html", Map.of(REPLACE_PARAM_MESSAGE, "Cucumber editor will be available after Work Item created."));
                 }
             }
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-
-            builder.tag().div().append().tag().b().append().text("Unknown error - see server log for more information.");
+            return loadLayout("error.html", Map.of(REPLACE_PARAM_MESSAGE, "Unknown error - see server log for more information."));
         }
-
-        builder.finished();
-        return builder.toString();
+        return "";
     }
 
-    public void addSource(HtmlFragmentBuilder builder, String type, String url) {
-        builder.tag().script().attributes().type(type)
-                .src(HtmlLinkFactory.fromEncodedRelativeUrl(url));
+    @SneakyThrows
+    @VisibleForTesting
+    String loadLayout(String layoutFileName, Map<String, String> stringMapToReplace) {
+        String layoutContent = IOUtils.resourceToString("layout/" + layoutFileName, StandardCharsets.UTF_8, getClass().getClassLoader());
+        for (Map.Entry<String, String> entryToReplace : stringMapToReplace.entrySet()) {
+            layoutContent = layoutContent.replace(entryToReplace.getKey(), entryToReplace.getValue());
+        }
+        return layoutContent;
     }
 
-    private void addCss(HtmlFragmentBuilder builder) {
-        builder.html("<link rel='stylesheet' href='/polarion/cucumber/ui/css/petrel.css?bundle=" + bundleTimestamp + "'>");
-        builder.html("<link rel='stylesheet' href='/polarion/cucumber/ui/css/highlightjs.css?bundle=" + bundleTimestamp + "'>");
-        builder.html("<link rel='stylesheet' href='/polarion/cucumber/ui/css/cucumber.css?bundle=" + bundleTimestamp + "'>");
-    }
-
-    private void displayContentInEditor(@NotNull HtmlFragmentBuilder builder, @NotNull IWorkItem workItem,
-                                        @NotNull String content, boolean validateOnSave) {
-        addCss(builder);
-
-        String filename = workItem.getId() + ".feature";
-
-        builder.html(""
-                + "<div class='editor-buttons'>"
-                + "  <button type='button' id='edit-feature-button' onclick='handleEditFeature()'>"
-                + "    <img class='append-build-number' src='/polarion/ria/images/actions/edit.gif'></img>Edit"
-                + "  </button>"
-                + "  <button type='button' class='divider'>&nbsp;</button>"
-                + "  <button type='button' id='validate-feature-button' disabled onclick='handleValidateFeature()'>"
-                + "    <img class='append-build-number' src='/polarion/icons/default/enums/req_status_reviewed.gif'></img>Validate"
-                + "  </button>"
-                + "  <button type='button' id='save-feature-button' disabled margin-left:5px;' onclick=\"handleSaveFeature('"
-                + workItem.getProjectId() + "', '" + workItem.getId() + "', '" + filename + "', '" + validateOnSave + "')\">"
-                + "    <img class='append-build-number'src='/polarion/ria/images/actions/save.gif'></img>Save"
-                + "  </button>"
-                + "  <button type='button' id='cancel-edit-feature-button' disabled onclick='handleCancelEditFeature()'>"
-                + "    <img class='append-build-number' src='/polarion/ria/images/actions/cancel.gif'></img>Cancel"
-                + "  </button>"
-                + "</div>"
-                + "<div style='margin-bottom: .5em;'>"
-                + "  <span id='feature-validation-result'></span>"
-                + "</div>"
-        );
-
-        builder.html(""
-                + "<div class='editor-wrapper'>"
-                + "  <div id='cucumberFeatureCodeEditor'></div>"
-                + "</div>"
-                + "<div id='cucumberFeatureCodeEditorOriginalContent' style='display: none;'>" + HtmlUtils.htmlEscape(content) + "</div>"
-                + "");
-
-        addSource(builder, "module", "/polarion/cucumber/ui/js/gherkin-editor.js?bundle=" + UUID.randomUUID());
-        addSource(builder, "text/javascript", "/polarion/cucumber/ui/js/cucumber.js?bundle=" + bundleTimestamp);
+    private boolean shouldNotBeShown(@NotNull IFormExtensionContext context, @NotNull SharedContext sharedContext, IWorkItem workItem) {
+        if (context instanceof FormExtensionContextImpl formExtensionContext && formExtensionContext.contextObject instanceof Document && sharedContext instanceof ServerUiContext serverUiContext) {
+            SourceLayout layout = (SourceLayout) PDIConfigResolver.resolveComplexConfig(
+                    serverUiContext.currentUiRole(), workItem.getType(), workItem.getContextId(), "form-layout.xml", new LayoutDataHandler());
+            if (layout.getRootSection() instanceof VerticalSection verticalSection) {
+                return verticalSection.getRows().stream().noneMatch(s -> s instanceof ExtensionSection es && es.getExtenstionId().equals(ID));
+            }
+        }
+        return false;
     }
 }
