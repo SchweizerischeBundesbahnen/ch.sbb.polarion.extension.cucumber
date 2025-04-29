@@ -70,6 +70,19 @@ Changes only take effect after restart of Polarion.
    ```
 8. Save changes by clicking 💾 Save
 
+### Cucumber feature editor to appear on the Live Doc sidebar
+
+1. Open a project which the Live Doc sidebar should display the editor
+2. On the top of the project's navigation pane click ⚙ (Actions) ➙ 🔧 Administration. Project's administration page will be opened.
+3. On the administration's navigation pane select Documents & Pages ➙ Work Item Properties Sidebar.
+4. In the opened Edit Project Configuration editor insert the following line:
+   ```xml
+   …
+   <extension id="cucumber" label="Cucumber Test"/>
+   …
+   ```
+5. Save changes by clicking 💾 Save
+
 ### Test Run's description to appear on UI
 
 By default, Test Run's UI doesn't display its description (as a custom field). To enable displaying description following needs to be done:
