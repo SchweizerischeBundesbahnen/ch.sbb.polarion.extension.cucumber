@@ -12,8 +12,6 @@ import com.polarion.alm.shared.api.model.document.Document;
 import com.polarion.alm.shared.api.transaction.ReadOnlyTransaction;
 import com.polarion.alm.shared.api.transaction.RunnableInReadOnlyTransaction;
 import com.polarion.alm.shared.api.transaction.TransactionalExecutor;
-import com.polarion.alm.shared.api.utils.html.HtmlBuilderTargetSelector;
-import com.polarion.alm.shared.api.utils.html.HtmlFragmentBuilder;
 import com.polarion.alm.tracker.model.IAttachmentBase;
 import com.polarion.alm.tracker.model.ICategory;
 import com.polarion.alm.tracker.model.ITypeOpt;
@@ -32,7 +30,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -47,6 +44,7 @@ import java.util.stream.Stream;
 
 import static com.polarion.platform.persistence.model.IPObjectList.EMPTY_POBJECTLIST;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith({MockitoExtension.class, PlatformContextMockExtension.class})
@@ -60,10 +58,6 @@ class CucumberIntegrationFormExtensionTest {
     private IFormExtensionContext formContext;
     @Mock
     private SharedContext context;
-    @Mock
-    private HtmlBuilderTargetSelector<HtmlFragmentBuilder> builder;
-    @Mock(answer = Answers.RETURNS_DEEP_STUBS)
-    private HtmlFragmentBuilder htmlFragmentBuilder;
     @Mock
     private ReadOnlyTransaction transaction;
     @Mock
@@ -79,9 +73,9 @@ class CucumberIntegrationFormExtensionTest {
         var iProject = mock(IProject.class);
 
         return Stream.of(
-                Arguments.of(false, workItem),
-                Arguments.of(true, iProject),
-                Arguments.of(false, iProject)
+                Arguments.of(false, workItem, "Cucumber editor will be available after Work Item created."),
+                Arguments.of(true, iProject, ""),
+                Arguments.of(false, iProject, "")
         );
     }
 
@@ -122,12 +116,14 @@ class CucumberIntegrationFormExtensionTest {
         ioUtils = mockStatic(IOUtils.class);
         ioUtils.when(() -> IOUtils.resourceToString(eq("layout/form.html"), any(), any()))
                 .thenReturn("{BUNDLE},{PROJECT_ID},{WORK_ITEM_ID},{FILENAME},{VALIDATE},{CONTENT}");
-        ioUtils.when(() -> IOUtils.resourceToString(eq("layout/not-configured.html"), any(), any()))
-                .thenReturn("Not configured");
+        ioUtils.when(() -> IOUtils.resourceToString(eq("layout/info.html"), any(), any())).thenReturn("{MESSAGE}");
+        ioUtils.when(() -> IOUtils.resourceToString(eq("layout/error.html"), any(), any())).thenReturn("{MESSAGE}");
 
         configResolver = mockStatic(PDIConfigResolver.class);
         configResolver.when(() -> PDIConfigResolver.resolveComplexConfig(anyString(), any(), any(), any(), any()))
                 .thenReturn(layout);
+
+        lenient().when(extension.loadLayout(anyString(), any())).thenCallRealMethod();
     }
 
     @AfterEach
@@ -153,22 +149,12 @@ class CucumberIntegrationFormExtensionTest {
 
     @ParameterizedTest
     @MethodSource("testValuesForRenderIntegrationTestIsPersistedIssue")
-    void renderIntegrationTestIsPersistedIssue(Boolean isPersisted, IPObject object) {
+    void renderIntegrationTestIsPersistedIssue(Boolean isPersisted, IPObject object, String expectedResult) {
         when(extension.renderIntegrationTest(formContext, context, object, true)).thenCallRealMethod();
-
-        when(context.createHtmlFragmentBuilderFor()).thenReturn(builder);
-        when(builder.gwt()).thenReturn(htmlFragmentBuilder);
-
-        String builderText = "text";
-        when(htmlFragmentBuilder.toString()).thenReturn(builderText);
-        when(htmlFragmentBuilder.tag().div().append().tag().b().append().text(anyString())).thenReturn(htmlFragmentBuilder);
 
         when(object.isPersisted()).thenReturn(isPersisted);
 
-        assertThat(extension.renderIntegrationTest(formContext, context, object, true)).isEqualTo(builderText);
-
-        verify(htmlFragmentBuilder, times(0)).html(anyString());
-        verify(htmlFragmentBuilder, times(1)).finished();
+        assertThat(extension.renderIntegrationTest(formContext, context, object, true)).isEqualTo(expectedResult);
     }
 
     @Test
@@ -179,21 +165,12 @@ class CucumberIntegrationFormExtensionTest {
 
         when(extension.getContent(object, EMPTY_POBJECTLIST)).thenCallRealMethod();
 
-        when(context.createHtmlFragmentBuilderFor()).thenReturn(builder);
-        when(builder.gwt()).thenReturn(htmlFragmentBuilder);
-
-        String builderText = "text";
-        when(htmlFragmentBuilder.toString()).thenReturn(builderText);
-
         when(object.getId()).thenReturn("WI-1");
         when(object.getProjectId()).thenReturn("TestProjectId");
         when(object.isPersisted()).thenReturn(true);
         when(object.getAttachments()).thenReturn(EMPTY_POBJECTLIST);
 
-        assertThat(extension.renderIntegrationTest(formContext, context, object, true)).isEqualTo(builderText);
-
-        verify(htmlFragmentBuilder, times(1)).html(",TestProjectId,WI-1,WI-1.feature,true,");
-        verify(htmlFragmentBuilder, times(1)).finished();
+        assertEquals(",TestProjectId,WI-1,WI-1.feature,true,", extension.renderIntegrationTest(formContext, context, object, true));
     }
 
     @Test
@@ -221,17 +198,13 @@ class CucumberIntegrationFormExtensionTest {
 
         when(verticalSection.getRows()).thenReturn(new ArrayList<>(List.of()));
 
-        assertThat(extension.renderIntegrationTest(formContextImpl, sharedContext, object, true)).isEqualTo("Not configured");
+        assertEquals("Extension isn't configured for the current work item type.", extension.renderIntegrationTest(formContextImpl, sharedContext, object, true));
 
         ExtensionSection section = mock(ExtensionSection.class);
         when(section.getExtenstionId()).thenReturn("cucumber");
         when(verticalSection.getRows()).thenReturn(new ArrayList<>(List.of(section)));
 
-        when(sharedContext.createHtmlFragmentBuilderFor()).thenReturn(builder);
-        when(builder.gwt()).thenReturn(htmlFragmentBuilder);
-
-        extension.renderIntegrationTest(formContextImpl, sharedContext, object, true);
-        verify(htmlFragmentBuilder, times(1)).html(",TestProjectId,WI-1,WI-1.feature,true,");
+        assertEquals(",TestProjectId,WI-1,WI-1.feature,true,", extension.renderIntegrationTest(formContextImpl, sharedContext, object, true));
     }
 
     @Test

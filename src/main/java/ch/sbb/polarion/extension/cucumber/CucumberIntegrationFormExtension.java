@@ -8,7 +8,6 @@ import com.polarion.alm.server.ServerUiContext;
 import com.polarion.alm.shared.api.SharedContext;
 import com.polarion.alm.shared.api.model.document.Document;
 import com.polarion.alm.shared.api.transaction.TransactionalExecutor;
-import com.polarion.alm.shared.api.utils.html.HtmlFragmentBuilder;
 import com.polarion.alm.tracker.model.IAttachmentBase;
 import com.polarion.alm.tracker.model.IWorkItem;
 import com.polarion.alm.tracker.web.internal.server.LayoutDataHandler;
@@ -20,9 +19,11 @@ import com.polarion.core.util.StringUtils;
 import com.polarion.core.util.logging.Logger;
 import com.polarion.platform.persistence.model.IPObject;
 import com.polarion.platform.persistence.model.IPObjectList;
+import lombok.SneakyThrows;
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.VisibleForTesting;
 import org.springframework.web.util.HtmlUtils;
 
 import java.io.IOException;
@@ -34,6 +35,15 @@ import java.util.Map;
 public class CucumberIntegrationFormExtension implements IFormExtension {
 
     public static final String ID = "cucumber";
+
+    private static final String REPLACE_PARAM_MESSAGE = "{MESSAGE}";
+    private static final String REPLACE_PARAM_BUNDLE = "{BUNDLE}";
+    private static final String REPLACE_PARAM_PROJECT_ID = "{PROJECT_ID}";
+    private static final String REPLACE_PARAM_WORK_ITEM_ID = "{WORK_ITEM_ID}";
+    private static final String REPLACE_PARAM_FILENAME = "{FILENAME}";
+    private static final String REPLACE_PARAM_VALIDATE = "{VALIDATE}";
+    private static final String REPLACE_PARAM_CONTENT = "{CONTENT}";
+
     private static final Logger logger = Logger.getLogger(CucumberIntegrationFormExtension.class);
     private final String bundleTimestamp = ExtensionInfo.getInstance().getVersion().getBundleBuildTimestampDigitsOnly();
 
@@ -74,8 +84,6 @@ public class CucumberIntegrationFormExtension implements IFormExtension {
     }
 
     public String renderIntegrationTest(@NotNull IFormExtensionContext formContext, @NotNull SharedContext context, @NotNull IPObject object, boolean validateOnSave) {
-        HtmlFragmentBuilder builder = context.createHtmlFragmentBuilderFor().gwt();
-
         try {
             if (object instanceof IWorkItem workItem) {
                 if (object.isPersisted()) {
@@ -83,33 +91,37 @@ public class CucumberIntegrationFormExtension implements IFormExtension {
                     // Extension may be rendered in the document's sidebar.
                     // In this case we must check explicitly whether the extension was configured for a currently chosen workitem.
                     if (shouldNotBeShown(formContext, context, workItem)) {
-                        return IOUtils.resourceToString("layout/not-configured.html", StandardCharsets.UTF_8, getClass().getClassLoader());
+                        return loadLayout("info.html", Map.of(REPLACE_PARAM_MESSAGE, "Extension isn't configured for the current work item type."));
                     }
 
-                    IPObjectList<IPObject> attachments = workItem.getAttachments();
-
-                    String content = getContent(workItem, attachments);
-                    String formContent = IOUtils.resourceToString("layout/form.html", StandardCharsets.UTF_8, getClass().getClassLoader());
-                    builder.html(formContent
-                            .replace("{BUNDLE}", StringUtils.getEmptyIfNull(bundleTimestamp))
-                            .replace("{PROJECT_ID}", workItem.getProjectId())
-                            .replace("{WORK_ITEM_ID}", workItem.getId())
-                            .replace("{FILENAME}", workItem.getId() + ".feature")
-                            .replace("{VALIDATE}", String.valueOf(validateOnSave))
-                            .replace("{CONTENT}", HtmlUtils.htmlEscape(content))
-                    );
+                    String content = getContent(workItem, workItem.getAttachments());
+                    return loadLayout("form.html", Map.of(
+                            REPLACE_PARAM_BUNDLE, StringUtils.getEmptyIfNull(bundleTimestamp),
+                            REPLACE_PARAM_PROJECT_ID, workItem.getProjectId(),
+                            REPLACE_PARAM_WORK_ITEM_ID, workItem.getId(),
+                            REPLACE_PARAM_FILENAME, workItem.getId() + ".feature",
+                            REPLACE_PARAM_VALIDATE, String.valueOf(validateOnSave),
+                            REPLACE_PARAM_CONTENT, HtmlUtils.htmlEscape(content)
+                    ));
                 } else {
-                    builder.tag().div().append().text("Cucumber editor will be available after Work Item created.");
+                    return loadLayout("info.html", Map.of(REPLACE_PARAM_MESSAGE, "Cucumber editor will be available after Work Item created."));
                 }
             }
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-
-            builder.tag().div().append().tag().b().append().text("Unknown error - see server log for more information.");
+            return loadLayout("error.html", Map.of(REPLACE_PARAM_MESSAGE, "Unknown error - see server log for more information."));
         }
+        return "";
+    }
 
-        builder.finished();
-        return builder.toString();
+    @SneakyThrows
+    @VisibleForTesting
+    String loadLayout(String layoutFileName, Map<String, String> stringMapToReplace) {
+        String layoutContent = IOUtils.resourceToString("layout/" + layoutFileName, StandardCharsets.UTF_8, getClass().getClassLoader());
+        for (Map.Entry<String, String> entryToReplace : stringMapToReplace.entrySet()) {
+            layoutContent = layoutContent.replace(entryToReplace.getKey(), entryToReplace.getValue());
+        }
+        return layoutContent;
     }
 
     private boolean shouldNotBeShown(@NotNull IFormExtensionContext context, @NotNull SharedContext sharedContext, IWorkItem workItem) {
