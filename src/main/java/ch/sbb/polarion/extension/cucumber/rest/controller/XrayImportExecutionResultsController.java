@@ -14,7 +14,7 @@ import com.polarion.alm.tracker.ITestManagementService;
 import com.polarion.alm.tracker.model.ITestRun;
 import com.polarion.core.util.StringUtils;
 import com.polarion.core.util.logging.Logger;
-import com.polarion.platform.core.PlatformContext;
+import com.polarion.portal.internal.server.navigation.TestManagementServiceAccessor;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -56,7 +56,7 @@ public class XrayImportExecutionResultsController {
     private UriInfo uriInfo;
 
     public XrayImportExecutionResultsController() {
-        this(new PolarionService(), PlatformContext.getPlatform().lookupService(ITestManagementService.class));
+        this(new PolarionService(), new TestManagementServiceAccessor().getTestingService());
     }
 
     public XrayImportExecutionResultsController(PolarionService polarionService, ITestManagementService testManagementService) {
