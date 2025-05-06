@@ -8,7 +8,6 @@ import ch.sbb.polarion.extension.generic.service.PolarionService;
 import com.polarion.alm.projects.model.IProject;
 import com.polarion.alm.shared.api.transaction.TransactionalExecutor;
 import com.polarion.alm.tracker.model.ITestRun;
-import com.polarion.platform.guice.internal.GuicePlatform;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -44,7 +43,6 @@ public class JiraRestApiController {
 
     public JiraRestApiController(PolarionService polarionService) {
         this.polarionService = polarionService;
-        GuicePlatform.getGlobalInjector().injectMembers(this);
     }
 
     @GET
