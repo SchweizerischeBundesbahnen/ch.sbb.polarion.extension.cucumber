@@ -3,13 +3,11 @@ package ch.sbb.polarion.extension.cucumber.rest.controller;
 import ch.sbb.polarion.extension.cucumber.rest.model.fields.FieldDefinition;
 import ch.sbb.polarion.extension.generic.fields.model.FieldMetadata;
 import ch.sbb.polarion.extension.generic.service.PolarionService;
-import com.google.inject.Injector;
 import com.polarion.alm.projects.model.IProject;
 import com.polarion.alm.shared.api.transaction.ReadOnlyTransaction;
 import com.polarion.alm.shared.api.transaction.RunnableInReadOnlyTransaction;
 import com.polarion.alm.shared.api.transaction.TransactionalExecutor;
 import com.polarion.core.util.types.Text;
-import com.polarion.platform.guice.internal.GuicePlatform;
 import com.polarion.subterra.base.data.identification.IContextId;
 import com.polarion.subterra.base.data.model.internal.PrimitiveType;
 import org.junit.jupiter.api.Test;
@@ -27,15 +25,14 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-@SuppressWarnings({"unchecked", "rawtypes", "ResultOfMethodCallIgnored"})
+@SuppressWarnings({"unchecked", "rawtypes"})
 class JiraRestApiControllerTest {
 
     @Test
     void testExceptionOnEmptyProject() {
-        try (MockedStatic<TransactionalExecutor> mockedExecutor = mockStatic(TransactionalExecutor.class);
-             MockedStatic<GuicePlatform> guicePlatform = mockStatic(GuicePlatform.class)) {
+        try (MockedStatic<TransactionalExecutor> mockedExecutor = mockStatic(TransactionalExecutor.class)) {
 
-            PolarionService polarionService = mockCommonThings(mockedExecutor, guicePlatform);
+            PolarionService polarionService = mockCommonThings(mockedExecutor);
             JiraRestApiController controller = new JiraRestApiController(polarionService);
             BadRequestException thrown = assertThrows(BadRequestException.class, () ->
                     controller.field(null)
@@ -50,10 +47,9 @@ class JiraRestApiControllerTest {
 
     @Test
     void testField() {
-        try (MockedStatic<TransactionalExecutor> mockedExecutor = mockStatic(TransactionalExecutor.class);
-             MockedStatic<GuicePlatform> guicePlatform = mockStatic(GuicePlatform.class)) {
+        try (MockedStatic<TransactionalExecutor> mockedExecutor = mockStatic(TransactionalExecutor.class)) {
 
-            PolarionService polarionService = mockCommonThings(mockedExecutor, guicePlatform);
+            PolarionService polarionService = mockCommonThings(mockedExecutor);
             IProject project = mock(IProject.class);
             when(project.getContextId()).thenReturn(mock(IContextId.class));
             when(polarionService.getProject(anyString())).thenReturn(project);
@@ -69,14 +65,12 @@ class JiraRestApiControllerTest {
         }
     }
 
-    private PolarionService mockCommonThings(MockedStatic<TransactionalExecutor> mockedExecutor, MockedStatic<GuicePlatform> guicePlatform) {
+    private PolarionService mockCommonThings(MockedStatic<TransactionalExecutor> mockedExecutor) {
         mockedExecutor.when(() -> TransactionalExecutor.executeInReadOnlyTransaction(any(RunnableInReadOnlyTransaction.class)))
                 .thenAnswer(invocation -> {
                     RunnableInReadOnlyTransaction transaction = invocation.getArgument(0);
                     return transaction.run(mock(ReadOnlyTransaction.class));
                 });
-
-        guicePlatform.when(GuicePlatform::getGlobalInjector).thenReturn(mock(Injector.class));
 
         PolarionService polarionService = mock(PolarionService.class);
         lenient().when(polarionService.callPrivileged(any(Callable.class))).thenAnswer(invocation -> {

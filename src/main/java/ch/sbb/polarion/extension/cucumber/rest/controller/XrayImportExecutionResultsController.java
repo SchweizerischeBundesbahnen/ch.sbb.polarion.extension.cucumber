@@ -9,13 +9,12 @@ import ch.sbb.polarion.extension.cucumber.rest.model.execution.cucumber.Cucumber
 import ch.sbb.polarion.extension.cucumber.rest.model.execution.junit.TestSuite;
 import ch.sbb.polarion.extension.generic.rest.filter.Secured;
 import ch.sbb.polarion.extension.generic.service.PolarionService;
-import com.google.inject.Inject;
 import com.polarion.alm.shared.api.transaction.TransactionalExecutor;
 import com.polarion.alm.tracker.ITestManagementService;
 import com.polarion.alm.tracker.model.ITestRun;
 import com.polarion.core.util.StringUtils;
 import com.polarion.core.util.logging.Logger;
-import com.polarion.platform.guice.internal.GuicePlatform;
+import com.polarion.portal.internal.server.navigation.TestManagementServiceAccessor;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -51,18 +50,18 @@ public class XrayImportExecutionResultsController {
 
     private final PolarionService polarionService;
 
-    private ITestManagementService testManagementService;
+    private final ITestManagementService testManagementService;
 
     @Context
     private UriInfo uriInfo;
 
     public XrayImportExecutionResultsController() {
-        this(new PolarionService());
+        this(new PolarionService(), new TestManagementServiceAccessor().getTestingService());
     }
 
-    public XrayImportExecutionResultsController(PolarionService polarionService) {
+    public XrayImportExecutionResultsController(PolarionService polarionService, ITestManagementService testManagementService) {
         this.polarionService = polarionService;
-        GuicePlatform.getGlobalInjector().injectMembers(this);
+        this.testManagementService = testManagementService;
     }
 
     @POST
@@ -200,8 +199,4 @@ public class XrayImportExecutionResultsController {
         return this;
     }
 
-    @Inject
-    public void setTestManagementService(ITestManagementService testManagementService) {
-        this.testManagementService = testManagementService;
-    }
 }
