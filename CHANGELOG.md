@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.1.0](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/compare/v2.0.0...v2.1.0) (2025-05-10)
+
+
+### Features
+
+* display extension in the document sidebar ([#43](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/issues/43)) ([7986094](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/7986094f95ea711679bccc3944b5d24cb33a0e45)), closes [#42](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/issues/42)
+
+
+### Bug Fixes
+
+* extension registration using bundle activator ([#45](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/issues/45)) ([2063efb](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/2063efbf32a7f25e5645102dbb5c23a8faf49179))
+
 ## [2.0.0](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/compare/v1.5.0...v2.0.0) (2025-04-16)
 
 
