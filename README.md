@@ -19,7 +19,7 @@ It provides the almost same functionality as Xray plugin for Jira:
 
 > [!IMPORTANT]
 > Starting from version 2.0.0 only latest version of Polarion is supported.
-> Right now it is Polarion 2410.
+> Right now it is Polarion 2506.
 
 ## Quick start
 

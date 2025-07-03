@@ -54,10 +54,9 @@ class JiraRestApiControllerTest {
             when(project.getContextId()).thenReturn(mock(IContextId.class));
             when(polarionService.getProject(anyString())).thenReturn(project);
             when(polarionService.getCustomFields(anyString(), any(IContextId.class), isNull())).thenReturn(Set.of(
-                    new FieldMetadata("id1", "label1", new PrimitiveType(Text.class.getName(), null), true, true, false, Set.of()),
-                    new FieldMetadata("id2", "label2", new PrimitiveType(Text.class.getName(), null), true, true, false, Set.of())
+                    new FieldMetadata("id1", "label1", new PrimitiveType(Text.class.getName(), null), true, true, false, false, Set.of()),
+                    new FieldMetadata("id2", "label2", new PrimitiveType(Text.class.getName(), null), true, true, false, false, Set.of())
             ));
-
             List<FieldDefinition> fields = new JiraRestApiController(polarionService).field("projId");
             assertEquals(4, fields.size());
             assertTrue(fields.stream().map(FieldDefinition::getId).toList().containsAll(List.of("id1", "id2", "title", "description")));
