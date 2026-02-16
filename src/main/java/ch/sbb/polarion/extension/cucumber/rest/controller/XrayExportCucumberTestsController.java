@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.inject.Singleton;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
@@ -34,6 +35,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipOutputStream;
 
+@Singleton
 @Tag(name = "Export")
 @Secured
 @Path("/raven/1.0/export")
