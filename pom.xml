@@ -5,7 +5,7 @@
     <parent>
         <groupId>ch.sbb.polarion.extensions</groupId>
         <artifactId>ch.sbb.polarion.extension.generic</artifactId>
-        <version>14.0.0</version>
+        <version>14.1.0</version>
     </parent>
 
     <artifactId>ch.sbb.polarion.extension.cucumber</artifactId>
@@ -47,6 +47,7 @@
         <maven-jar-plugin.Extension-Context>cucumber</maven-jar-plugin.Extension-Context>
 
         <web.app.name>${maven-jar-plugin.Extension-Context}</web.app.name>
+
 
         <cucumber-gherkin.version>37.0.1</cucumber-gherkin.version>
 
