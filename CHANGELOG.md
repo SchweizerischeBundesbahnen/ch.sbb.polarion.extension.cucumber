@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.0.2](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/compare/v4.0.1...v4.0.2) (2026-04-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v14.1.1 ([343d422](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/343d422deeb0533888531208cdd0f1024aff5252))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v14.1.2 ([cd32243](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/cd32243ac899ab20cbc385c0be3a296997ffd4dc))
+
 ## [4.0.1](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/compare/v4.0.0...v4.0.1) (2026-02-19)
 
 
