@@ -189,7 +189,7 @@ class CucumberIntegrationFormExtensionTest {
         when(object.getAttachments()).thenReturn(EMPTY_POBJECTLIST);
 
         FormExtensionContextImpl formContextImpl = mock(FormExtensionContextImpl.class, RETURNS_DEEP_STUBS);
-        formContextImpl.contextObject = mock(Document.class, RETURNS_DEEP_STUBS);
+        when(formContextImpl.contextObject()).thenReturn(mock(Document.class, RETURNS_DEEP_STUBS));
         ServerUiContext sharedContext = mock(ServerUiContext.class, RETURNS_DEEP_STUBS);
 
         when(sharedContext.currentUiRole()).thenReturn("someRole");

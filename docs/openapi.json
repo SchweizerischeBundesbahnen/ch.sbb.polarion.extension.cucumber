@@ -365,30 +365,15 @@
               },
               "type": "array"
             },
-            "type": "object"
-          },
-          "mediaType": {
             "properties": {
-              "parameters": {
-                "additionalProperties": {
-                  "type": "string"
-                },
-                "type": "object"
-              },
-              "subtype": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "wildcardSubtype": {
-                "type": "boolean"
-              },
-              "wildcardType": {
+              "empty": {
                 "type": "boolean"
               }
             },
             "type": "object"
+          },
+          "mediaType": {
+            "$ref": "#/components/schemas/MediaType"
           },
           "messageBodyWorkers": {
             "$ref": "#/components/schemas/MessageBodyWorkers"
@@ -400,13 +385,18 @@
               },
               "type": "array"
             },
+            "properties": {
+              "empty": {
+                "type": "boolean"
+              }
+            },
             "type": "object"
           },
           "parent": {
             "$ref": "#/components/schemas/MultiPart"
           },
           "providers": {
-            "type": "object"
+            "$ref": "#/components/schemas/Providers"
           }
         },
         "type": "object"
@@ -517,11 +507,17 @@
       },
       "FormDataBodyPart": {
         "properties": {
+          "content": {
+            "type": "object"
+          },
           "contentDisposition": {
             "$ref": "#/components/schemas/ContentDisposition"
           },
           "entity": {
             "type": "object"
+          },
+          "fileName": {
+            "type": "string"
           },
           "formDataContentDisposition": {
             "$ref": "#/components/schemas/FormDataContentDisposition"
@@ -533,30 +529,15 @@
               },
               "type": "array"
             },
-            "type": "object"
-          },
-          "mediaType": {
             "properties": {
-              "parameters": {
-                "additionalProperties": {
-                  "type": "string"
-                },
-                "type": "object"
-              },
-              "subtype": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "wildcardSubtype": {
-                "type": "boolean"
-              },
-              "wildcardType": {
+              "empty": {
                 "type": "boolean"
               }
             },
             "type": "object"
+          },
+          "mediaType": {
+            "$ref": "#/components/schemas/MediaType"
           },
           "messageBodyWorkers": {
             "$ref": "#/components/schemas/MessageBodyWorkers"
@@ -571,13 +552,18 @@
               },
               "type": "array"
             },
+            "properties": {
+              "empty": {
+                "type": "boolean"
+              }
+            },
             "type": "object"
           },
           "parent": {
             "$ref": "#/components/schemas/MultiPart"
           },
           "providers": {
-            "type": "object"
+            "$ref": "#/components/schemas/Providers"
           },
           "simple": {
             "type": "boolean"
@@ -633,6 +619,29 @@
         },
         "type": "object"
       },
+      "MediaType": {
+        "properties": {
+          "parameters": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          },
+          "subtype": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "wildcardSubtype": {
+            "type": "boolean"
+          },
+          "wildcardType": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
       "MessageBodyWorkers": {
         "type": "object"
       },
@@ -657,30 +666,15 @@
               },
               "type": "array"
             },
-            "type": "object"
-          },
-          "mediaType": {
             "properties": {
-              "parameters": {
-                "additionalProperties": {
-                  "type": "string"
-                },
-                "type": "object"
-              },
-              "subtype": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "wildcardSubtype": {
-                "type": "boolean"
-              },
-              "wildcardType": {
+              "empty": {
                 "type": "boolean"
               }
             },
             "type": "object"
+          },
+          "mediaType": {
+            "$ref": "#/components/schemas/MediaType"
           },
           "messageBodyWorkers": {
             "$ref": "#/components/schemas/MessageBodyWorkers"
@@ -692,13 +686,46 @@
               },
               "type": "array"
             },
+            "properties": {
+              "empty": {
+                "type": "boolean"
+              }
+            },
             "type": "object"
           },
           "parent": {
             "$ref": "#/components/schemas/MultiPart"
           },
           "providers": {
-            "type": "object"
+            "$ref": "#/components/schemas/Providers"
+          }
+        },
+        "type": "object"
+      },
+      "MultivaluedMapStringParameterizedHeader": {
+        "additionalProperties": {
+          "items": {
+            "$ref": "#/components/schemas/ParameterizedHeader"
+          },
+          "type": "array"
+        },
+        "properties": {
+          "empty": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "MultivaluedMapStringString": {
+        "additionalProperties": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "properties": {
+          "empty": {
+            "type": "boolean"
           }
         },
         "type": "object"
@@ -715,6 +742,9 @@
             "type": "string"
           }
         },
+        "type": "object"
+      },
+      "Providers": {
         "type": "object"
       },
       "Schema": {

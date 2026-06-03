@@ -125,7 +125,7 @@ public class CucumberIntegrationFormExtension implements IFormExtension {
     }
 
     private boolean shouldNotBeShown(@NotNull IFormExtensionContext context, @NotNull SharedContext sharedContext, IWorkItem workItem) {
-        if (context instanceof FormExtensionContextImpl formExtensionContext && formExtensionContext.contextObject instanceof Document && sharedContext instanceof ServerUiContext serverUiContext) {
+        if (context instanceof FormExtensionContextImpl formExtensionContext && formExtensionContext.contextObject() instanceof Document && sharedContext instanceof ServerUiContext serverUiContext) {
             SourceLayout layout = (SourceLayout) PDIConfigResolver.resolveComplexConfig(
                     serverUiContext.currentUiRole(), workItem.getType(), workItem.getContextId(), "form-layout.xml", new LayoutDataHandler());
             if (layout.getRootSection() instanceof VerticalSection verticalSection) {
