@@ -248,6 +248,93 @@ class CucumberIntegrationFormExtensionTest {
     }
 
     @Test
+    void renderDocumentSidebarShownWhenContextObjectIsNotDocument() throws IOException {
+        var object = mock(IWorkItem.class);
+
+        when(extension.renderIntegrationTest(any(), any(), any(), anyBoolean())).thenCallRealMethod();
+        when(extension.getContent(object, EMPTY_POBJECTLIST)).thenCallRealMethod();
+
+        when(object.getId()).thenReturn("WI-1");
+        when(object.getProjectId()).thenReturn("TestProjectId");
+        when(object.isPersisted()).thenReturn(true);
+        when(object.getAttachments()).thenReturn(EMPTY_POBJECTLIST);
+
+        // context is a FormExtensionContextImpl, but its context object is not a Document -> shouldNotBeShown() == false
+        FormExtensionContextImpl formContextImpl = mock(FormExtensionContextImpl.class, RETURNS_DEEP_STUBS);
+        when(formContextImpl.contextObject()).thenReturn(mock(ModelObject.class, RETURNS_DEEP_STUBS));
+
+        assertEquals(",TestProjectId,WI-1,WI-1.feature,true,",
+                extension.renderIntegrationTest(formContextImpl, context, object, true));
+    }
+
+    @Test
+    void renderDocumentSidebarShownWhenSharedContextIsNotServerUiContext() throws IOException {
+        var object = mock(IWorkItem.class);
+
+        when(extension.renderIntegrationTest(any(), any(), any(), anyBoolean())).thenCallRealMethod();
+        when(extension.getContent(object, EMPTY_POBJECTLIST)).thenCallRealMethod();
+
+        when(object.getId()).thenReturn("WI-1");
+        when(object.getProjectId()).thenReturn("TestProjectId");
+        when(object.isPersisted()).thenReturn(true);
+        when(object.getAttachments()).thenReturn(EMPTY_POBJECTLIST);
+
+        // FormExtensionContextImpl with a Document context object, but the shared context is not a ServerUiContext -> shouldNotBeShown() == false
+        FormExtensionContextImpl formContextImpl = mock(FormExtensionContextImpl.class, RETURNS_DEEP_STUBS);
+        when(formContextImpl.contextObject()).thenReturn(mock(Document.class, RETURNS_DEEP_STUBS));
+
+        assertEquals(",TestProjectId,WI-1,WI-1.feature,true,",
+                extension.renderIntegrationTest(formContextImpl, context, object, true));
+    }
+
+    @Test
+    void renderDocumentSidebarShownWhenRootSectionIsNotVertical() throws IOException {
+        var object = mock(IWorkItem.class);
+
+        when(extension.renderIntegrationTest(any(), any(), any(), anyBoolean())).thenCallRealMethod();
+        when(extension.getContent(object, EMPTY_POBJECTLIST)).thenCallRealMethod();
+
+        when(object.getId()).thenReturn("WI-1");
+        when(object.getProjectId()).thenReturn("TestProjectId");
+        when(object.isPersisted()).thenReturn(true);
+        when(object.getAttachments()).thenReturn(EMPTY_POBJECTLIST);
+
+        FormExtensionContextImpl formContextImpl = mock(FormExtensionContextImpl.class, RETURNS_DEEP_STUBS);
+        when(formContextImpl.contextObject()).thenReturn(mock(Document.class, RETURNS_DEEP_STUBS));
+        ServerUiContext sharedContext = mock(ServerUiContext.class, RETURNS_DEEP_STUBS);
+        when(sharedContext.currentUiRole()).thenReturn("someRole");
+
+        // root section is not a VerticalSection -> shouldNotBeShown() == false
+        when(layout.getRootSection()).thenReturn(null);
+
+        assertEquals(",TestProjectId,WI-1,WI-1.feature,true,",
+                extension.renderIntegrationTest(formContextImpl, sharedContext, object, true));
+    }
+
+    @Test
+    void renderDocumentSidebarReturnsInfoWhenNoExtensionSectionRows() {
+        var object = mock(IWorkItem.class);
+
+        when(extension.renderIntegrationTest(any(), any(), any(), anyBoolean())).thenCallRealMethod();
+
+        when(object.isPersisted()).thenReturn(true);
+
+        FormExtensionContextImpl formContextImpl = mock(FormExtensionContextImpl.class, RETURNS_DEEP_STUBS);
+        when(formContextImpl.contextObject()).thenReturn(mock(Document.class, RETURNS_DEEP_STUBS));
+        ServerUiContext sharedContext = mock(ServerUiContext.class, RETURNS_DEEP_STUBS);
+        when(sharedContext.currentUiRole()).thenReturn("someRole");
+
+        VerticalSection verticalSection = mock(VerticalSection.class);
+        when(layout.getRootSection()).thenReturn(verticalSection);
+
+        // the only row is not an ExtensionSection -> no matching extension -> shouldNotBeShown() == true
+        when(verticalSection.getRows()).thenReturn(new ArrayList<>(List.of(mock(VerticalSection.class))));
+
+        assertEquals("Extension isn't configured for the current work item type.",
+                extension.renderIntegrationTest(formContextImpl, sharedContext, object, true));
+    }
+
+    @Test
     void loadLayoutPropagatesIOExceptionSneakily() {
         ioUtils.when(() -> IOUtils.resourceToString(eq("layout/broken.html"), any(), any()))
                 .thenThrow(new IOException("resource not found"));
