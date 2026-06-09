@@ -21,13 +21,13 @@ public class CucumberIntegrationRestApplication extends GenericRestApplication {
 
     @Override
     @NotNull
-    protected Set<Object> getExtensionControllerSingletons() {
+    protected Set<Class<?>> getExtensionControllerClasses() {
         return Set.of(
-                new ApiController(),
-                new InternalController(),
-                new JiraRestApiController(),
-                new XrayExportCucumberTestsController(),
-                new XrayImportExecutionResultsController()
+                ApiController.class,
+                InternalController.class,
+                JiraRestApiController.class,
+                XrayExportCucumberTestsController.class,
+                XrayImportExecutionResultsController.class
         );
     }
 }

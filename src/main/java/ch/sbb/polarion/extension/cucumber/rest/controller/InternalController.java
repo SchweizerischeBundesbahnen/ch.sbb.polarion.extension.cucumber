@@ -24,10 +24,12 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.inject.Singleton;
 import java.util.List;
 
 import static io.cucumber.messages.types.SourceMediaType.TEXT_X_CUCUMBER_GHERKIN_PLAIN;
 
+@Singleton
 @Tag(name = "Features")
 @Hidden
 @Path("/internal")

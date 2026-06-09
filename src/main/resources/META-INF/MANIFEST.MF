@@ -1,6 +1,3 @@
-Support-Email: polarion-opensource@sbb.ch
 Bundle-Activator: ch.sbb.polarion.extension.cucumber.ExtensionBundleActivator
-Bundle-ActivationPolicy: lazy
 Bundle-Name: Cucumber Integration Extension for Polarion ALM
-Import-Package: org.osgi.framework,org.eclipse.core.runtime
 Export-Package: ch.sbb.polarion.extension.cucumber
