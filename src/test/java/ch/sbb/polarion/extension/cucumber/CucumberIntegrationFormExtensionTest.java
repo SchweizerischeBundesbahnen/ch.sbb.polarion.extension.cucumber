@@ -44,6 +44,7 @@ import java.util.stream.Stream;
 
 import static com.polarion.platform.persistence.model.IPObjectList.EMPTY_POBJECTLIST;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -205,6 +206,55 @@ class CucumberIntegrationFormExtensionTest {
         when(verticalSection.getRows()).thenReturn(new ArrayList<>(List.of(section)));
 
         assertEquals(",TestProjectId,WI-1,WI-1.feature,true,", extension.renderIntegrationTest(formContextImpl, sharedContext, object, true));
+    }
+
+    @Test
+    void renderIntegrationTestReturnsErrorLayoutOnException() {
+        var object = mock(IWorkItem.class);
+
+        when(extension.renderIntegrationTest(formContext, context, object, true)).thenCallRealMethod();
+
+        when(object.isPersisted()).thenReturn(true);
+        when(object.getAttachments()).thenThrow(new RuntimeException("boom"));
+
+        assertEquals("Unknown error - see server log for more information.",
+                extension.renderIntegrationTest(formContext, context, object, true));
+    }
+
+    @Test
+    void renderDocumentSidebarReturnsInfoWhenExtensionNotConfiguredForType() {
+        var object = mock(IWorkItem.class);
+
+        when(extension.renderIntegrationTest(any(), any(), any(), anyBoolean())).thenCallRealMethod();
+
+        when(object.getType()).thenReturn(mock(ITypeOpt.class));
+        when(object.getContextId()).thenReturn(mock(IContextId.class));
+        when(object.isPersisted()).thenReturn(true);
+
+        FormExtensionContextImpl formContextImpl = mock(FormExtensionContextImpl.class, RETURNS_DEEP_STUBS);
+        when(formContextImpl.contextObject()).thenReturn(mock(Document.class, RETURNS_DEEP_STUBS));
+        ServerUiContext sharedContext = mock(ServerUiContext.class, RETURNS_DEEP_STUBS);
+        when(sharedContext.currentUiRole()).thenReturn("someRole");
+
+        VerticalSection verticalSection = mock(VerticalSection.class);
+        when(layout.getRootSection()).thenReturn(verticalSection);
+
+        ExtensionSection otherSection = mock(ExtensionSection.class);
+        when(otherSection.getExtenstionId()).thenReturn("other-extension");
+        when(verticalSection.getRows()).thenReturn(new ArrayList<>(List.of(otherSection)));
+
+        assertEquals("Extension isn't configured for the current work item type.",
+                extension.renderIntegrationTest(formContextImpl, sharedContext, object, true));
+    }
+
+    @Test
+    void loadLayoutPropagatesIOExceptionSneakily() {
+        ioUtils.when(() -> IOUtils.resourceToString(eq("layout/broken.html"), any(), any()))
+                .thenThrow(new IOException("resource not found"));
+
+        assertThatThrownBy(() -> extension.loadLayout("broken.html", Map.of()))
+                .isInstanceOf(IOException.class)
+                .hasMessage("resource not found");
     }
 
     @Test
