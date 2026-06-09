@@ -27,6 +27,7 @@ import com.polarion.platform.persistence.IDataService;
 import com.polarion.platform.persistence.spi.EnumOption;
 import com.polarion.platform.persistence.spi.PObjectList;
 import com.polarion.subterra.base.data.model.ICustomField;
+import com.polarion.subterra.base.data.model.IType;
 import com.polarion.subterra.base.data.model.internal.PrimitiveType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,9 +35,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import jakarta.ws.rs.BadRequestException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -202,6 +205,85 @@ class PolarionTestRunTest {
         List<ExecutionRecord> executionResults = buildResults("errMsg1");
         assertThatThrownBy(() -> PolarionTestRun.createTestRuns(polarionService, testManagementService, executionInfo, executionResults))
                 .isInstanceOf(TestRunCreationException.class);
+    }
+
+    @Test
+    void shouldThrowWhenProjectKeyMissing() {
+        ExecutionInfo info = new ExecutionInfo();
+        info.getFields().put(ExecutionInfo.PROJECT_KEY, new HashMap<String, String>());
+
+        assertThatThrownBy(() -> PolarionTestRun.createTestRuns(polarionService, testManagementService, info, List.of()))
+                .isInstanceOf(TestRunCreationException.class)
+                .hasMessageContaining("Project key not specified");
+    }
+
+    @Test
+    void shouldThrowWhenProjectNotFound() {
+        when(trackerService.getProjectsService()).thenReturn(projectService);
+        when(projectService.getProject(TEST_PROJECT_KEY)).thenReturn(null);
+
+        ExecutionInfo info = new ExecutionInfo();
+        info.getFields().put(ExecutionInfo.PROJECT_KEY, Collections.singletonMap("key", TEST_PROJECT_KEY));
+
+        assertThatThrownBy(() -> PolarionTestRun.createTestRuns(polarionService, testManagementService, info, List.of()))
+                .isInstanceOf(TestRunCreationException.class)
+                .hasMessageContaining(String.format("Project '%s' not found", TEST_PROJECT_KEY));
+    }
+
+    @Test
+    void shouldThrowOnUnknownCustomField() {
+        prepareMockedData(TEST_TEMPLATE, true);
+
+        ExecutionInfo info = new ExecutionInfo();
+        info.getFields().put(ExecutionInfo.PROJECT_KEY, Collections.singletonMap("key", TEST_PROJECT_KEY));
+        info.getFields().put(FieldDefinition.TITLE.getId(), TEST_TITLE);
+        info.getFields().put(FieldDefinition.TEST_RUN_TEMPLATE_ID.getId(), TEST_TEMPLATE);
+        info.getFields().put("unknownField", "value");
+
+        assertThatThrownBy(() -> PolarionTestRun.createTestRuns(polarionService, testManagementService, info, List.of()))
+                .isInstanceOf(BadRequestException.class)
+                .hasMessageContaining("Unknown custom field unknownField");
+    }
+
+    @Test
+    void shouldThrowOnUnsupportedCustomFieldType() {
+        prepareMockedData(TEST_TEMPLATE, true);
+        ICustomField unsupported = mock(ICustomField.class);
+        when(unsupported.getType()).thenReturn(mock(IType.class));
+        when(testRun.getCustomFieldPrototype(TEST_CUSTOM_FIELD_ID)).thenReturn(unsupported);
+
+        ExecutionInfo info = prepareCucumberExecutionInfo();
+
+        assertThatThrownBy(() -> PolarionTestRun.createTestRuns(polarionService, testManagementService, info, List.of()))
+                .isInstanceOf(BadRequestException.class)
+                .hasMessageContaining(String.format("Unsupported type for custom field %s", TEST_CUSTOM_FIELD_ID));
+    }
+
+    @Test
+    void shouldResolveProjectByIdSetDescriptionAndNullStatusWhenNoRecords() {
+        when(trackerService.getProjectsService()).thenReturn(projectService);
+        when(projectService.getProject(TEST_PROJECT_ID)).thenReturn(project);
+        when(project.getId()).thenReturn(TEST_PROJECT_ID);
+        ITestRun template = mock(ITestRun.class);
+        when(template.getId()).thenReturn(TEST_TEMPLATE);
+        when(testManagementService.searchTestRunTemplates(eq("project.id:" + TEST_PROJECT_ID), any(), anyInt()))
+                .thenReturn(List.of(template));
+        when(testManagementService.createTestRun(eq(TEST_PROJECT_ID), startsWith(TEST_PROJECT_ID), anyString()))
+                .thenReturn(testRun);
+        when(testRun.getAllRecords()).thenReturn(List.of());
+
+        ExecutionInfo info = new ExecutionInfo();
+        info.getFields().put(ExecutionInfo.PROJECT_KEY, Collections.singletonMap("id", TEST_PROJECT_ID));
+        info.getFields().put(FieldDefinition.TITLE.getId(), TEST_TITLE);
+        info.getFields().put(FieldDefinition.TEST_RUN_TEMPLATE_ID.getId(), TEST_TEMPLATE);
+        info.getFields().put(FieldDefinition.DESCRIPTION.getId(), "line1" + System.lineSeparator() + "line2");
+
+        List<ITestRun> result = PolarionTestRun.createTestRuns(polarionService, testManagementService, info, List.of());
+
+        assertThat(result).containsExactly(testRun);
+        verify(testRun).setTitle(TEST_TITLE);
+        verify(testRun).setCustomField(eq("description"), any(Text.class));
+        verify(testRun).setStatus(null);
     }
 
     private List<ExecutionRecord> buildResults(String secondStepErrorMessage) {

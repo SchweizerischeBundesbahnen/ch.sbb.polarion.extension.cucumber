@@ -4,6 +4,7 @@ import ch.sbb.polarion.extension.cucumber.helper.PolarionTestRun;
 import ch.sbb.polarion.extension.cucumber.rest.model.execution.ExecutionInfo;
 import ch.sbb.polarion.extension.cucumber.rest.model.execution.ImportExecutionResponse;
 import ch.sbb.polarion.extension.cucumber.rest.model.execution.TestExecIssue;
+import ch.sbb.polarion.extension.cucumber.rest.model.execution.cucumber.CucumberExecutionResult;
 import ch.sbb.polarion.extension.cucumber.rest.model.execution.junit.TestCase;
 import ch.sbb.polarion.extension.cucumber.rest.model.execution.junit.TestSuite;
 import ch.sbb.polarion.extension.generic.service.PolarionService;
@@ -20,7 +21,8 @@ import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.BadRequestException;
+import jakarta.ws.rs.core.UriInfo;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,6 +31,7 @@ import java.util.concurrent.Callable;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -119,6 +122,48 @@ class XrayImportExecutionResultsControllerTest {
             assertThat(response).isNotNull();
 
         }
+    }
+
+    @Test
+    @SneakyThrows
+    void testImportExecutionCucumberMultipartParsesCucumberResults() {
+        try (MockedStatic<TransactionalExecutor> mockedExecutor = mockStatic(TransactionalExecutor.class);
+             MockedStatic<PolarionTestRun> polarionTestRun = mockStatic(PolarionTestRun.class)) {
+
+            PolarionService polarionService = mockCommonThings(mockedExecutor, polarionTestRun);
+
+            FormDataBodyPart infoBodyPart = mock(FormDataBodyPart.class);
+            when(infoBodyPart.getValueAs(String.class)).thenReturn("{}");
+            when(infoBodyPart.getValueAs(ExecutionInfo.class)).thenReturn(new ExecutionInfo());
+
+            FormDataBodyPart resultBodyPart = mock(FormDataBodyPart.class);
+            when(resultBodyPart.getValueAs(String.class)).thenReturn("[]");
+            when(resultBodyPart.getValueAs(CucumberExecutionResult[].class)).thenReturn(new CucumberExecutionResult[0]);
+
+            UriInfo uriInfo = mock(UriInfo.class);
+            when(uriInfo.getBaseUri()).thenReturn(URI.create("https://somedomain.com:4242"));
+
+            ImportExecutionResponse response = new XrayImportExecutionResultsController(polarionService, testManagementService)
+                    .withUriInfo(uriInfo).importExecutionCucumberMultipart(infoBodyPart, resultBodyPart);
+
+            assertThat(response).isNotNull();
+            TestExecIssue issue = response.getTestExecIssue();
+            assertEquals("testRunProjId/testRunId", issue.getId());
+            assertEquals("testRunId", issue.getKey());
+            assertEquals("https://somedomain.com:4242/polarion/#/project/testRunProjId/testrun?id=testRunId", issue.getSelf());
+        }
+    }
+
+    @Test
+    void testImportExecutionJunitRequiresProjectOrTestExecKey() {
+        FormDataBodyPart fileBodyPart = mock(FormDataBodyPart.class);
+
+        XrayImportExecutionResultsController controller =
+                new XrayImportExecutionResultsController(mock(PolarionService.class), testManagementService);
+
+        BadRequestException thrown = assertThrows(BadRequestException.class, () ->
+                controller.importExecutionJunit(null, "", "testPlanKey", "envs", "rev", "fixVersion", fileBodyPart));
+        assertEquals("projectKey or testExecKey must be provided", thrown.getMessage());
     }
 
     private PolarionService mockCommonThings(MockedStatic<TransactionalExecutor> mockedExecutor, MockedStatic<PolarionTestRun> polarionTestRun) {
