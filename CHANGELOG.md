@@ -1,5 +1,25 @@
 # Changelog
 
+## [5.0.0](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/compare/v4.0.1...v5.0.0) (2026-06-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* Polarion 2606 support ([#83](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/issues/83))
+
+### Features
+
+* Polarion 2606 support ([#83](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/issues/83)) ([963838f](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/963838f23d9bb9b6594ec8b676ca8370ccbe1c33)), closes [#80](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/issues/80)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v14.1.1 ([343d422](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/343d422deeb0533888531208cdd0f1024aff5252))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v14.1.2 ([cd32243](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/cd32243ac899ab20cbc385c0be3a296997ffd4dc))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v14.1.4 ([c0b563c](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/c0b563ce569d7f098b9d2e4c4061e8c55a7f032e))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v14.1.5 ([9b155b0](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/9b155b00daf96ac4acdd37a04924606f2104f848))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v14.1.6 ([07bf329](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/07bf329d333b1d45782d63c35c6f83f315dd0f51))
+
 ## [4.0.1](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/compare/v4.0.0...v4.0.1) (2026-02-19)
 
 
