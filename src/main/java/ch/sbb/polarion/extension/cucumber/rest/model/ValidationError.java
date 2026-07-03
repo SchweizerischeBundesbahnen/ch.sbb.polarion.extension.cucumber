@@ -16,20 +16,18 @@ public class ValidationError {
     private String message;
 
     @Schema(description = "The line number where the validation error occurred")
-    private Long line;
+    private Integer line;
 
     @Schema(description = "The column number where the validation error occurred")
-    private Long column;
+    private Integer column;
 
     public static ValidationError fromParseError(ParseError parseError) {
         ValidationError validationError = new ValidationError();
         validationError.setMessage(parseError.getMessage());
-        if (parseError.getSource() != null) {
-            parseError.getSource().getLocation().ifPresent(location -> {
-                validationError.setLine(location.getLine());
-                location.getColumn().ifPresent(validationError::setColumn);
-            });
-        }
+        parseError.getSource().getLocation().ifPresent(location -> {
+            validationError.setLine(location.getLine());
+            location.getColumn().ifPresent(validationError::setColumn);
+        });
         return validationError;
     }
 }

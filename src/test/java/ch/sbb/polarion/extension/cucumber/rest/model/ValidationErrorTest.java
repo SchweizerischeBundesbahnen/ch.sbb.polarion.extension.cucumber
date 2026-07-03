@@ -12,32 +12,32 @@ class ValidationErrorTest {
 
     @Test
     void fromParseErrorWithLineAndColumn() {
-        ParseError parseError = new ParseError(SourceReference.of(new Location(12L, 5L)), "syntax error");
+        ParseError parseError = new ParseError(SourceReference.of(new Location(12, 5)), "syntax error");
 
         ValidationError error = ValidationError.fromParseError(parseError);
 
         assertEquals("syntax error", error.getMessage());
-        assertEquals(12L, error.getLine());
-        assertEquals(5L, error.getColumn());
+        assertEquals(12, error.getLine());
+        assertEquals(5, error.getColumn());
     }
 
     @Test
     void fromParseErrorWithoutColumn() {
-        ParseError parseError = new ParseError(SourceReference.of(new Location(7L, null)), "no column");
+        ParseError parseError = new ParseError(SourceReference.of(new Location(7, null)), "no column");
 
         ValidationError error = ValidationError.fromParseError(parseError);
 
         assertEquals("no column", error.getMessage());
-        assertEquals(7L, error.getLine());
+        assertEquals(7, error.getLine());
         assertNull(error.getColumn());
     }
 
     @Test
     void dataObjectAccessors() {
-        ValidationError error = new ValidationError("message", 3L, 4L);
+        ValidationError error = new ValidationError("message", 3, 4);
         assertEquals("message", error.getMessage());
-        assertEquals(3L, error.getLine());
-        assertEquals(4L, error.getColumn());
-        assertEquals(new ValidationError("message", 3L, 4L), error);
+        assertEquals(3, error.getLine());
+        assertEquals(4, error.getColumn());
+        assertEquals(new ValidationError("message", 3, 4), error);
     }
 }
