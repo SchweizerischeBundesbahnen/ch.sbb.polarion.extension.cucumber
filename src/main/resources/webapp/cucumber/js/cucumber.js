@@ -1,4 +1,4 @@
-import ExtensionContext from "/polarion/pdf-exporter/ui/generic/js/modules/ExtensionContext.js";
+import ExtensionContext from "../generic/js/modules/ExtensionContext.js";
 import CodeEditor from './petrel/CodeEditor.js'
 import GherkinAutoComplete from './petrel/GherkinAutoComplete.js'
 
