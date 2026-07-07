@@ -1,8 +1,16 @@
 .editor-buttons {
+    display: flex;
+    align-items: center;
+    gap: 5px;
     margin-bottom: 10px;
 }
 
 .editor-buttons button {
+    /* Polarion 2606 stretches bare <button>s to full width; pin them back to content width. */
+    display: inline-flex;
+    align-items: center;
+    width: auto;
+    flex: 0 0 auto;
     background-color: transparent;
     border: 1px solid #DEDEDE;
     color: #555;
@@ -10,10 +18,6 @@
     font-size: 12px;
     font-weight: bold;
     cursor: pointer;
-}
-
-.editor-buttons button:not(:first-child) {
-    margin-left: 5px;
 }
 
 .editor-buttons button:disabled {
