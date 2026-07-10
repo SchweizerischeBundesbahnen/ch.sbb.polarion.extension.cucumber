@@ -33,12 +33,14 @@
     border-left-color: #ccc;
 }
 
-.editor-buttons button img {
+.editor-buttons button img,
+.editor-buttons button [class*="sbb-icon-"] {
     margin-right: 6px;
     vertical-align: bottom;
 }
 
-.editor-buttons button:disabled img {
+.editor-buttons button:disabled img,
+.editor-buttons button:disabled [class*="sbb-icon-"] {
     opacity: 0.3;
 }
 
