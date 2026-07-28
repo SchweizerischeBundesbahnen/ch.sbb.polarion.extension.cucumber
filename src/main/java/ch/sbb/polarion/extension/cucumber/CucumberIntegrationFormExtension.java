@@ -42,11 +42,14 @@ public class CucumberIntegrationFormExtension implements IFormExtension {
     private static final String REPLACE_PARAM_WORK_ITEM_ID = "{WORK_ITEM_ID}";
     private static final String REPLACE_PARAM_FILENAME = "{FILENAME}";
     private static final String REPLACE_PARAM_VALIDATE = "{VALIDATE}";
-    private static final String REPLACE_PARAM_CONTENT = "{CONTENT}";
 
     private static final Logger logger = Logger.getLogger(CucumberIntegrationFormExtension.class);
     private final String bundleTimestamp = ExtensionInfo.getInstance().getVersion().getBundleBuildTimestampDigitsOnly();
 
+    /**
+     * Reads the feature attached to a work item. The rendered panel no longer needs it - it fetches the
+     * feature over REST - but it is still the shared way of getting at the attachment.
+     */
     @NotNull
     public String getContent(IWorkItem workItem, IPObjectList<IPObject> attachments) throws IOException {
         String content = "";
@@ -94,14 +97,15 @@ public class CucumberIntegrationFormExtension implements IFormExtension {
                         return loadLayout("info.html", Map.of(REPLACE_PARAM_MESSAGE, "Extension isn't configured for the current work item type."));
                     }
 
-                    String content = getContent(workItem, workItem.getAttachments());
+                    // The React panel bundle (cucumber-app) is imported by the fragment and mounts into
+                    // a shadow root on the host div; the context is passed on the host's data-*
+                    // attributes and the panel fetches the feature itself. See layout/form.html.
                     return loadLayout("form.html", Map.of(
                             REPLACE_PARAM_BUNDLE, StringUtils.getEmptyIfNull(bundleTimestamp),
-                            REPLACE_PARAM_PROJECT_ID, workItem.getProjectId(),
-                            REPLACE_PARAM_WORK_ITEM_ID, workItem.getId(),
-                            REPLACE_PARAM_FILENAME, workItem.getId() + ".feature",
-                            REPLACE_PARAM_VALIDATE, String.valueOf(validateOnSave),
-                            REPLACE_PARAM_CONTENT, HtmlUtils.htmlEscape(content)
+                            REPLACE_PARAM_PROJECT_ID, HtmlUtils.htmlEscape(workItem.getProjectId()),
+                            REPLACE_PARAM_WORK_ITEM_ID, HtmlUtils.htmlEscape(workItem.getId()),
+                            REPLACE_PARAM_FILENAME, HtmlUtils.htmlEscape(workItem.getId() + ".feature"),
+                            REPLACE_PARAM_VALIDATE, String.valueOf(validateOnSave)
                     ));
                 } else {
                     return loadLayout("info.html", Map.of(REPLACE_PARAM_MESSAGE, "Cucumber editor will be available after Work Item created."));
