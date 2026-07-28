@@ -75,7 +75,7 @@ export default defineConfig({
       // Excluded: the app bootstrap (main.tsx), the dev-only pages (Landing - the `vite dev` index,
       // whose selection logic the router test covers - and PanelDev, local scaffolding never opened in
       // Polarion whose only real logic is the shared EntityPicker, covered directly), and src/vendor/**
-      // (the vendored petrel code editor + highlight.js + jsonlint, kept verbatim from the legacy
+      // (the vendored petrel code editor + highlight.js, kept verbatim from the legacy
       // webapp - third-party, not restyled or unit-tested here; see the vendored-code policy).
       // `types.ts` is deliberately NOT excluded: interfaces erase at transpile, so listing it hides
       // nothing and blurs this list.

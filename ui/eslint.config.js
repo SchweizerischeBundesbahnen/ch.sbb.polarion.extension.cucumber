@@ -5,7 +5,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 // Mirrors react-sbb-polarion's eslint.config.js so the React apps lint identically. src/vendor holds
-// the vendored petrel code editor + highlight.js + jsonlint (kept verbatim from the legacy webapp);
+// the vendored petrel code editor + highlight.js (kept verbatim from the legacy webapp);
 // it is third-party and not restyled here, so it is ignored (like RSP's src/generic).
 export default tseslint.config(
   {

@@ -12,7 +12,7 @@ interface ShadowMountOptions {
  * Attaches an open shadow root to `host` and returns a fresh container element inside it for React to
  * mount into.
  *
- * Why a shadow root: the JSON editor panel is a form-extension fragment injected into Polarion's
+ * Why a shadow root: the Cucumber Test panel is a form-extension fragment injected into Polarion's
  * WorkItem form / Document Properties pane - a shared page where several extensions render their own
  * panels, each possibly built against a different react-sbb-polarion version. Plain CSS is global by
  * selector, so those panels would clash. A shadow root gives true, two-way encapsulation:

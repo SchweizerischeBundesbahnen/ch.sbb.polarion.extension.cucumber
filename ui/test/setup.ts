@@ -5,7 +5,7 @@
 //      alerts + the shared component styles), the same import main.tsx uses.
 //   2. this app's own App.css (base font/size on `.app`, feature list, alerts).
 //   3. the extension's own panel CSS (petrel.css / highlightjs.css / cucumber.css) that styles the
-//      JSON editor panel: the code-editor chrome, the file-selector row, buttons and validation result.
+//      Cucumber Test panel: the code-editor chrome, the buttons and the validation result.
 //      At runtime mountInShadow injects these (bundled via `?inline`) into the shadow root; the panel
 //      tests render outside a shadow root, so they must be loaded here or the panel paints unstyled
 //      (serif, no control styling).

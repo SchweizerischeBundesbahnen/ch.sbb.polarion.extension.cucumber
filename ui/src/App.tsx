@@ -8,7 +8,7 @@ import Landing from './pages/Landing';
  * in `vite dev` without a running Polarion.
  *
  * In Polarion, hivemodule.xml points the About admin extender at
- * `/polarion/cucumber-app/ui/app/index.html?feature=about&scope=$scope$`. The JSON editor panel is
+ * `/polarion/cucumber-app/ui/app/index.html?feature=about&scope=$scope$`. The Cucumber Test panel is
  * not routed here - it is mounted directly into the editor by CucumberFormExtension via the
  * form-extension bundle (see src/formext).
  */
