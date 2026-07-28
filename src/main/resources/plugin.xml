@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
+    <!-- Two webapp contexts: the REST API - which also serves the form-extension panel's trigger
+         stylesheet - and the React app, which serves the Vite bundles and the administration-menu
+         icons. One extension element holds them, as Polarion's own com.polarion.alm.ui does. -->
     <extension
             point="com.polarion.portal.tomcat.webapps">
         <webapp
                 name="polarion/cucumber"
                 contextRoot="webapp/cucumber">
         </webapp>
-    </extension>
-    <extension
-            point="com.polarion.portal.tomcat.webapps">
         <webapp
-                name="polarion/cucumber-admin"
-                contextRoot="webapp/cucumber-admin">
+                name="polarion/cucumber-app"
+                contextRoot="webapp/cucumber-app">
         </webapp>
     </extension>
 </plugin>

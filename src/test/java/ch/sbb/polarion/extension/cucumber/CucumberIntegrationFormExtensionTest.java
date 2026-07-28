@@ -116,7 +116,7 @@ class CucumberIntegrationFormExtensionTest {
         });
         ioUtils = mockStatic(IOUtils.class);
         ioUtils.when(() -> IOUtils.resourceToString(eq("layout/form.html"), any(), any()))
-                .thenReturn("{BUNDLE},{PROJECT_ID},{WORK_ITEM_ID},{FILENAME},{VALIDATE},{CONTENT}");
+                .thenReturn("{BUNDLE},{PROJECT_ID},{WORK_ITEM_ID},{FILENAME},{VALIDATE}");
         ioUtils.when(() -> IOUtils.resourceToString(eq("layout/info.html"), any(), any())).thenReturn("{MESSAGE}");
         ioUtils.when(() -> IOUtils.resourceToString(eq("layout/error.html"), any(), any())).thenReturn("{MESSAGE}");
 
@@ -164,14 +164,11 @@ class CucumberIntegrationFormExtensionTest {
 
         when(extension.renderIntegrationTest(formContext, context, object, true)).thenCallRealMethod();
 
-        when(extension.getContent(object, EMPTY_POBJECTLIST)).thenCallRealMethod();
-
         when(object.getId()).thenReturn("WI-1");
         when(object.getProjectId()).thenReturn("TestProjectId");
         when(object.isPersisted()).thenReturn(true);
-        when(object.getAttachments()).thenReturn(EMPTY_POBJECTLIST);
 
-        assertEquals(",TestProjectId,WI-1,WI-1.feature,true,", extension.renderIntegrationTest(formContext, context, object, true));
+        assertEquals(",TestProjectId,WI-1,WI-1.feature,true", extension.renderIntegrationTest(formContext, context, object, true));
     }
 
     @Test
@@ -180,14 +177,11 @@ class CucumberIntegrationFormExtensionTest {
 
         when(extension.renderIntegrationTest(any(), any(), any(), anyBoolean())).thenCallRealMethod();
 
-        when(extension.getContent(object, EMPTY_POBJECTLIST)).thenCallRealMethod();
-
         when(object.getId()).thenReturn("WI-1");
         when(object.getType()).thenReturn(mock(ITypeOpt.class));
         when(object.getContextId()).thenReturn(mock(IContextId.class));
         when(object.getProjectId()).thenReturn("TestProjectId");
         when(object.isPersisted()).thenReturn(true);
-        when(object.getAttachments()).thenReturn(EMPTY_POBJECTLIST);
 
         FormExtensionContextImpl formContextImpl = mock(FormExtensionContextImpl.class, RETURNS_DEEP_STUBS);
         when(formContextImpl.contextObject()).thenReturn(mock(Document.class, RETURNS_DEEP_STUBS));
@@ -205,7 +199,7 @@ class CucumberIntegrationFormExtensionTest {
         when(section.getExtenstionId()).thenReturn("cucumber");
         when(verticalSection.getRows()).thenReturn(new ArrayList<>(List.of(section)));
 
-        assertEquals(",TestProjectId,WI-1,WI-1.feature,true,", extension.renderIntegrationTest(formContextImpl, sharedContext, object, true));
+        assertEquals(",TestProjectId,WI-1,WI-1.feature,true", extension.renderIntegrationTest(formContextImpl, sharedContext, object, true));
     }
 
     @Test
@@ -215,7 +209,7 @@ class CucumberIntegrationFormExtensionTest {
         when(extension.renderIntegrationTest(formContext, context, object, true)).thenCallRealMethod();
 
         when(object.isPersisted()).thenReturn(true);
-        when(object.getAttachments()).thenThrow(new RuntimeException("boom"));
+        when(object.getProjectId()).thenThrow(new RuntimeException("boom"));
 
         assertEquals("Unknown error - see server log for more information.",
                 extension.renderIntegrationTest(formContext, context, object, true));
@@ -252,18 +246,16 @@ class CucumberIntegrationFormExtensionTest {
         var object = mock(IWorkItem.class);
 
         when(extension.renderIntegrationTest(any(), any(), any(), anyBoolean())).thenCallRealMethod();
-        when(extension.getContent(object, EMPTY_POBJECTLIST)).thenCallRealMethod();
 
         when(object.getId()).thenReturn("WI-1");
         when(object.getProjectId()).thenReturn("TestProjectId");
         when(object.isPersisted()).thenReturn(true);
-        when(object.getAttachments()).thenReturn(EMPTY_POBJECTLIST);
 
         // context is a FormExtensionContextImpl, but its context object is not a Document -> shouldNotBeShown() == false
         FormExtensionContextImpl formContextImpl = mock(FormExtensionContextImpl.class, RETURNS_DEEP_STUBS);
         when(formContextImpl.contextObject()).thenReturn(mock(ModelObject.class, RETURNS_DEEP_STUBS));
 
-        assertEquals(",TestProjectId,WI-1,WI-1.feature,true,",
+        assertEquals(",TestProjectId,WI-1,WI-1.feature,true",
                 extension.renderIntegrationTest(formContextImpl, context, object, true));
     }
 
@@ -272,18 +264,16 @@ class CucumberIntegrationFormExtensionTest {
         var object = mock(IWorkItem.class);
 
         when(extension.renderIntegrationTest(any(), any(), any(), anyBoolean())).thenCallRealMethod();
-        when(extension.getContent(object, EMPTY_POBJECTLIST)).thenCallRealMethod();
 
         when(object.getId()).thenReturn("WI-1");
         when(object.getProjectId()).thenReturn("TestProjectId");
         when(object.isPersisted()).thenReturn(true);
-        when(object.getAttachments()).thenReturn(EMPTY_POBJECTLIST);
 
         // FormExtensionContextImpl with a Document context object, but the shared context is not a ServerUiContext -> shouldNotBeShown() == false
         FormExtensionContextImpl formContextImpl = mock(FormExtensionContextImpl.class, RETURNS_DEEP_STUBS);
         when(formContextImpl.contextObject()).thenReturn(mock(Document.class, RETURNS_DEEP_STUBS));
 
-        assertEquals(",TestProjectId,WI-1,WI-1.feature,true,",
+        assertEquals(",TestProjectId,WI-1,WI-1.feature,true",
                 extension.renderIntegrationTest(formContextImpl, context, object, true));
     }
 
@@ -292,12 +282,10 @@ class CucumberIntegrationFormExtensionTest {
         var object = mock(IWorkItem.class);
 
         when(extension.renderIntegrationTest(any(), any(), any(), anyBoolean())).thenCallRealMethod();
-        when(extension.getContent(object, EMPTY_POBJECTLIST)).thenCallRealMethod();
 
         when(object.getId()).thenReturn("WI-1");
         when(object.getProjectId()).thenReturn("TestProjectId");
         when(object.isPersisted()).thenReturn(true);
-        when(object.getAttachments()).thenReturn(EMPTY_POBJECTLIST);
 
         FormExtensionContextImpl formContextImpl = mock(FormExtensionContextImpl.class, RETURNS_DEEP_STUBS);
         when(formContextImpl.contextObject()).thenReturn(mock(Document.class, RETURNS_DEEP_STUBS));
@@ -307,7 +295,7 @@ class CucumberIntegrationFormExtensionTest {
         // root section is not a VerticalSection -> shouldNotBeShown() == false
         when(layout.getRootSection()).thenReturn(null);
 
-        assertEquals(",TestProjectId,WI-1,WI-1.feature,true,",
+        assertEquals(",TestProjectId,WI-1,WI-1.feature,true",
                 extension.renderIntegrationTest(formContextImpl, sharedContext, object, true));
     }
 

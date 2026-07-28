@@ -1,33 +1,19 @@
-<div id="cucumber-edit-panel" class="sbb-ui">
-    <link rel='stylesheet' href='/polarion/cucumber/ui/css/petrel.css?bundle={BUNDLE}'>
-    <link rel='stylesheet' href='/polarion/cucumber/ui/css/highlightjs.css?bundle={BUNDLE}'>
-    <link rel='stylesheet' href='/polarion/cucumber/ui/generic/css/control-tokens.css?bundle={BUNDLE}'>
-    <link rel='stylesheet' href='/polarion/cucumber/ui/css/cucumber.css?bundle={BUNDLE}'
-          onload='import("/polarion/cucumber/ui/js/cucumber.js")
-          .then(module => module.initPanel())
-          .catch(console.error);'>
+<!-- Cucumber Test work-item panel. Polarion (CucumberIntegrationFormExtension) injects this fragment
+  into the form. On load the React panel bundle is imported and mounts into a SHADOW ROOT on the div
+  below (see ui/src/formext/mount.tsx). It injects its own styles into that shadow root -
+  react-sbb-polarion's bundled stylesheet plus the panel CSS (petrel.css / highlightjs.css /
+  cucumber.css) - so the panel's CSS is fully encapsulated and cannot clash with other extensions'
+  panels on the shared form. The <link> below loads a tiny empty stylesheet (starter.css) that exists
+  only to fire the bundle-import trigger via its onload handler - an inline module script would not run
+  inside a GWT-injected fragment. The panel context is passed on the host div's data-* attributes (read
+  by mountCucumberPanel); the feature itself is fetched by the panel, not inlined here. -->
+<link rel='stylesheet' href='/polarion/cucumber/ui/css/starter.css?bundle={BUNDLE}'
+      onload='import("/polarion/cucumber-app/ui/app/assets/cucumberPanel.js")
+                .then(module => module.mountCucumberPanel("#cucumber-edit-panel"))
+                .catch(console.error);'>
 
-    <div class='editor-buttons'>
-        <button type='button' id='edit-feature-button'>
-            <span class='sbb-icon-edit' role='img' aria-label='Edit'></span>Edit
-        </button>
-        <button type='button' class='divider'>&nbsp;</button>
-        <button type='button' id='validate-feature-button' disabled>
-            <img class='append-build-number' alt='' src='/polarion/cucumber/ui/images/validate.svg'/>Validate
-        </button>
-        <button type='button' id='save-feature-button' data-project-id='{PROJECT_ID}' data-work-item-id='{WORK_ITEM_ID}' data-filename='{FILENAME}' data-validate='{VALIDATE}' disabled>
-            <span class='sbb-icon-save' role='img' aria-label='Save'></span>Save
-        </button>
-        <button type='button' id='cancel-edit-feature-button' disabled>
-            <span class='sbb-icon-cancel' role='img' aria-label='Cancel'></span>Cancel
-        </button>
-    </div>
-    <div style='margin-bottom: .5em;'>
-        <span id='feature-validation-result'></span>
-    </div>
-
-    <div class='editor-wrapper'>
-        <div id='cucumberFeatureCodeEditor'></div>
-    </div>
-    <div id='cucumberFeatureCodeEditorOriginalContent' style='display: none;'>{CONTENT}</div>
-</div>
+<div id="cucumber-edit-panel"
+     data-project-id="{PROJECT_ID}"
+     data-work-item-id="{WORK_ITEM_ID}"
+     data-file-name="{FILENAME}"
+     data-validate-on-save="{VALIDATE}"></div>

@@ -1,0 +1,58 @@
+.editor-buttons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.editor-buttons button {
+  /* Polarion 2606 stretches bare <button>s to full width; pin them back to content width. */
+  display: inline-flex;
+  align-items: center;
+  width: auto;
+  flex: 0 0 auto;
+  background-color: transparent;
+  border: 1px solid #dedede;
+  color: #555;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.editor-buttons button:disabled {
+  text-shadow: white 1px 1px 0.01em;
+  color: #c9d1d7;
+  cursor: default;
+}
+
+.editor-buttons .divider {
+  padding: 4px 0;
+  width: 1px;
+  border-right-color: #fff;
+  border-left-color: #ccc;
+}
+
+.editor-buttons button img,
+.editor-buttons button [class*='sbb-icon-'] {
+  margin-right: 6px;
+  vertical-align: bottom;
+}
+
+.editor-buttons button:disabled img,
+.editor-buttons button:disabled [class*='sbb-icon-'] {
+  opacity: 0.3;
+}
+
+#cucumberFeatureCodeEditor {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.validation-pass {
+  color: green;
+}
+
+.validation-fail,
+.line-with-error {
+  color: red;
+}
