@@ -1,5 +1,24 @@
 # Changelog
 
+## [5.2.0](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/compare/v5.1.1...v5.2.0) (2026-08-06)
+
+
+### Features
+
+* react UI ([#121](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/issues/121)) ([d17d44d](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/d17d44d5977e3ed9dc4db2c010286605192ab2ce))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @grigoriev/react-sbb-polarion to ^0.2.0 ([#137](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/issues/137)) ([5ae2951](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/5ae29519466b91aa5d9ee45d406f6e5bc2eb6dea))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v15.10.0 ([#120](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/issues/120)) ([7128db8](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/7128db81c4bd83a57a298e12a18cb26197b0df0b))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v15.10.1 ([#127](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/issues/127)) ([5797135](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/5797135c88edee624a766698b841c669b12aa0dc))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v15.6.0 ([#115](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/issues/115)) ([8106458](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/8106458026b0caff28c1e74908732b75f85b2d32))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v15.7.0 ([#117](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/issues/117)) ([3319125](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/3319125ab20aec009f0da5cf24f2da2631c5bd52))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v15.8.1 ([#119](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/issues/119)) ([6aa7a54](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/6aa7a54d0778fbda6611828e3e54df6b0c9c4236))
+* **deps:** update dependency io.cucumber:gherkin to v42 ([#114](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/issues/114)) ([79a34f1](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/79a34f1758267b8cf49852b83dc8a74135e74b32))
+* show this extension's own icon on the About page ([#128](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/issues/128)) ([27bd413](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/27bd413ea0c758206f55041756ea39eabeefae77))
+
 ## [5.1.1](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/compare/v5.1.0...v5.1.1) (2026-07-15)
 
 
