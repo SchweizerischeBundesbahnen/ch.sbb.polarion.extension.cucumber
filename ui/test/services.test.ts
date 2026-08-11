@@ -12,14 +12,14 @@ afterEach(() => {
   vi.unstubAllGlobals();
   vi.unstubAllEnvs();
   window.history.replaceState({}, '', origUrl);
-  document.cookie = 'je-test=; path=/; max-age=0';
+  document.cookie = 'cucumber-test=; path=/; max-age=0';
 });
 
 describe('cookies', () => {
   it('round-trips a value and returns null for a missing one', () => {
-    expect(getCookie('je-test')).toBeNull();
-    setCookie('je-test', 'hello world');
-    expect(getCookie('je-test')).toBe('hello world');
+    expect(getCookie('cucumber-test')).toBeNull();
+    setCookie('cucumber-test', 'hello world');
+    expect(getCookie('cucumber-test')).toBe('hello world');
   });
 });
 
