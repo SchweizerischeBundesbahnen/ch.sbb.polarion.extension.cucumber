@@ -16,6 +16,7 @@ import com.polarion.core.util.StringUtils;
 import com.polarion.core.util.logging.Logger;
 import com.polarion.portal.internal.server.navigation.TestManagementServiceAccessor;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -81,8 +82,8 @@ public class XrayImportExecutionResultsController {
             )
     )
     public ImportExecutionResponse importExecutionCucumberMultipart(
-            @FormDataParam("info") FormDataBodyPart info,
-            @FormDataParam("result") FormDataBodyPart result) {
+            @Parameter(schema = @Schema(type = "string", format = "binary")) @FormDataParam("info") FormDataBodyPart info,
+            @Parameter(schema = @Schema(type = "string", format = "binary")) @FormDataParam("result") FormDataBodyPart result) {
         info.setMediaType(MediaType.APPLICATION_JSON_TYPE);
         result.setMediaType(MediaType.APPLICATION_JSON_TYPE);
 
@@ -122,7 +123,7 @@ public class XrayImportExecutionResultsController {
             @QueryParam("testEnvironments") String testEnvironments,
             @QueryParam("revision") String revision,
             @QueryParam("fixVersion") String fixVersion,
-            @FormDataParam("file") FormDataBodyPart file) {
+            @Parameter(schema = @Schema(type = "string", format = "binary")) @FormDataParam("file") FormDataBodyPart file) {
         file.setMediaType(MediaType.APPLICATION_XML_TYPE);
 
         if (StringUtils.isEmpty(projectKey) && StringUtils.isEmpty(testExecKey)) {
@@ -163,8 +164,8 @@ public class XrayImportExecutionResultsController {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     public ImportExecutionResponse importExecutionJunitMultipart(
-            @FormDataParam("info") FormDataBodyPart info,
-            @FormDataParam("file") FormDataBodyPart file) {
+            @Parameter(schema = @Schema(type = "string", format = "binary")) @FormDataParam("info") FormDataBodyPart info,
+            @Parameter(schema = @Schema(type = "string", format = "binary")) @FormDataParam("file") FormDataBodyPart file) {
         info.setMediaType(MediaType.APPLICATION_JSON_TYPE);
         file.setMediaType(MediaType.APPLICATION_XML_TYPE);
 
