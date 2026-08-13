@@ -116,6 +116,27 @@
         ]
       }
     },
+    "/api/disclaimer": {
+      "get": {
+        "operationId": "getDisclaimer",
+        "responses": {
+          "default": {
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "HTML help article"
+          }
+        },
+        "summary": "Returns the build-generated DISCLAIMER help article shown on the Usage Disclaimer page",
+        "tags": [
+          "Extension Information"
+        ]
+      }
+    },
     "/api/feature": {
       "post": {
         "operationId": "createOrUpdateFeature",
@@ -298,10 +319,12 @@
               "schema": {
                 "properties": {
                   "info": {
-                    "$ref": "#/components/schemas/FormDataBodyPart"
+                    "format": "binary",
+                    "type": "string"
                   },
                   "result": {
-                    "$ref": "#/components/schemas/FormDataBodyPart"
+                    "format": "binary",
+                    "type": "string"
                   }
                 },
                 "type": "object"
@@ -380,7 +403,8 @@
               "schema": {
                 "properties": {
                   "file": {
-                    "$ref": "#/components/schemas/FormDataBodyPart"
+                    "format": "binary",
+                    "type": "string"
                   }
                 },
                 "type": "object"
@@ -415,10 +439,12 @@
               "schema": {
                 "properties": {
                   "info": {
-                    "$ref": "#/components/schemas/FormDataBodyPart"
+                    "format": "binary",
+                    "type": "string"
                   },
                   "file": {
-                    "$ref": "#/components/schemas/FormDataBodyPart"
+                    "format": "binary",
+                    "type": "string"
                   }
                 },
                 "type": "object"
@@ -447,57 +473,6 @@
   },
   "components": {
     "schemas": {
-      "BodyPart": {
-        "properties": {
-          "contentDisposition": {
-            "$ref": "#/components/schemas/ContentDisposition"
-          },
-          "entity": {
-            "type": "object"
-          },
-          "headers": {
-            "additionalProperties": {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            "properties": {
-              "empty": {
-                "type": "boolean"
-              }
-            },
-            "type": "object"
-          },
-          "mediaType": {
-            "$ref": "#/components/schemas/MediaType"
-          },
-          "messageBodyWorkers": {
-            "$ref": "#/components/schemas/MessageBodyWorkers"
-          },
-          "parameterizedHeaders": {
-            "additionalProperties": {
-              "items": {
-                "$ref": "#/components/schemas/ParameterizedHeader"
-              },
-              "type": "array"
-            },
-            "properties": {
-              "empty": {
-                "type": "boolean"
-              }
-            },
-            "type": "object"
-          },
-          "parent": {
-            "$ref": "#/components/schemas/MultiPart"
-          },
-          "providers": {
-            "$ref": "#/components/schemas/Providers"
-          }
-        },
-        "type": "object"
-      },
       "ConfigurationPropertiesModel": {
         "description": "Extension configuration properties shown on the About page",
         "properties": {
@@ -554,39 +529,6 @@
               "WARNING",
               "ERROR"
             ],
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "ContentDisposition": {
-        "properties": {
-          "creationDate": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "fileName": {
-            "type": "string"
-          },
-          "modificationDate": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "parameters": {
-            "additionalProperties": {
-              "type": "string"
-            },
-            "type": "object"
-          },
-          "readDate": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "size": {
-            "format": "int64",
-            "type": "integer"
-          },
-          "type": {
             "type": "string"
           }
         },
@@ -663,111 +605,6 @@
         },
         "type": "object"
       },
-      "FormDataBodyPart": {
-        "properties": {
-          "content": {
-            "type": "object"
-          },
-          "contentDisposition": {
-            "$ref": "#/components/schemas/ContentDisposition"
-          },
-          "entity": {
-            "type": "object"
-          },
-          "fileName": {
-            "type": "string"
-          },
-          "formDataContentDisposition": {
-            "$ref": "#/components/schemas/FormDataContentDisposition"
-          },
-          "headers": {
-            "additionalProperties": {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            "properties": {
-              "empty": {
-                "type": "boolean"
-              }
-            },
-            "type": "object"
-          },
-          "mediaType": {
-            "$ref": "#/components/schemas/MediaType"
-          },
-          "messageBodyWorkers": {
-            "$ref": "#/components/schemas/MessageBodyWorkers"
-          },
-          "name": {
-            "type": "string"
-          },
-          "parameterizedHeaders": {
-            "additionalProperties": {
-              "items": {
-                "$ref": "#/components/schemas/ParameterizedHeader"
-              },
-              "type": "array"
-            },
-            "properties": {
-              "empty": {
-                "type": "boolean"
-              }
-            },
-            "type": "object"
-          },
-          "parent": {
-            "$ref": "#/components/schemas/MultiPart"
-          },
-          "providers": {
-            "$ref": "#/components/schemas/Providers"
-          },
-          "simple": {
-            "type": "boolean"
-          },
-          "value": {
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "FormDataContentDisposition": {
-        "properties": {
-          "creationDate": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "fileName": {
-            "type": "string"
-          },
-          "modificationDate": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "parameters": {
-            "additionalProperties": {
-              "type": "string"
-            },
-            "type": "object"
-          },
-          "readDate": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "size": {
-            "format": "int64",
-            "type": "integer"
-          },
-          "type": {
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
       "ImportExecutionResponse": {
         "description": "Represents the response after importing a test execution, containing the test execution issue details",
         "properties": {
@@ -775,134 +612,6 @@
             "$ref": "#/components/schemas/TestExecIssue"
           }
         },
-        "type": "object"
-      },
-      "MediaType": {
-        "properties": {
-          "parameters": {
-            "additionalProperties": {
-              "type": "string"
-            },
-            "type": "object"
-          },
-          "subtype": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "wildcardSubtype": {
-            "type": "boolean"
-          },
-          "wildcardType": {
-            "type": "boolean"
-          }
-        },
-        "type": "object"
-      },
-      "MessageBodyWorkers": {
-        "type": "object"
-      },
-      "MultiPart": {
-        "properties": {
-          "bodyParts": {
-            "items": {
-              "$ref": "#/components/schemas/BodyPart"
-            },
-            "type": "array"
-          },
-          "contentDisposition": {
-            "$ref": "#/components/schemas/ContentDisposition"
-          },
-          "entity": {
-            "type": "object"
-          },
-          "headers": {
-            "additionalProperties": {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            "properties": {
-              "empty": {
-                "type": "boolean"
-              }
-            },
-            "type": "object"
-          },
-          "mediaType": {
-            "$ref": "#/components/schemas/MediaType"
-          },
-          "messageBodyWorkers": {
-            "$ref": "#/components/schemas/MessageBodyWorkers"
-          },
-          "parameterizedHeaders": {
-            "additionalProperties": {
-              "items": {
-                "$ref": "#/components/schemas/ParameterizedHeader"
-              },
-              "type": "array"
-            },
-            "properties": {
-              "empty": {
-                "type": "boolean"
-              }
-            },
-            "type": "object"
-          },
-          "parent": {
-            "$ref": "#/components/schemas/MultiPart"
-          },
-          "providers": {
-            "$ref": "#/components/schemas/Providers"
-          }
-        },
-        "type": "object"
-      },
-      "MultivaluedMapStringParameterizedHeader": {
-        "additionalProperties": {
-          "items": {
-            "$ref": "#/components/schemas/ParameterizedHeader"
-          },
-          "type": "array"
-        },
-        "properties": {
-          "empty": {
-            "type": "boolean"
-          }
-        },
-        "type": "object"
-      },
-      "MultivaluedMapStringString": {
-        "additionalProperties": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "properties": {
-          "empty": {
-            "type": "boolean"
-          }
-        },
-        "type": "object"
-      },
-      "ParameterizedHeader": {
-        "properties": {
-          "parameters": {
-            "additionalProperties": {
-              "type": "string"
-            },
-            "type": "object"
-          },
-          "value": {
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "Providers": {
         "type": "object"
       },
       "Schema": {
