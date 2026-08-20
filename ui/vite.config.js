@@ -17,13 +17,6 @@ export default defineConfig(({ command, mode }) => {
       resolve,
       server: {
         proxy: {
-          // Generic UI toolkit (SearchableDropdown JS + its CSS) served by GenericUiServlet. Served
-          // unauthenticated in Polarion (see the cucumber-app web.xml), so the dev proxy can fetch
-          // it without a session.
-          '/polarion/cucumber-app/ui/generic': {
-            target: polarionUrl,
-            changeOrigin: true,
-          },
           // The extension's own webapp context: REST API (attachment CRUD) + the panel CSS the dev
           // harness loads (webapp/cucumber/css/*.css, served at /polarion/cucumber/ui/css/...).
           '/polarion/cucumber/rest': {
