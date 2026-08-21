@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useConfirm } from '@grigoriev/react-sbb-polarion';
+import { useConfirm } from '@sbb-polarion/react-sbb-polarion';
 import useRemote from '../services/useRemote';
 import { createFeatureCodeEditor, linesWithError } from './codeEditor';
 import type { FeatureCodeEditor } from './codeEditor';

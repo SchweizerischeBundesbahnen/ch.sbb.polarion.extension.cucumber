@@ -1,7 +1,7 @@
 # cucumber-app (React UI)
 
 The React app for the Cucumber extension, built with Vite and consuming the shared
-`@grigoriev/react-sbb-polarion` (RSP) component library. One bundle serves every
+`@sbb-polarion/react-sbb-polarion` (RSP) component library. One bundle serves every
 surface; the page is chosen by the `?feature=<id>` query parameter (feature routing).
 
 Surfaces:
