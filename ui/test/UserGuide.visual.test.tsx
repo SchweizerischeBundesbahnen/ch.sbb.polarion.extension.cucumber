@@ -3,6 +3,7 @@ import { cleanup, render } from 'vitest-browser-react';
 import { page } from 'vitest/browser';
 import App from '../src/App';
 import { installFetchMock } from './mockFetch';
+import { settleBeforeCapture, settleLayout } from './visualHelpers';
 
 // Docker-only snapshot of the User Guide page. It renders the build-generated article, so what is
 // pinned is the page frame and the markdown styling around it - both come from the shared library and
@@ -30,7 +31,9 @@ describe.skipIf(!__PIXEL_REFERENCES__)('User Guide page visual', () => {
 
     await vi.waitFor(() => expect(document.querySelector('article.markdown-body')).not.toBeNull());
     const app = document.querySelector('.app') as HTMLElement;
+    await settleLayout();
     await page.viewport(1280, Math.ceil(app.scrollHeight) + 40);
+    await settleBeforeCapture();
     await expect(page.elementLocator(app)).toMatchScreenshot('user-guide-loaded');
   });
 });

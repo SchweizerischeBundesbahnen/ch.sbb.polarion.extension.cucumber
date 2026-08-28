@@ -4,6 +4,7 @@ import { page } from 'vitest/browser';
 import CucumberPanel from '../src/formext/CucumberPanel';
 import type { PanelContext } from '../src/formext/types';
 import { installFetchMock, jsonResponse } from './mockFetch';
+import { settleBeforeCapture, settleLayout } from './visualHelpers';
 
 // Docker-only snapshots of the Cucumber Test panel: the read-only state it opens in, and the state
 // after a failed validation - the two looks the panel's own CSS (petrel / highlight.js / cucumber)
@@ -28,7 +29,9 @@ const FEATURE = [
 
 const shoot = async (name: string) => {
   const panel = document.querySelector('#cucumber-edit-panel') as HTMLElement;
+  await settleLayout();
   await page.viewport(1000, Math.ceil(panel.scrollHeight) + 40);
+  await settleBeforeCapture();
   await expect(page.elementLocator(panel)).toMatchScreenshot(name);
 };
 
