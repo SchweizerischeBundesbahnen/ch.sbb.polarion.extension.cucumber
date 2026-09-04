@@ -27,11 +27,7 @@ public class StringListConverter implements FieldValueConverter {
 
         String projectId = testRun.getProjectId();
         for (String entry : sourceList) {
-            // The entry is a raw deserialized JSON value, so it can be null or empty. Such an entry matches no
-            // plan and would make the query unparseable, so skip the lookup and let it render as plain text.
-            IPlan plan = StringUtils.isEmpty(entry) ? null
-                    : trackerService.getPlanningManager().searchPlans(LuceneUtils.and(LuceneUtils.projectTerm(projectId), LuceneUtils.term("id", entry)), "id", 1).stream()
-                    .findFirst().orElse(null);
+            IPlan plan = findPlan(trackerService, projectId, entry);
 
             //try to create cross-links between Plan and Test Run
             if (plan != null) {
@@ -52,5 +48,15 @@ public class StringListConverter implements FieldValueConverter {
         }
 
         return Text.html(String.join("", resultList));
+    }
+
+    private static IPlan findPlan(ITrackerService trackerService, String projectId, String entry) {
+        // The entry is a raw deserialized JSON value, so it can be null or empty. Such an entry matches no
+        // plan and would make the query unparseable, so skip the lookup and let the caller render it as text.
+        if (StringUtils.isEmpty(entry)) {
+            return null;
+        }
+        String query = LuceneUtils.and(LuceneUtils.projectTerm(projectId), LuceneUtils.term("id", entry));
+        return trackerService.getPlanningManager().searchPlans(query, "id", 1).stream().findFirst().orElse(null);
     }
 }
