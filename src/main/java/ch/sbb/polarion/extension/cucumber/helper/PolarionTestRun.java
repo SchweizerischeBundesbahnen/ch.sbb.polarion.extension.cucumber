@@ -5,6 +5,7 @@ import ch.sbb.polarion.extension.cucumber.rest.model.execution.ExecutionInfo;
 import ch.sbb.polarion.extension.cucumber.rest.model.execution.ExecutionRecord;
 import ch.sbb.polarion.extension.cucumber.rest.model.fields.FieldType;
 import ch.sbb.polarion.extension.generic.service.PolarionService;
+import ch.sbb.polarion.extension.generic.util.LuceneUtils;
 import com.polarion.alm.projects.model.IProject;
 import com.polarion.alm.tracker.ITestManagementService;
 import com.polarion.alm.tracker.ITrackerService;
@@ -79,7 +80,7 @@ public class PolarionTestRun {
         String testRunId = String.format("%s_%s", project.getId(), new SimpleDateFormat(TIMESTAMP_PATTERN).format(new Date()));
         String testRunTemplateId = StringUtils.isEmpty(executionInfo.getTestRunTemplateId()) ? "xUnit Build Test" : executionInfo.getTestRunTemplateId();
 
-        ITestRun template = testManagementService.searchTestRunTemplates("project.id:" + project.getId(), null, -1)
+        ITestRun template = testManagementService.searchTestRunTemplates(LuceneUtils.projectTerm(project.getId()), null, -1)
                 .stream().filter(t -> t.getId().equals(testRunTemplateId)).findFirst().orElse(null);
         if (template == null) {
             throw new TestRunCreationException(String.format("Test run template '%s' not found in project '%s', skipping test run creation", testRunTemplateId, project.getId()));
@@ -115,6 +116,7 @@ public class PolarionTestRun {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private static @Nullable IWorkItem findTestCase(@NotNull ITrackerService trackerService,
                                                     @NotNull ITestRun testRun, @NotNull ExecutionRecord executionRecord) {
 
@@ -127,13 +129,11 @@ public class PolarionTestRun {
             }
         }
         if (!StringUtils.isEmpty(executionRecord.getTestCaseTitle())) {
-
-            @SuppressWarnings("unchecked")
-            IPObjectList<IWorkItem> list = trackerService.queryWorkItems(
-                    String.format("project.id:%s AND type:testcase AND title:\"%s\"",
-                            testRun.getProjectId(), executionRecord.getTestCaseTitle()), "id");
+            String query = LuceneUtils.and(LuceneUtils.projectTerm(testRun.getProjectId()), "type:testcase",
+                    LuceneUtils.term("title", executionRecord.getTestCaseTitle()));
+            IPObjectList<IWorkItem> list = trackerService.queryWorkItems(query, "id");
             if (!list.isEmpty()) {
-                return list.get(0);
+                return list.getFirst();
             }
         }
         return null;
