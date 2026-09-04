@@ -9,12 +9,15 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -40,5 +43,20 @@ class StringListConverterTest {
         when(planningManager.searchPlans(anyString(), anyString(), anyInt())).thenReturn(List.of(plan));
         result = new StringListConverter().convert(trackerService, testRun, null, List.of("some"));
         assertEquals(Text.html("<a href=\"/polarion/#/project/projId/plan?id=planId\" target=\"_blank\">planName</a><span> </span>"), result);
+    }
+
+    @Test
+    void testConvertSkipsThePlanLookupForAnEmptyOrNullEntry() {
+        // Both values reach this from the deserialized request body. An empty one would build the
+        // unparseable clause "id:" and a null one would fail before the query was built, so neither
+        // may reach the lookup. Each renders as plain text instead, as it did before the escaping.
+        ITrackerService trackerService = mock(ITrackerService.class);
+        ITestRun testRun = mock(ITestRun.class);
+        when(testRun.getProjectId()).thenReturn("projId");
+
+        Object result = new StringListConverter().convert(trackerService, testRun, null, Arrays.asList(null, ""));
+
+        assertEquals(Text.html("<span>null</span><span> </span><span></span><span> </span>"), result);
+        verify(trackerService, never()).getPlanningManager();
     }
 }

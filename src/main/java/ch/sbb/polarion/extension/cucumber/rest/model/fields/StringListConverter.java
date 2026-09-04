@@ -27,7 +27,10 @@ public class StringListConverter implements FieldValueConverter {
 
         String projectId = testRun.getProjectId();
         for (String entry : sourceList) {
-            IPlan plan = trackerService.getPlanningManager().searchPlans(LuceneUtils.and(LuceneUtils.projectTerm(projectId), LuceneUtils.term("id", entry)), "id", 1).stream()
+            // The entry is a raw deserialized JSON value, so it can be null or empty. Such an entry matches no
+            // plan and would make the query unparseable, so skip the lookup and let it render as plain text.
+            IPlan plan = StringUtils.isEmpty(entry) ? null
+                    : trackerService.getPlanningManager().searchPlans(LuceneUtils.and(LuceneUtils.projectTerm(projectId), LuceneUtils.term("id", entry)), "id", 1).stream()
                     .findFirst().orElse(null);
 
             //try to create cross-links between Plan and Test Run
