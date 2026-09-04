@@ -134,9 +134,10 @@ class PolarionTestRunTest {
 
         when(trackerService.queryWorkItems(anyString(), anyString())).thenReturn(new PObjectList(mock(IDataService.class), List.of()));
 
-        when(trackerService.queryWorkItems(String.format("project.id:%s AND type:testcase AND title:\"%s\"",
+        // The titles carry no space, so they stay bare terms; a title with a space becomes a quoted phrase.
+        when(trackerService.queryWorkItems(String.format("(project.id:%s) AND (type:testcase) AND (title:%s)",
                 TEST_PROJECT_ID, TEST_CASE_1), "id")).thenReturn(new PObjectList(mock(IDataService.class), List.of(workItem1)));
-        when(trackerService.queryWorkItems(String.format("project.id:%s AND type:testcase AND title:\"%s\"",
+        when(trackerService.queryWorkItems(String.format("(project.id:%s) AND (type:testcase) AND (title:%s)",
                 TEST_PROJECT_ID, TEST_CASE_2), "id")).thenReturn(new PObjectList(mock(IDataService.class), List.of(workItem2)));
 
         testRuns = PolarionTestRun.createTestRuns(polarionService, testManagementService, prepareCucumberExecutionInfo(), executionResults);

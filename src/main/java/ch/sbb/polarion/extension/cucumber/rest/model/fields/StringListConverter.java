@@ -1,5 +1,6 @@
 package ch.sbb.polarion.extension.cucumber.rest.model.fields;
 
+import ch.sbb.polarion.extension.generic.util.LuceneUtils;
 import com.polarion.alm.tracker.ITrackerService;
 import com.polarion.alm.tracker.model.IPlan;
 import com.polarion.alm.tracker.model.ITestRun;
@@ -26,7 +27,7 @@ public class StringListConverter implements FieldValueConverter {
 
         String projectId = testRun.getProjectId();
         for (String entry : sourceList) {
-            IPlan plan = trackerService.getPlanningManager().searchPlans(String.format("project.id:%s AND id:\"%s\"", projectId, entry), "id", 1).stream()
+            IPlan plan = trackerService.getPlanningManager().searchPlans(LuceneUtils.and(LuceneUtils.projectTerm(projectId), LuceneUtils.term("id", entry)), "id", 1).stream()
                     .findFirst().orElse(null);
 
             //try to create cross-links between Plan and Test Run
