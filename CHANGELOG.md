@@ -1,5 +1,18 @@
 # Changelog
 
+## [5.2.1](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/compare/v5.2.0...v5.2.1) (2026-09-12)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @types/react-dom to v19.2.7 ([#185](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/issues/185)) ([5be2cb1](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/5be2cb1fa4004000969a8e3fde33ee5d776298d2))
+* **deps:** update dependency eslint to v10.10.0 ([#189](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/issues/189)) ([5eff19d](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/5eff19d953e392b141e06b114b8d2746b0d89b25))
+* **deps:** update dependency globals to v17.12.0 ([#183](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/issues/183)) ([408e388](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/408e3887d64b34c11af92570b175dc60f1a480a5))
+* **deps:** update dependency playwright to v1.63.0 ([#190](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/issues/190)) ([4744c6f](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/4744c6fa1654217d4f5d288810af7d3138f19f94))
+* **deps:** update dependency typescript-eslint to v8.69.0 ([#179](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/issues/179)) ([f6cd221](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/f6cd221fe6e799ce37a58c02df7576b647902311))
+* **deps:** update dependency typescript-eslint to v8.70.0 ([#191](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/issues/191)) ([b188ada](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/b188adab6f3ee20f9c79a2d201150524935ec66d))
+* **deps:** update dependency vitest-browser-react to v2.3.0 ([#188](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/issues/188)) ([73430dc](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/commit/73430dc97d62b7b8a9f1ccdafd1e92f278dd04b7))
+
 ## [5.2.0](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/compare/v5.1.1...v5.2.0) (2026-08-21)
 
 
