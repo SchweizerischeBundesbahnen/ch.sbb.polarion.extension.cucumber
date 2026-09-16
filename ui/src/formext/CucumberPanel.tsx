@@ -140,9 +140,11 @@ export default function CucumberPanel({ context, onSaved }: CucumberPanelProps) 
         <button type="button" id="edit-feature-button" disabled={editing} onClick={handleEdit}>
           <span className="sbb-icon-edit" role="img" aria-label="Edit"></span>Edit
         </button>
-        <button type="button" className="divider">
+        {/* Purely decorative separator, so not a control: a <span> is never focusable and never
+            announced. Its box comes from `.editor-buttons .divider` in cucumber.css. */}
+        <span className="divider" aria-hidden="true">
           &nbsp;
-        </button>
+        </span>
         <button
           type="button"
           id="validate-feature-button"

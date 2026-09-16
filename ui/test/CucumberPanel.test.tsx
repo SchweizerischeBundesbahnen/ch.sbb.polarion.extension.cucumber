@@ -52,6 +52,15 @@ afterEach(() => {
 });
 
 describe('Cucumber Test panel', () => {
+  it('keeps the toolbar separator out of the tab order and the accessibility tree', async () => {
+    await mount();
+    const divider = document.querySelector('.editor-buttons .divider')!;
+    // A decoration, not a control. A <button> here would be a nameless tab stop.
+    expect(divider.tagName).toBe('SPAN');
+    expect(divider.getAttribute('aria-hidden')).toBe('true');
+    expect(document.querySelectorAll('.editor-buttons button')).toHaveLength(4);
+  });
+
   it('loads the stored feature into the editor, read-only', async () => {
     await mount();
 
