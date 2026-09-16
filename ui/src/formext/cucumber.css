@@ -26,11 +26,22 @@
   cursor: default;
 }
 
+/* The separator between the buttons. It is a <span>, not a <button>, so that a decoration is never
+   focusable and never reaches a screen reader. It therefore repeats the box the rule above gives a
+   real button, because that rule no longer matches it. */
 .editor-buttons .divider {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
   padding: 4px 0;
   width: 1px;
+  border: 1px solid #dedede;
   border-right-color: #fff;
   border-left-color: #ccc;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: normal;
 }
 
 .editor-buttons button img,
