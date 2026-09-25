@@ -91,6 +91,9 @@ describe('accessibility', () => {
     window.history.replaceState({}, '', '?');
     render(<App />);
     await vi.waitFor(() => expect(document.querySelector('.landing .sd-trigger')).not.toBeNull());
+    await vi.waitFor(() =>
+      expect(document.querySelector('.landing-scope option[value="project/elibrary/"]')).not.toBeNull(),
+    );
     expect(await pageViolations()).toEqual([]);
   });
 
@@ -110,6 +113,9 @@ describe('accessibility', () => {
     window.history.replaceState({}, '', '?');
     render(<App />);
     await vi.waitFor(() => expect(document.querySelector('.landing .sd-trigger')).not.toBeNull());
+    await vi.waitFor(() =>
+      expect(document.querySelector('.landing-scope option[value="project/elibrary/"]')).not.toBeNull(),
+    );
     expect(document.querySelector('.landing-scope .sd-trigger')).toHaveAccessibleName('Project scope:');
   });
 
