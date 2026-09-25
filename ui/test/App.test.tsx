@@ -1,3 +1,4 @@
+import { pageViolations } from '@sbb-polarion/react-sbb-polarion/testing';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, render } from 'vitest-browser-react';
 import App from '../src/App';
@@ -81,5 +82,57 @@ describe('App router', () => {
     await vi.waitFor(() => expect(document.querySelector('.about-table')).not.toBeNull());
     expect(document.body.textContent).toContain('Cucumber');
     expect(document.querySelector('.about-page .app-icon')).not.toBeNull();
+  });
+});
+
+describe('accessibility', () => {
+  it('has no WCAG A/AA violations on the Landing stub', async () => {
+    installFetchMock([{ method: 'GET', match: /\/polarion\/rest\/v1\/projects/, json: PROJECTS }]);
+    window.history.replaceState({}, '', '?');
+    render(<App />);
+    await vi.waitFor(() => expect(document.querySelector('.landing .sd-trigger')).not.toBeNull());
+    expect(await pageViolations()).toEqual([]);
+  });
+
+  it('has no WCAG A/AA violations on the Landing stub with the project error', async () => {
+    installFetchMock([
+      { method: 'GET', match: /\/polarion\/rest\/v1\/projects/, respond: () => jsonResponse({}, 401) },
+    ]);
+    window.history.replaceState({}, '', '?');
+    render(<App />);
+    await vi.waitFor(() => expect(document.querySelector('.landing .alert-error')).not.toBeNull());
+    expect(await pageViolations()).toEqual([]);
+  });
+
+  // axe accepts a placeholder as a name, so it would not catch a control that loses its label.
+  it('names the Landing scope picker after its label', async () => {
+    installFetchMock([{ method: 'GET', match: /\/polarion\/rest\/v1\/projects/, json: PROJECTS }]);
+    window.history.replaceState({}, '', '?');
+    render(<App />);
+    await vi.waitFor(() => expect(document.querySelector('.landing .sd-trigger')).not.toBeNull());
+    expect(document.querySelector('.landing-scope .sd-trigger')).toHaveAccessibleName('Project scope:');
+  });
+
+  it('has no WCAG A/AA violations on the About page', async () => {
+    installFetchMock(aboutRoutes());
+    window.history.replaceState({}, '', '?feature=about&embedded=true');
+    render(<App />);
+    await vi.waitFor(() => expect(document.querySelector('.about-table')).not.toBeNull());
+    await vi.waitFor(() => expect(document.body.textContent).toContain('Readme'));
+    expect(await pageViolations()).toEqual([]);
+  });
+
+  it('has no WCAG A/AA violations on the User Guide page', async () => {
+    installFetchMock([
+      {
+        method: 'GET',
+        match: /\/user-guide$/,
+        respond: () => new Response('<h1>User Guide</h1><p>How to run Cucumber tests.</p>', { status: 200 }),
+      },
+    ]);
+    window.history.replaceState({}, '', '?feature=user-guide&embedded=true');
+    render(<App />);
+    await vi.waitFor(() => expect(document.querySelector('article.markdown-body')).not.toBeNull());
+    expect(await pageViolations()).toEqual([]);
   });
 });

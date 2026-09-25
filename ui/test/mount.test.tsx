@@ -1,3 +1,4 @@
+import { a11yViolations } from '@sbb-polarion/react-sbb-polarion/testing';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { mountCucumberPanel } from '../src/formext/mount';
 import { installFetchMock } from './mockFetch';
@@ -118,5 +119,19 @@ describe('mountCucumberPanel', () => {
     await panelIn(host.shadowRoot!);
 
     await vi.waitFor(() => expect(requested.some((url) => url.includes('/feature/other/WI-9'))).toBe(true));
+  });
+});
+
+describe('mountCucumberPanel, accessibility', () => {
+  // The panel states are checked in CucumberPanel.test.tsx; this one scans it inside its shadow root.
+  it('has no WCAG A/AA violations inside the shadow root', async () => {
+    installFetchMock([{ method: 'GET', match: /\/feature\//, json: { content: 'Feature: mounted' } }]);
+    host = makeHost();
+    const root = mountCucumberPanel('#cucumber-edit-panel');
+    await vi.waitFor(() =>
+      expect(host!.shadowRoot!.querySelector('#cucumberFeatureCodeEditor textarea')).not.toBeNull(),
+    );
+    expect(await a11yViolations(host)).toEqual([]);
+    root?.unmount();
   });
 });

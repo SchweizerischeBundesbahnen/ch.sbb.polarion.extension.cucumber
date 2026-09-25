@@ -35,6 +35,8 @@ export function createFeatureCodeEditor(element: HTMLElement): FeatureCodeEditor
   editor.setAutoCompleteHandler(new GherkinAutoComplete());
   editor.setValue('');
   editor.create();
+  // The vendored editor creates its <textarea> without a name; set it here to keep src/vendor verbatim.
+  editor.textAreaElement!.setAttribute('aria-label', 'Feature content');
   return editor as FeatureCodeEditor;
 }
 

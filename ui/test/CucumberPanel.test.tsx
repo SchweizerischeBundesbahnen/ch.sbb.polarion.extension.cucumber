@@ -1,3 +1,4 @@
+import { pageViolations } from '@sbb-polarion/react-sbb-polarion/testing';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, render } from 'vitest-browser-react';
 import CucumberPanel from '../src/formext/CucumberPanel';
@@ -223,5 +224,66 @@ describe('Cucumber Test panel', () => {
 
     expect(button('edit-feature-button').disabled).toBe(true);
     expect(button('save-feature-button').disabled).toBe(false);
+  });
+});
+
+describe('Cucumber Test panel, accessibility', () => {
+  const invalid = {
+    method: 'POST',
+    match: /\/cucumber\/validate$/,
+    json: { result: 'invalid', errors: [{ message: "expected: #Language, got 'oops'", line: 2 }] },
+  };
+
+  it('has no WCAG A/AA violations in read-only mode', async () => {
+    await mount();
+    await vi.waitFor(() => expect(editorText()).toContain('Scenario: works'));
+    expect(await pageViolations()).toEqual([]);
+  });
+
+  // axe accepts a placeholder as a name, so it would not catch an editor that loses its name.
+  it('names the code editor', async () => {
+    await mount();
+    expect(document.querySelector('#cucumberFeatureCodeEditor textarea')).toHaveAccessibleName('Feature content');
+  });
+
+  it('has no WCAG A/AA violations with a load error', async () => {
+    installFetchMock([
+      { method: 'GET', match: /\/feature\/proj\/WI-1$/, respond: () => jsonResponse({ message: 'gone' }, 500) },
+    ]);
+    render(<CucumberPanel context={CONTEXT} />);
+    await vi.waitFor(() => expect(document.querySelector('#feature-error')).not.toBeNull());
+    expect(await pageViolations()).toEqual([]);
+  });
+
+  it('has no WCAG A/AA violations in edit mode after a passed validation', async () => {
+    await mount([{ method: 'POST', match: /\/cucumber\/validate$/, json: { result: 'valid' } }]);
+    await startEditing();
+    button('validate-feature-button').click();
+    await vi.waitFor(() => expect(validationResult()!.className).toBe('validation-pass'));
+    expect(await pageViolations()).toEqual([]);
+  });
+
+  it('has no WCAG A/AA violations in edit mode after a failed validation', async () => {
+    await mount([invalid]);
+    await startEditing();
+    button('validate-feature-button').click();
+    await vi.waitFor(() => expect(validationResult()!.className).toBe('validation-fail'));
+    expect(await pageViolations()).toEqual([]);
+  });
+
+  it('has no WCAG A/AA violations with a save error', async () => {
+    await mount([{ method: 'POST', match: /\/feature$/, respond: () => jsonResponse({ message: 'read-only' }, 403) }]);
+    await startEditing();
+    button('save-feature-button').click();
+    await vi.waitFor(() => expect(document.querySelector('#feature-error')).not.toBeNull());
+    expect(await pageViolations()).toEqual([]);
+  });
+
+  it('has no WCAG A/AA violations with the cancel confirmation open', async () => {
+    await mount();
+    await startEditing();
+    button('cancel-edit-feature-button').click();
+    await vi.waitFor(() => expect(document.querySelector('.rsp-modal')).not.toBeNull());
+    expect(await pageViolations()).toEqual([]);
   });
 });
