@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { PageLayout, SearchableSelect } from '@sbb-polarion/react-sbb-polarion';
 import { mountCucumberPanel } from '../formext/mount';
 import type { PanelContext } from '../formext/types';
@@ -15,6 +15,7 @@ const HOST_ID = 'cucumber-edit-panel';
  * Edit / Validate / Save flow can be eyeballed and driven locally against a real work item.
  */
 export default function PanelDev() {
+  const workItemFieldId = useId();
   const projectId = getProjectIdFromScope(getScope());
   const [workItems, setWorkItems] = useState<ProjectWorkItem[]>([]);
   const [workItemId, setWorkItemId] = useState('');
@@ -70,8 +71,9 @@ export default function PanelDev() {
       {projectId && (
         <>
           <div className="landing-scope">
-            <label>Work item:</label>
+            <label htmlFor={workItemFieldId}>Work item:</label>
             <SearchableSelect
+              id={workItemFieldId}
               value={workItemId}
               onChange={setWorkItemId}
               options={workItems.map((w) => ({
