@@ -122,6 +122,19 @@ describe('accessibility', () => {
     expect(await pageViolations()).toEqual([]);
   });
 
+  it('has no WCAG A/AA violations on the About page with an error alert', async () => {
+    installFetchMock([
+      { method: 'GET', match: /\/version$/, respond: () => jsonResponse({ errorMessage: 'boom' }, 500) },
+      { method: 'GET', match: /\/configuration-properties$/, json: { properties: [], obsoleteProperties: [] } },
+      { method: 'GET', match: /\/configuration-status/, json: [] },
+      { method: 'GET', match: /\/readme$/, respond: () => new Response('', { status: 404 }) },
+    ]);
+    window.history.replaceState({}, '', '?feature=about&embedded=true');
+    render(<App />);
+    await vi.waitFor(() => expect(document.querySelector('.alert-error')).not.toBeNull());
+    expect(await pageViolations()).toEqual([]);
+  });
+
   it('has no WCAG A/AA violations on the User Guide page', async () => {
     installFetchMock([
       {
@@ -133,6 +146,14 @@ describe('accessibility', () => {
     window.history.replaceState({}, '', '?feature=user-guide&embedded=true');
     render(<App />);
     await vi.waitFor(() => expect(document.querySelector('article.markdown-body')).not.toBeNull());
+    expect(await pageViolations()).toEqual([]);
+  });
+
+  it('has no WCAG A/AA violations on the User Guide page with an error alert', async () => {
+    installFetchMock([{ method: 'GET', match: /\/user-guide$/, respond: () => new Response('', { status: 500 }) }]);
+    window.history.replaceState({}, '', '?feature=user-guide&embedded=true');
+    render(<App />);
+    await vi.waitFor(() => expect(document.querySelector('.alert-error')).not.toBeNull());
     expect(await pageViolations()).toEqual([]);
   });
 });
