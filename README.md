@@ -21,12 +21,40 @@ It provides the almost same functionality as Xray plugin for Jira:
 > Starting from version 2.0.0 only latest version of Polarion is supported.
 > Right now it is Polarion 2606.
 
+## Documentation
+
+| Document | Description |
+|---|---|
+| [User guide](USER_GUIDE.md) | Create tests, upload test results |
+| [Development guide](DEVELOPMENT.md) | Build from sources, local installation, debugging |
+| [Changelog](CHANGELOG.md) | Changes in each release |
+| [REST API](docs/openapi.json) | OpenAPI specification |
+
+## Compatibility
+
+This extension is compatible with:
+* Polarion 2606
+* Java 21
+
 ## Quick start
 
-The latest version of the extension can be downloaded from the [releases page](../../releases/latest) and installed to Polarion instance without necessity to be compiled from the sources.
-The extension should be copied to `<polarion_home>/polarion/extensions/ch.sbb.polarion.extension.cucumber/eclipse/plugins` and changes will take effect after Polarion restart.
+The compiled extension is available on the [releases page](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/releases).
+You do not need to compile it from the sources.
+
+1. Download `ch.sbb.polarion.extension.cucumber-<version>.jar` from the [latest release](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.cucumber/releases/latest).
+2. Stop Polarion.
+3. Copy the jar file to `<polarion_home>/polarion/extensions/ch.sbb.polarion.extension.cucumber/eclipse/plugins`. Create the folder if it does not exist.
+4. Remove older versions of the extension jar from this folder.
+5. Delete the folder `<polarion_home>/data/workspace/.config`.
+6. Start Polarion.
+7. Do the [Polarion configuration](#polarion-configuration) steps for each project that uses the extension.
+
 > [!IMPORTANT]
-> Don't forget to clear `<polarion_home>/data/workspace/.config` folder after extension installation/update to make it work properly.
+> You must delete `<polarion_home>/data/workspace/.config` after each installation or update of the extension.
+> If you do not delete it, Polarion does not load the new extension version.
+
+To make sure that the extension is loaded, log in to Polarion and open `https://<polarion_host>/polarion/cucumber/rest/api/version`.
+To see the REST API description, open `https://<polarion_host>/polarion/cucumber/rest/swagger`.
 
 ## Build
 
@@ -46,6 +74,9 @@ mvn clean install -P local-install-into-polarion
 For automated installation with maven env variable `POLARION_HOME` should be defined and point to folder where Polarion is installed.
 
 Changes only take effect after restart of Polarion.
+
+> [!IMPORTANT]
+> Delete `<polarion_home>/data/workspace/.config` before you restart Polarion.
 
 ## Polarion configuration
 
@@ -174,7 +205,7 @@ By default, Test Run's UI doesn't display its description (as a custom field). T
     - save enum configuration
 2. Create a custom field which will keep the value (this step can be made in global configuration, but global fields will be visible only if the local configuration for test runs is deleted https://community.sw.siemens.com/s/question/0D54O00007Fh7iLSAR/do-global-test-run-custom-fields-work-locally):
     - go to `Administration -> Testing -> Test Run Custom Fields`
-    - use ID: `team-sbb`, Name: `Team-SBB`, Type: `Enum` (+ select enum name created on step 1)
+    - use ID: `teamSBB`, Name: `Team-SBB`, Type: `Enum` (+ select enum name created on step 1)
 3. Customize Test Run Report to show Team-SBB field:
     - Test Runs -> on the right hand side of the toolbar of the Test Runs page, click Manage Templates and select a template you want to modify
     - Place where it is needed widget "Script - Block" and put following code inside:

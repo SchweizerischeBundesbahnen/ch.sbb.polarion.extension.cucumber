@@ -1,6 +1,7 @@
 package ch.sbb.polarion.extension.cucumber.rest.model.fields;
 
 import ch.sbb.polarion.extension.generic.fields.model.FieldMetadata;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 import java.util.List;
@@ -26,8 +27,7 @@ public final class FieldDefinition {
         this.schema = schema;
     }
 
-    public static FieldDefinition fromFieldMetadata(FieldMetadata fieldMetadata) {
-        FieldType fieldType = FieldType.fromIType(fieldMetadata.getType());
+    public static FieldDefinition fromFieldMetadata(@NotNull FieldMetadata fieldMetadata, @NotNull FieldType fieldType) {
         return new FieldDefinition(
                 fieldMetadata.getId(),
                 fieldMetadata.getLabel(),
