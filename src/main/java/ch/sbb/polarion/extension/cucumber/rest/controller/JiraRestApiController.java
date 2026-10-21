@@ -70,8 +70,9 @@ public class JiraRestApiController {
                     Collection<FieldMetadata> customFields = polarionService.getCustomFields(ITestRun.PROTO, project.getContextId(), null);
                     for (FieldMetadata customField : customFields) {
                         //filter out unsupported types
-                        if (FieldType.fromIType(customField.getType()) != null) {
-                            resultList.add(FieldDefinition.fromFieldMetadata(customField));
+                        FieldType fieldType = FieldType.fromIType(customField.getType());
+                        if (fieldType != null) {
+                            resultList.add(FieldDefinition.fromFieldMetadata(customField, fieldType));
                         }
                     }
                     return addStaticFields(resultList);

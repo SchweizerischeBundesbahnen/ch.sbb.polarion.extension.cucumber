@@ -104,8 +104,9 @@ For this purpose, the /rest/raven/1.0/export/test endpoint can be used.
 For example for `project/PRJ-210` and `project/PRJ-211`:
 ```bash
 curl -X GET \
-  'https://polarion.example.org/polarion/cucumber/rest/raven/1.0/export/test?keys=project%2PRJ-210%project%2FPRJ-211' \
-  -H "Authorization: Bearer $APP_TOKEN"
+  'https://polarion.example.org/polarion/cucumber/rest/raven/1.0/export/test?keys=project%2FPRJ-210%3Bproject%2FPRJ-211&fz=true' \
+  -H "Authorization: Bearer $APP_TOKEN" \
+  -o features.zip
 ```
 This will return a zip file with the feature files for the specified test cases.
 
