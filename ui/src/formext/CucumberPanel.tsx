@@ -34,6 +34,7 @@ export default function CucumberPanel({ context, onSaved }: CucumberPanelProps) 
 
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
+  const savingRef = useRef(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [validation, setValidation] = useState<ValidationState | null>(null);
   /** What is stored, so Cancel can restore it without another round trip. */
@@ -105,16 +106,24 @@ export default function CucumberPanel({ context, onSaved }: CucumberPanelProps) 
   };
 
   const handleSave = async () => {
-    if (context.validateOnSave && !(await runValidation())) {
-      return;
-    }
+    // Lock before validation, so repeated clicks and edits cannot slip in while it runs.
+    // The ref guards clicks that arrive before React re-renders the disabled button.
+    if (savingRef.current) return;
+    savingRef.current = true;
     setSaving(true);
     setReadonly(true);
+    if (context.validateOnSave && !(await runValidation())) {
+      savingRef.current = false;
+      setSaving(false);
+      setReadonly(false);
+      return;
+    }
     try {
       await saveFeature(sendRequest, context, editorRef.current?.getValue() ?? '');
       // The legacy panel reloaded the page here so the form picks up the stored attachment.
       (onSaved ?? (() => window.location.reload()))();
     } catch (e) {
+      savingRef.current = false;
       setSaving(false);
       setEditing(true);
       setReadonly(false);
@@ -167,7 +176,7 @@ export default function CucumberPanel({ context, onSaved }: CucumberPanelProps) 
         </button>
       </div>
 
-      <div className="validation-result">
+      <div className="validation-result" role="status" aria-live="polite" aria-atomic="true">
         {validation && (
           <span
             id="feature-validation-result"

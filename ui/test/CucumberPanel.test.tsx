@@ -112,7 +112,7 @@ describe('Cucumber Test panel', () => {
           result: 'invalid',
           errors: [
             { message: "expected: #Language, got 'oops'", line: 2 },
-            { message: 'inconsistent cell count', line: 5 },
+            { message: 'inconsistent cell count', line: 3 },
             { message: 'no location for this one' },
           ],
         },
@@ -128,6 +128,11 @@ describe('Cucumber Test panel', () => {
     expect(text).toContain("expected: #Language, got 'oops'");
     expect(text).toContain('inconsistent cell count');
     expect(text).toContain('no location for this one');
+    // The editor marks a line by its number in the gutter, so read back the 1-based numbers.
+    await vi.waitFor(() => {
+      const markers = Array.from(document.querySelectorAll('.petrel-code-editor-line-numbering .line-with-error'));
+      expect(markers.map((n) => Number(n.textContent))).toEqual([2, 3]);
+    });
   });
 
   it('reports a validation call that failed outright', async () => {
@@ -191,6 +196,43 @@ describe('Cucumber Test panel', () => {
     expect(onSaved).not.toHaveBeenCalled();
     // Still editing, so the user can fix it.
     expect(button('save-feature-button').disabled).toBe(false);
+  });
+
+  it('validates and saves only once when Save is clicked repeatedly', async () => {
+    const onSaved = vi.fn();
+    let validatePosts = 0;
+    let savePosts = 0;
+    await mount(
+      [
+        {
+          method: 'POST',
+          match: /\/cucumber\/validate$/,
+          respond: () => {
+            validatePosts++;
+            return jsonResponse({ result: 'valid' });
+          },
+        },
+        {
+          method: 'POST',
+          match: /\/feature$/,
+          respond: () => {
+            savePosts++;
+            return jsonResponse({});
+          },
+        },
+      ],
+      { ...CONTEXT, validateOnSave: true },
+      onSaved,
+    );
+    await startEditing();
+
+    button('save-feature-button').click();
+    button('save-feature-button').click();
+
+    await vi.waitFor(() => expect(onSaved).toHaveBeenCalled());
+    expect(validatePosts).toBe(1);
+    expect(savePosts).toBe(1);
+    expect(onSaved).toHaveBeenCalledTimes(1);
   });
 
   it('stays editable and explains itself when saving fails', async () => {

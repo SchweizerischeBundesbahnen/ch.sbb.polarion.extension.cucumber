@@ -13,6 +13,10 @@ describe('linesWithError', () => {
     expect(linesWithError([{ line: 2 }, {}, { line: undefined }])).toEqual([1]);
   });
 
+  it('ignores line numbers that are not positive integers', () => {
+    expect(linesWithError([{ line: 0 }, { line: -3 }, { line: 1.5 }, { line: Number.NaN }, { line: 4 }])).toEqual([3]);
+  });
+
   it('handles no errors at all', () => {
     expect(linesWithError(undefined)).toEqual([]);
     expect(linesWithError([])).toEqual([]);

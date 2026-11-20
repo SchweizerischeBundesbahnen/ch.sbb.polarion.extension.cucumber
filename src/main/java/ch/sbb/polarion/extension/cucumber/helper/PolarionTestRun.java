@@ -95,7 +95,7 @@ public class PolarionTestRun {
         testRun.setTitle(executionInfo.getTitle());
         if (executionInfo.getDescription() != null) {
             testRun.setCustomField("description", Text.html(
-                    executionInfo.getDescription().replaceAll(System.lineSeparator(), "<br>")));
+                    executionInfo.getDescription().replaceAll("\\R", "<br>")));
         }
         fillCustomFields(polarionService, testRun, executionInfo);
 

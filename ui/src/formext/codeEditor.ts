@@ -44,12 +44,12 @@ export function createFeatureCodeEditor(element: HTMLElement): FeatureCodeEditor
  * The 0-based lines the editor should mark, from what the parser reported.
  *
  * The parser hands back a line number per error; the legacy panel ignored it and dug the number out
- * of the message text with a regular expression instead. Errors without a location simply mark
- * nothing.
+ * of the message text with a regular expression instead. Errors without a valid location (a
+ * positive integer) simply mark nothing.
  */
 export function linesWithError(errors: { line?: number }[] | undefined): number[] {
   return (errors ?? [])
     .map((error) => error.line)
-    .filter((line): line is number => typeof line === 'number')
+    .filter((line): line is number => Number.isInteger(line) && (line as number) > 0)
     .map((line) => line - 1);
 }
