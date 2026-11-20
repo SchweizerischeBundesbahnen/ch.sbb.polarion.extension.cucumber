@@ -134,7 +134,7 @@ public class XrayImportExecutionResultsController {
         Map<String, String> projectMap = new HashMap<>();
         projectMap.put("id", projectKey);
         projectMap.put("key", testExecKey);
-        info.getFields().put(ExecutionInfo.PROJECT_KEY, projectMap);
+        info.putField(ExecutionInfo.PROJECT_KEY, projectMap);
 
         return importJUnitTests(info, file);
     }
@@ -174,7 +174,10 @@ public class XrayImportExecutionResultsController {
     }
 
     private ImportExecutionResponse createImportExecutionResponse(List<ITestRun> testRuns) {
-        ITestRun testRun = testRuns.get(0);
+        if (testRuns == null || testRuns.isEmpty()) {
+            throw new BadRequestException("No test runs were created from the provided execution results.");
+        }
+        ITestRun testRun = testRuns.getFirst();
         String testRunURL = getBaseUri() + "/polarion/#/project/" + testRun.getProjectId() + "/testrun?id=" + testRun.getId();
         TestExecIssue testExecIssue = new TestExecIssue(testRun.getProjectId() + "/" + testRun.getId(), testRun.getId(), testRunURL);
         return new ImportExecutionResponse(testExecIssue);

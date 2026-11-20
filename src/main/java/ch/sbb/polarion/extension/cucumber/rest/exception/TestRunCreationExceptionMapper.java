@@ -9,6 +9,7 @@ import jakarta.ws.rs.ext.Provider;
 @Provider
 public class TestRunCreationExceptionMapper implements ExceptionMapper<TestRunCreationException> {
 
+    @Override
     public Response toResponse(TestRunCreationException e) {
         return Response.status(Response.Status.BAD_REQUEST.getStatusCode())
                 .entity(e.getMessage())

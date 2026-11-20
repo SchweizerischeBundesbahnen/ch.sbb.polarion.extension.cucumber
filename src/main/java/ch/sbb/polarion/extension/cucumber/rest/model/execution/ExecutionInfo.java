@@ -3,9 +3,11 @@ package ch.sbb.polarion.extension.cucumber.rest.model.execution;
 import ch.sbb.polarion.extension.cucumber.rest.model.execution.cucumber.Project;
 import ch.sbb.polarion.extension.cucumber.rest.model.fields.FieldDefinition;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -24,9 +26,23 @@ public class ExecutionInfo {
     @Schema(description = "The project associated with this execution")
     private Project project;
 
-    @SuppressWarnings("unused")
+    @JsonProperty("fields")
     public Map<String, Object> getFields() {
-        return fields;
+        return Collections.unmodifiableMap(fields);
+    }
+
+    @JsonProperty("fields")
+    public void setFields(Map<String, Object> fields) {
+        this.fields.clear();
+        if (fields != null) {
+            this.fields.putAll(fields);
+        }
+        this.project = null;
+    }
+
+    public void putField(String key, Object value) {
+        fields.put(key, value);
+        this.project = null;
     }
 
     public String getTitle() {

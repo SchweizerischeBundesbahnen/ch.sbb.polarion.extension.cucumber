@@ -211,7 +211,7 @@ class PolarionTestRunTest {
     @Test
     void shouldThrowWhenProjectKeyMissing() {
         ExecutionInfo info = new ExecutionInfo();
-        info.getFields().put(ExecutionInfo.PROJECT_KEY, new HashMap<String, String>());
+        info.putField(ExecutionInfo.PROJECT_KEY, new HashMap<String, String>());
 
         assertThatThrownBy(() -> PolarionTestRun.createTestRuns(polarionService, testManagementService, info, List.of()))
                 .isInstanceOf(TestRunCreationException.class)
@@ -224,7 +224,7 @@ class PolarionTestRunTest {
         when(projectService.getProject(TEST_PROJECT_KEY)).thenReturn(null);
 
         ExecutionInfo info = new ExecutionInfo();
-        info.getFields().put(ExecutionInfo.PROJECT_KEY, Collections.singletonMap("key", TEST_PROJECT_KEY));
+        info.putField(ExecutionInfo.PROJECT_KEY, Collections.singletonMap("key", TEST_PROJECT_KEY));
 
         assertThatThrownBy(() -> PolarionTestRun.createTestRuns(polarionService, testManagementService, info, List.of()))
                 .isInstanceOf(TestRunCreationException.class)
@@ -236,10 +236,10 @@ class PolarionTestRunTest {
         prepareMockedData(TEST_TEMPLATE, true);
 
         ExecutionInfo info = new ExecutionInfo();
-        info.getFields().put(ExecutionInfo.PROJECT_KEY, Collections.singletonMap("key", TEST_PROJECT_KEY));
-        info.getFields().put(FieldDefinition.TITLE.getId(), TEST_TITLE);
-        info.getFields().put(FieldDefinition.TEST_RUN_TEMPLATE_ID.getId(), TEST_TEMPLATE);
-        info.getFields().put("unknownField", "value");
+        info.putField(ExecutionInfo.PROJECT_KEY, Collections.singletonMap("key", TEST_PROJECT_KEY));
+        info.putField(FieldDefinition.TITLE.getId(), TEST_TITLE);
+        info.putField(FieldDefinition.TEST_RUN_TEMPLATE_ID.getId(), TEST_TEMPLATE);
+        info.putField("unknownField", "value");
 
         assertThatThrownBy(() -> PolarionTestRun.createTestRuns(polarionService, testManagementService, info, List.of()))
                 .isInstanceOf(BadRequestException.class)
@@ -274,16 +274,17 @@ class PolarionTestRunTest {
         when(testRun.getAllRecords()).thenReturn(List.of());
 
         ExecutionInfo info = new ExecutionInfo();
-        info.getFields().put(ExecutionInfo.PROJECT_KEY, Collections.singletonMap("id", TEST_PROJECT_ID));
-        info.getFields().put(FieldDefinition.TITLE.getId(), TEST_TITLE);
-        info.getFields().put(FieldDefinition.TEST_RUN_TEMPLATE_ID.getId(), TEST_TEMPLATE);
-        info.getFields().put(FieldDefinition.DESCRIPTION.getId(), "line1" + System.lineSeparator() + "line2");
+        info.putField(ExecutionInfo.PROJECT_KEY, Collections.singletonMap("id", TEST_PROJECT_ID));
+        info.putField(FieldDefinition.TITLE.getId(), TEST_TITLE);
+        info.putField(FieldDefinition.TEST_RUN_TEMPLATE_ID.getId(), TEST_TEMPLATE);
+        // Line breaks depend on the client, not on the server OS.
+        info.putField(FieldDefinition.DESCRIPTION.getId(), "line1\r\nline2\nline3\rline4");
 
         List<ITestRun> result = PolarionTestRun.createTestRuns(polarionService, testManagementService, info, List.of());
 
         assertThat(result).containsExactly(testRun);
         verify(testRun).setTitle(TEST_TITLE);
-        verify(testRun).setCustomField(eq("description"), any(Text.class));
+        verify(testRun).setCustomField("description", Text.html("line1<br>line2<br>line3<br>line4"));
         verify(testRun).setStatus(null);
     }
 
@@ -329,10 +330,10 @@ class PolarionTestRunTest {
 
     private ExecutionInfo prepareCucumberExecutionInfo() {
         ExecutionInfo executionInfo = new ExecutionInfo();
-        executionInfo.getFields().put(ExecutionInfo.PROJECT_KEY, Collections.singletonMap("key", TEST_PROJECT_KEY));
-        executionInfo.getFields().put(FieldDefinition.TITLE.getId(), TEST_TITLE);
-        executionInfo.getFields().put(FieldDefinition.TEST_RUN_TEMPLATE_ID.getId(), TEST_TEMPLATE);
-        executionInfo.getFields().put(TEST_CUSTOM_FIELD_ID, "customFieldValue");
+        executionInfo.putField(ExecutionInfo.PROJECT_KEY, Collections.singletonMap("key", TEST_PROJECT_KEY));
+        executionInfo.putField(FieldDefinition.TITLE.getId(), TEST_TITLE);
+        executionInfo.putField(FieldDefinition.TEST_RUN_TEMPLATE_ID.getId(), TEST_TEMPLATE);
+        executionInfo.putField(TEST_CUSTOM_FIELD_ID, "customFieldValue");
         return executionInfo;
     }
 
